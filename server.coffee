@@ -5,8 +5,7 @@ logger = require 'morgan'
 cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
 
-routes = require './routes/index'
-users = require './routes/users'
+routes = require './routes'
 
 app = express()
 
@@ -23,8 +22,7 @@ app.use bodyParser.urlencoded
 app.use cookieParser()
 app.use express.static path.join __dirname, 'public'
 
-app.use '/', routes
-app.use '/users', users
+app.use routes
 
 # catch 404 and forward to error handler
 app.use (req, res, next) ->

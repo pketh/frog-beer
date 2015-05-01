@@ -1,7 +1,7 @@
 #!/usr/bin/env coffee
 
 # Module dependencies.
-app = require '../app'
+app = require '../server'
 debug = require('debug') 'frog-bar:server'
 http = require 'http'
 
