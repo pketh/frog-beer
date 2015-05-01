@@ -3,12 +3,12 @@
 ## Setup
 
 install dependencies:
-```sh
-$ npm install
-$ npm install -g stylus
-$ npm install -g autoprefixer-stylus
-$ npm install -g coffee-script
-$ npm install -g npm-check-updates
+```bash
+npm install
+npm install -g stylus
+npm install -g autoprefixer-stylus
+npm install -g coffee-script
+npm install -g npm-check-updates
 ```
 
 ## Party
