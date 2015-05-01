@@ -6,5 +6,7 @@ install dependencies:
 run the app:
   $ DEBUG=frog-bar:* ./bin/www
 
+periodically run:
+  $ npm-check-updates
 
 * ribbit
