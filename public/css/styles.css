@@ -9,8 +9,22 @@
   src: url("../fonts/mplantin-lightitalic.eot");
   src: url("../fonts/mplantin-lightitalic.eot?#iefix") format('embedded-opentype'), url("../fonts/mplantin-lightitalic.woff") format('woff'), url("../fonts/mplantin-lightitalic.ttf") format('truetype'), url("../fonts/mplantin-lightitalic.svg#webfont") format('svg');
 }
-body {
+html {
+  font-size: 62.5%;
   background-color: #000;
   color: #fff;
   font-family: Menlo, Monaco, monospace;
+}
+body {
+  font-size: 1.6rem;
+  max-width: 775px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+h2 {
+  font-weight: normal;
+  color: #858585;
+  font-size: 1.6rem;
 }
