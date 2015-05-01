@@ -1,9 +1,28 @@
-extends view
+extends template
 
 block content
   h1= title
-  p Welcome to #{title}
-  p good times ahead for you
-  ul.deserts
-    li bread
-    li pies
+
+  h2 How it works
+  ul.instructions
+    li draw this week’s theme
+    li see what everyone else drew next week
+    li repeat
+
+  // p Welcome to #{title}
+  section.this-week
+    h2 Draw
+    p.topic Prarie Dogs on a Tea-Party Acid Trip
+    ul
+      li Draw!
+      li [{drawing}s]
+      li [etc.]
+
+  section.last-week
+    h2 Last Week
+    p Good Times with LEGO
+
+    ul.last-week
+      li LEGOoO
+      li [old-drawings]
+      li [old-etc.]

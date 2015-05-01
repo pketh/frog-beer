@@ -1,3 +1,16 @@
+@font-face {
+  font-family: 'Plantin';
+  src: url("../fonts/mplantin-light.eot");
+  src: url("../fonts/mplantin-light.eot?#iefix") format('embedded-opentype'), url("../fonts/mplantin-light.woff") format('woff'), url("../fonts/mplantin-light.ttf") format('truetype'), url("../fonts/mplantin-light.svg#webfont") format('svg');
+}
+@font-face {
+  font-family: 'Plantin';
+  font-style: italic;
+  src: url("../fonts/mplantin-lightitalic.eot");
+  src: url("../fonts/mplantin-lightitalic.eot?#iefix") format('embedded-opentype'), url("../fonts/mplantin-lightitalic.woff") format('woff'), url("../fonts/mplantin-lightitalic.ttf") format('truetype'), url("../fonts/mplantin-lightitalic.svg#webfont") format('svg');
+}
 body {
-  background-color: #ffc0cb;
+  background-color: #000;
+  color: #fff;
+  font-family: Menlo, Monaco, monospace;
 }
