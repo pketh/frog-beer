@@ -11,16 +11,9 @@ npm install -g coffee-script
 npm install -g npm-check-updates
 ```
 
-## Party
+## 🍰 Party
 
-run these:
-```shell
-DEBUG=frog-bar:* ./bin/www
-stylus --watch public/css/styles.styl -u autoprefixer-stylus
-coffee -w -c public/js/frog-bar.coffee
-```
+Cool things happen through `cake`
 
-periodically run:
-```shell
-npm-check-updates
-```
+Run `cake setup` once to setup your environment, then `cake start` for the server, `cake styles` and `cake coffee` for compiling public stuff.
+

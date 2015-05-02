@@ -8,7 +8,7 @@ router.get '/', (req, res, next) ->
   res.render 'index',
     title: 'Frog Bar'
     topic: 'Prarie Dogs on a Tea-Party Acid Trip'
-    thisWeek: ['hello', 'yolo', 'ribbit']
+    thisWeek: ['hello', 'yolo', 'ribbbit']
     lastTopic: 'Duplo Times with LEGO'
     lastWeek: ['LEGOoOo', 'Bricks', 'Bloops']
 
