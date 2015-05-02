@@ -1,6 +1,7 @@
 @require 'fonts'
+@require 'errors'
 
-secondary-text = #858585
+secondary = #858585
 
 html
   font-size: 62.5%;
@@ -16,12 +17,46 @@ body
   margin-left: auto
   margin-right: auto
 
+a
+  color: white
+  text-decoration: none
+
+a.primary
+  border-bottom: 1px white solid
+  padding-bottom: 6px
+
+header
+  margin-top: 5rem
+  margin-bottom: 5rem
+
+section.intro
+  margin-bottom: 8rem
+
 h2
   font-weight: normal
-  color: secondary-text
+  color: secondary
   font-size: 1.6rem
+  margin-bottom: 0.4rem
 
+.instructions
+  font-weight: bold
 
+ul
+  padding-left: 0
 
-// font-family: plantin
-// font-size: italic
+.instructions-list
+  margin-top: 0
+  li
+    font-family: plantin
+    font-style: italic
+    font-size: 2rem
+    list-style: none
+    line-height: 2.4rem
+
+section.this-week
+  .topic
+    font-family: plantin
+    font-style: italic
+    font-size: 4.0rem
+    line-height: 4.5rem
+    margin-top: 0

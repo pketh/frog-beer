@@ -2,22 +2,25 @@ extends template
 
 block content
   header
-    [frog]
+    div.frog [frog]
 
-  h2 How it works
-  ul.instructions
-    li draw this week’s theme
-    li see what everyone else drew next week
-    li repeat
+  section.intro
+    h2.instructions How it works
+    ul.instructions-list
+      li draw this week’s theme
+      li see what everyone else drew next week
+      li repeat
+    p.sign-up
+      a(href='#' class='primary') Sign up or in
 
-  // p Welcome to #{title}
   section.this-week
     h2 Draw
-    p.topic Prarie Dogs on a Tea-Party Acid Trip
+    p.topic= topic
     ul
-      li Draw!
-      li [{drawing}s]
-      li [etc.]
+      li + Draw!
+      li 2nd and on are ..
+      li drawings from ..
+      li array.
 
   section.last-week
     h2 Last Week

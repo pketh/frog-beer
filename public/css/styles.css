@@ -23,8 +23,47 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+a {
+  color: #fff;
+  text-decoration: none;
+}
+a.primary {
+  border-bottom: 1px #fff solid;
+  padding-bottom: 6px;
+}
+header {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+section.intro {
+  margin-bottom: 8rem;
+}
 h2 {
   font-weight: normal;
   color: #858585;
   font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+}
+.instructions {
+  font-weight: bold;
+}
+ul {
+  padding-left: 0;
+}
+.instructions-list {
+  margin-top: 0;
+}
+.instructions-list li {
+  font-family: "Plantin", Serif;
+  font-style: italic;
+  font-size: 2rem;
+  list-style: none;
+  line-height: 2.4rem;
+}
+section.this-week .topic {
+  font-family: "Plantin", Serif;
+  font-style: italic;
+  font-size: 4rem;
+  line-height: 4.5rem;
+  margin-top: 0;
 }
