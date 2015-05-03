@@ -12,6 +12,8 @@ npm install -g npm-check-updates
 
 Then run `cake setup` once to setup your environment.
 
+Also, do things to `config.json`.
+
 ## 🍰 Party
 
 Cool things happen through `cake`
