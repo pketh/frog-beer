@@ -1,7 +1,8 @@
 express = require 'express'
 router = express.Router()
 
-secrets = require './secrets'
+config = require './config.json'
+# store = require './store' # do this after setting up the export
 
 # GET
 router.get '/', (req, res, next) ->
@@ -11,6 +12,8 @@ router.get '/', (req, res, next) ->
     thisWeek: ['hello', 'yolo', 'ribbbit']
     lastTopic: 'Duplo Times with LEGO'
     lastWeek: ['LEGOoOo', 'Bricks', 'Bloops']
+    trello: config.trello.board
+    github: config.github.repo
 
 router.get '/draw', (req, res, next) ->
   res.render 'draw',
@@ -18,6 +21,10 @@ router.get '/draw', (req, res, next) ->
     topic: 'Prarie Dogs on a Tea-Party Acid Trip' #
 
 router.get '/debug', (req, res, next) ->
-  # res.send secrets.trelloAPIKey
+  # res.send config.trello.key
+  res.send trello: config.trello.board
+
+
+# POST
 
 module.exports = router

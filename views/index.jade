@@ -10,6 +10,7 @@ block content
       li draw this week’s theme
       li see what everyone else drew next week
       li repeat
+    // wrap in jade if statement (if user.authorized)
     p.sign-up
       a(href='#' class='primary') Sign up or in
 
@@ -17,7 +18,7 @@ block content
     h2 Draw
     p.topic= topic
     ul
-      li: img(src='img/new.svg' class='new art')
+      li: a(href="/draw"): img(src='img/new.svg' class='new art')
       li: img(src='img/1.png' data-artist="Monet" class='art' width='120' height='120')
       li: img(src='img/2.png' data-artist="Pablo" class='art' width='120' height='120')
       li: img(src='img/3.png' data-artist="Janet" class='art' width='120' height='120')
@@ -39,5 +40,5 @@ block content
       li: img(src='img/2.png' data-artist="Flore" class='art' width='80' height='80')
 
   footer
-    p: a(href='https://trello.com/b/sGyRPlQ0/frog-bar') Upcoming Topics
-    p: a(href='https://github.com/pketh/frog-bar') Github
+    p: a(href=trello) Upcoming Topics
+    p: a(href=github) Github

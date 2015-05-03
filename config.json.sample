@@ -1,0 +1,20 @@
+{
+  "trello": {
+    "key": "kittens123",
+    "board": "https://trello.com/b/sGyRPlQ0/frog-bar"
+  },
+  "github": {
+    "repo": "https://github.com/pketh/frog-bar",
+    "issues": "https://github.com/pketh/frog-bar/issues"
+  },
+  "couch-dev": {
+    "host": "localhost",
+    "port": 5984,
+    "db": "tadpole"
+  },
+  "couch-prod": {
+    "host": "something.couchbase",
+    "port": 1234,
+    "db": "frog-bar-production"
+  }
+}

@@ -4,12 +4,9 @@ bin = './node_modules/.bin'
 js = './public/js'
 css = './public/js'
 
-task 'coffee', 'Watch and compile public ☕️ → js', ->
+task 'coffee', 'Watch and compile public ☕️  → js', ->
   child = exec 'coffee -w -c public/js/frog-bar.coffee'
   child.stdout.on 'data', (data) -> console.log data
-
-task 'party', 'Time for cakes and tea', ->
-  console.log 'YOLO! 🍰 🍵'
 
 task 'setup', 'Setup environment from packages 🍰', ->
   install = exec 'sudo npm install', stdio: 'inherit'
@@ -20,7 +17,12 @@ task 'setup', 'Setup environment from packages 🍰', ->
 
 task 'start', 'Start 🐸', (options) ->
   # add new files to me 🌱
-  watchedFiles = ['routes.coffee', 'secrets.coffee', 'server.coffee']
+  watchedFiles = [
+    'config.json',
+    'routes.coffee',
+    'server.coffee',
+    'store.coffee'
+    ]
   watchList = ''
   AddToWatchList = (file) ->
     watchList += '-w ' + file + ' '
