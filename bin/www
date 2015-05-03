@@ -2,7 +2,7 @@
 
 # Module dependencies.
 app = require '../server'
-debug = require('debug') 'frog-bar:server'
+debug = require('debug') 'frog-beer:server'
 http = require 'http'
 
 # Normalize a port into a number, string, or false.

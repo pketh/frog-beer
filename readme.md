@@ -1,4 +1,4 @@
-# Frog Bar 🐸🌱
+# Frog Bar 🐸🍺
 
 ## Setup
 

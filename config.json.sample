@@ -1,11 +1,11 @@
 {
   "trello": {
     "key": "kittens123",
-    "board": "https://trello.com/b/sGyRPlQ0/frog-bar"
+    "board": "https://trello.com/b/sGyRPlQ0/frog-beer"
   },
   "github": {
-    "repo": "https://github.com/pketh/frog-bar",
-    "issues": "https://github.com/pketh/frog-bar/issues"
+    "repo": "https://github.com/pketh/frog-beer",
+    "issues": "https://github.com/pketh/frog-beer/issues"
   },
   "couch-dev": {
     "host": "localhost",
@@ -15,6 +15,6 @@
   "couch-prod": {
     "host": "something.couchbase",
     "port": 1234,
-    "db": "frog-bar-production"
+    "db": "frog-beer-production"
   }
 }
