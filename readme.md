@@ -2,7 +2,7 @@
 
 ## Setup
 
-install some dependencies:
+Install some dependencies:
 ```shell
 npm install -g stylus
 npm install -g autoprefixer-stylus
@@ -10,7 +10,7 @@ npm install -g coffee-script
 npm install -g npm-check-updates
 ```
 
-Do things to `config.json`,
+Edit `config.json`,
 
 Then run `cake setup` to setup your environment.
 
