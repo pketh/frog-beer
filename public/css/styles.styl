@@ -4,16 +4,16 @@
 secondary = #858585
 
 html
-  font-size: 62.5%;
+  font-size: 62.5%
   background-color: black
   color: white
   font-family: menlo
 
 body
   font-size: 1.6rem
-  max-width: 775px
-  padding-left: 1.5rem
-  padding-right: 1.5rem
+  max-width: 800px
+  padding-left: 2rem
+  padding-right: 2rem
   margin-left: auto
   margin-right: auto
 
@@ -24,12 +24,16 @@ a
 a.primary
   border-bottom: 1px white solid
   padding-bottom: 6px
+  transition: all .1s
+  &:hover
+    padding-bottom: 4px
 
 header
   margin-top: 5rem
   margin-bottom: 5rem
 
-section.intro
+section,
+footer
   margin-bottom: 8rem
 
 h2
@@ -44,19 +48,51 @@ h2
 ul
   padding-left: 0
 
+li
+  list-style: none
+  img
+    image-rendering: crisp-edges
+    image-rendering: pixelated
+
 .instructions-list
   margin-top: 0
   li
     font-family: plantin
     font-style: italic
     font-size: 2rem
-    list-style: none
     line-height: 2.4rem
+
+.topic
+  font-family: plantin
+  font-style: italic
+  margin-top: 0
 
 section.this-week
   .topic
-    font-family: plantin
-    font-style: italic
     font-size: 4.0rem
     line-height: 4.5rem
-    margin-top: 0
+  li
+    display: inline-block
+  .art
+    margin-right: 4rem
+    padding-bottom: 2rem
+    cursor: pointer
+
+section.last-week
+  .topic
+    font-size: 3.2rem
+    line-height: 3.6rem
+  li
+    display: inline-block
+  .art
+    margin-right: 1.5rem
+    padding-bottom: 1.5rem
+    cursor: pointer
+
+footer
+  p
+    margin-bottom: 2rem
+  a
+    transition: all .1s
+    &:hover
+      border-bottom: 1px white solid
