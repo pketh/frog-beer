@@ -10,9 +10,9 @@ npm install -g coffee-script
 npm install -g npm-check-updates
 ```
 
-Then run `cake setup` once to setup your environment.
+Do things to `config.json`,
 
-Also, do things to `config.json`.
+Then run `cake setup` to setup your environment.
 
 ## 🍰 Party
 
