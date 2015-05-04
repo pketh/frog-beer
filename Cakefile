@@ -6,6 +6,13 @@ bin = './node_modules/.bin'
 js = './public/js'
 css = './public/js'
 
+watchedServerFiles = [
+  'config.json',
+  'routes.coffee',
+  'server.coffee',
+  'store.coffee'
+]
+
 task 'coffee', 'Watch and compile public ☕️  → js', ->
   child = exec 'coffee -w -c public/js/frog-beer.coffee'
   child.stdout.on 'data', (data) -> console.log data
@@ -17,22 +24,17 @@ task 'setup', 'Setup environment from packages', ->
     update = exec 'sudo npm update', stdio: 'inherit'
     update.stdout.on 'data', (data) -> console.log data.toString().trim()
 
+option '-p', '--prod', 'use production environment'
+
 task 'start', 'Start 🐸 🍺', (options) ->
   if development
     exec 'export NODE_ENV=development'
-  else
+  else if options.prod is true || development is not true
     exec 'export NODE_ENV=production'
-  # add new files to me 🌱
-  watchedFiles = [
-    'config.json',
-    'routes.coffee',
-    'server.coffee',
-    'store.coffee'
-    ]
   watchList = ''
   AddToWatchList = (file) ->
     watchList += '-w ' + file + ' '
-  AddToWatchList file for file in watchedFiles
+  AddToWatchList file for file in watchedServerFiles
   child = exec 'nodemon --exec DEBUG=frog-beer:* ./bin/www ' + watchList
   child.stdout.on 'data', (data) -> console.log data.toString().trim()
 
