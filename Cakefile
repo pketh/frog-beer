@@ -5,9 +5,9 @@ js = './public/js'
 css = './public/js'
 
 watchedServerFiles = [
-  'config.json',
-  'routes.coffee',
-  'server.coffee',
+  'config.json'
+  'routes.coffee'
+  'server.coffee'
   'store.coffee'
 ]
 
