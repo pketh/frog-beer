@@ -1,3 +1,5 @@
+development = true
+
 {spawn, exec} = require 'child_process'
 
 bin = './node_modules/.bin'
@@ -16,6 +18,10 @@ task 'setup', 'Setup environment from packages', ->
     update.stdout.on 'data', (data) -> console.log data.toString().trim()
 
 task 'start', 'Start 🐸 🍺', (options) ->
+  if development
+    exec 'export NODE_ENV=development'
+  else
+    exec 'export NODE_ENV=production'
   # add new files to me 🌱
   watchedFiles = [
     'config.json',
