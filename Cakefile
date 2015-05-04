@@ -1,5 +1,3 @@
-development = true
-
 {spawn, exec} = require 'child_process'
 
 bin = './node_modules/.bin'
@@ -24,13 +22,7 @@ task 'setup', 'Setup environment from packages', ->
     update = exec 'sudo npm update', stdio: 'inherit'
     update.stdout.on 'data', (data) -> console.log data.toString().trim()
 
-option '-p', '--prod', 'use production environment'
-
 task 'start', 'Start 🐸 🍺', (options) ->
-  if development
-    exec 'export NODE_ENV=development'
-  else if options.prod is true || development is not true
-    exec 'export NODE_ENV=production'
   watchList = ''
   AddToWatchList = (file) ->
     watchList += '-w ' + file + ' '
