@@ -1,4 +1,4 @@
-# Frog Bar 🐸🍺
+# Frog Beer 🐸🍺
 
 ## Setup
 
@@ -24,6 +24,6 @@ Then,
 
 `localhost:3000`
 
-## Debugging Node
+## Debugging `cake start`
 
 `DEBUG=frog-bar:* ./bin/www`
