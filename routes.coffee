@@ -1,8 +1,7 @@
 express = require 'express'
 router = express.Router()
-
+store = require './store'
 config = require './config.json'
-# store = require './store' # do this after setting up the export
 
 # GET
 router.get '/', (req, res, next) ->

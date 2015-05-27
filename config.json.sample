@@ -7,14 +7,18 @@
     "repo": "https://github.com/pketh/frog-beer",
     "issues": "https://github.com/pketh/frog-beer/issues"
   },
-  "couch-dev": {
-    "host": "localhost",
+  "storeDev": {
+    "host": "http://127.0.0.1",
     "port": 5984,
-    "db": "tadpole"
+    "people": "frog-people-db",
+    "topics": "frog-topics-db",
+    "art": "frog-art-db"
   },
-  "couch-prod": {
+  "storeProd": {
     "host": "something.couchbase",
     "port": 1234,
-    "db": "frog-beer-production"
+    "people": "frog-people-db",
+    "topics": "frog-topics-db",
+    "art": "frog-art-db"
   }
 }

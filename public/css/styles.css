@@ -40,6 +40,19 @@ header {
   margin-top: 5rem;
   margin-bottom: 5rem;
 }
+.frog {
+  cursor: pointer;
+  display: inline-block;
+}
+.frog,
+.art {
+  -webkit-transition: 0.1s;
+          transition: 0.1s;
+}
+.frog:hover,
+.art:hover {
+  opacity: 0.8;
+}
 section,
 footer {
   margin-bottom: 8rem;
@@ -90,6 +103,10 @@ section.this-week .art {
   padding-bottom: 2rem;
   cursor: pointer;
 }
+section.this-week .new {
+  padding-right: 4px;
+  margin-top: 4px;
+}
 section.last-week .topic {
   font-size: 3.2rem;
   line-height: 3.6rem;
@@ -106,9 +123,9 @@ footer p {
   margin-bottom: 2rem;
 }
 footer a {
-  -webkit-transition: all 0.1s;
-          transition: all 0.1s;
+  color: #858585;
+  border-bottom: 1px #858585 solid;
 }
 footer a:hover {
-  border-bottom: 1px #fff solid;
+  border-bottom: none;
 }

@@ -32,6 +32,16 @@ header
   margin-top: 5rem
   margin-bottom: 5rem
 
+.frog
+  cursor: pointer
+  display: inline-block
+
+.frog,
+.art
+  transition: 0.1s
+  &:hover
+    opacity: 0.8
+
 section,
 footer
   margin-bottom: 8rem
@@ -74,6 +84,9 @@ section.this-week
     margin-right: 4rem
     padding-bottom: 2rem
     cursor: pointer
+  .new
+    padding-right: 4px
+    margin-top: 4px
 
 section.last-week
   .topic
@@ -90,6 +103,7 @@ footer
   p
     margin-bottom: 2rem
   a
-    transition: all .1s
+    color: secondary
+    border-bottom: 1px secondary solid
     &:hover
-      border-bottom: 1px white solid
+      border-bottom: none

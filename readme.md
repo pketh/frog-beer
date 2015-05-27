@@ -19,3 +19,11 @@ Then run `cake setup` to setup your environment.
 Cool things happen through `cake`
 
 `cake start` for the server, `cake styles` and `cake coffee` for compiling public stuff.
+
+Then,
+
+`localhost:3000`
+
+## Debugging Node
+
+`DEBUG=frog-bar:* ./bin/www`
