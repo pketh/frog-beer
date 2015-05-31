@@ -84,6 +84,8 @@
     return newPalette();
   });
 
-  newPalette();
+  if (typeof palettes !== "undefined" && palettes !== null) {
+    newPalette();
+  }
 
 }).call(this);

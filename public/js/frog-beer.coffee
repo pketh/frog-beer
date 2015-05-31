@@ -72,4 +72,5 @@ $('.shuffle').click ->
   newPalette()
   # console.log 'shuffle colors..'
 
-newPalette()
+if palettes?
+  newPalette()

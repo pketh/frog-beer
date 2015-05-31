@@ -13,6 +13,7 @@ router.get '/', (req, res, next) ->
     thisWeek: ['hello', 'yolo', 'ribbbit']
     lastTopic: 'Duplo Times with LEGO'
     lastWeek: ['LEGOoOo', 'Bricks', 'Bloops']
+    palettes: null
     trello: config.trello
     github: config.github
 
