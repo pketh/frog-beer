@@ -36,23 +36,6 @@ a.primary {
 a.primary:hover {
   padding-bottom: 4px;
 }
-header {
-  margin-top: 5rem;
-  margin-bottom: 5rem;
-}
-.frog {
-  cursor: pointer;
-  display: inline-block;
-}
-.frog,
-.art {
-  -webkit-transition: 0.1s;
-          transition: 0.1s;
-}
-.frog:hover,
-.art:hover {
-  opacity: 0.8;
-}
 section,
 footer {
   margin-bottom: 8rem;
@@ -76,6 +59,34 @@ li img {
       image-rendering: -o-crisp-edges;
       image-rendering: crisp-edges;
   image-rendering: pixelated;
+}
+footer p {
+  margin-bottom: 2rem;
+}
+footer a {
+  color: #858585;
+  border-bottom: 1px #858585 solid;
+}
+footer a:hover {
+  border-bottom: none;
+}
+header {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+.frog {
+  cursor: pointer;
+  display: inline-block;
+  border-bottom: 0;
+}
+.frog,
+.art {
+  -webkit-transition: 0.1s;
+          transition: 0.1s;
+}
+.frog:hover,
+.art:hover {
+  opacity: 0.8;
 }
 .instructions-list {
   margin-top: 0;
@@ -118,14 +129,4 @@ section.last-week .art {
   margin-right: 1.5rem;
   padding-bottom: 1.5rem;
   cursor: pointer;
-}
-footer p {
-  margin-bottom: 2rem;
-}
-footer a {
-  color: #858585;
-  border-bottom: 1px #858585 solid;
-}
-footer a:hover {
-  border-bottom: none;
 }
