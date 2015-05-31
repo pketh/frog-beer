@@ -19,20 +19,6 @@ else
 # });
 
 
-# nano = require('nano')("#{storeHost.url}:#{storeHost.port}")
-#
-# nano.db.create 'store'
-# store = nano.db.use 'store'
-#
-# # insert {full object}, _id name, callback
-#
-#
-# store.insert {type:'person', fun:true}, 'sup', (err, body, header) ->
-#   if err
-#     console.log err.message
-
-
-# want to export a store object which contains shorthands for all 3 collections
 module.exports = store
 
 #store.people === db.collection('people')
