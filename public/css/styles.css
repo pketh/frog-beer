@@ -40,6 +40,14 @@ section,
 footer {
   margin-bottom: 8rem;
 }
+h1 {
+  font-family: "Plantin", Serif;
+}
+pre {
+  font-size: 1.9rem;
+  line-height: 3rem;
+  word-wrap: break-word;
+}
 h2 {
   font-weight: normal;
   color: #858585;
@@ -129,4 +137,55 @@ section.last-week .art {
   margin-right: 1.5rem;
   padding-bottom: 1.5rem;
   cursor: pointer;
+}
+section.draw {
+  margin-bottom: 4rem;
+}
+section.palette {
+  margin-bottom: 4rem;
+}
+section.palette .color {
+  display: inline-block;
+  list-style-type: none;
+  margin-right: 1rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 100px;
+  border: 4px solid #000;
+  background-color: #ffc0cb;
+  -webkit-transition: all 0.1s;
+          transition: all 0.1s;
+  cursor: pointer;
+}
+section.palette .color:hover {
+  opacity: 0.8;
+}
+section.palette .active {
+  border-color: #fff;
+}
+section.palette .active:hover {
+  opacity: 1;
+}
+section.palette .blank {
+  position: relative;
+  background-color: #000;
+}
+section.palette .blank:before {
+  content: " ";
+  position: absolute;
+  border-radius: 100px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  border: 2px solid #858585;
+}
+section.palette .white {
+  background-color: #fff;
+}
+section.palette .shuffle {
+  background-color: transparent;
+  width: auto;
+  vertical-align: 80%;
+  color: #858585;
 }

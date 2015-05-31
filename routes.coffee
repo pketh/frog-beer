@@ -14,10 +14,17 @@ router.get '/', (req, res, next) ->
     trello: config.trello
     github: config.github
 
+colors = [
+  ['red', 'green', 'blue', 'fourth'],
+  ['tune', 'sashimi', 'salmon', 'eel'],
+  ['more colors', 'colors!', 'something', 'another']
+]
+
 router.get '/draw', (req, res, next) ->
   res.render 'draw',
     title: 'Frog Beer – draw'
-    topic: 'Prarie Dogs on a Tea-Party Acid Trip' #
+    topic: 'Prarie Dogs on a Tea-Party Acid Trip'
+    colorsets: colors
 
 router.get '/debug', (req, res, next) ->
   # res.send config.trello.key

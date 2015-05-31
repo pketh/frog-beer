@@ -1,17 +1,24 @@
 extends template
 
 block content
-  section.this-week
+  section.this-week.draw
     h2 Draw
-    p.topic Prarie Dogs on a Tea-Party Acid Trip
+    p.topic= topic
 
-  section.palete
+  section.palette
     ul.colors
-      li.color.blank blank
-      li.color.white white
-      li.color hi
+      li.color.blank
+      li.color.white
+      li.color.color1.active(data-color="pink")
+      li.color.color2(data-color="teal")
+      li.color.color3(data-color="#d69d50")
+      li.color.color4(data-color="#0c8b98")
+      li.color.shuffle(title="shuffle") (/・・)ノ
+
+
 
   section.drawing
     p grid goes here
 // in drawing ul rows and li cells
 // each cell has data-color-code=0[]
+
