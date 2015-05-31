@@ -1,19 +1,42 @@
+console.log colorsets
+
+
+updateColor = (context) ->
+  color = $(context).data('color')
+  highlightActiveColor(context)
+  # updateCursor(color)
+
 highlightActiveColor = (context) ->
   $('.color').removeClass('active')
   $(context).addClass('active')
 
-updateCursor = (color) ->
+# updateCursor = (color) ->
   # ?? client style cursor?
 
-updateColor = (color) ->
-  # drawing color is this
 
 $('.color').not('.shuffle').click ->
-  color = $(@).data('color')
   context = @
-  highlightActiveColor(context)
-  updateCursor(color)
-  updateColor(color)
+  updateColor(context)
+
+$(document).keypress (key) ->
+  if key.which is 49
+    context = $('.color')[0]
+    updateColor(context)
+  else if key.which is 50
+    context = $('.color')[1]
+    updateColor(context)
+  else if key.which is 51
+    context = $('.color')[2]
+    updateColor(context)
+  else if key.which is 52
+    context = $('.color')[3]
+    updateColor(context)
+  else if key.which is 53
+    context = $('.color')[4]
+    updateColor(context)
+  else if key.which is 54
+    context = $('.color')[5]
+    updateColor(context)
 
 
 $('.shuffle').click ->
