@@ -1,6 +1,5 @@
 express = require 'express'
 path = require 'path'
-favicon = require 'serve-favicon'
 logger = require 'morgan'
 cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
@@ -13,8 +12,6 @@ app = express()
 app.set 'views', path.join __dirname, 'templates'
 app.set 'view engine', 'jade'
 
-# uncomment after placing your favicon in /public
-# app.use favicon "#{__dirname}/public/favicon.ico"
 app.use logger 'dev'
 app.use bodyParser.json()
 app.use bodyParser.urlencoded
