@@ -1,46 +1,34 @@
-selectColor = (context) ->
-  color = $(context).data('color')
-  highlightActiveColor(context)
-  updateCursor(color)
+# -> draw.coffee
+# this file should be changed to be draw template specific
 
-highlightActiveColor = (context) ->
+
+activePalette = []
+pressingDown = false
+
+selectColor = (context) ->
+  color = $(context).css('background-color')
+  highlightActivePaletteColor(context)
+
+highlightActivePaletteColor = (context) ->
   $('.color').removeClass('active')
   $(context).addClass('active')
 
-updateCursor = (color) ->
-  # changes the active draw color
+updatePalette = () ->
+  for color, index in activePalette
+    paletteContext = $('.palette-color')[index]
+    $(paletteContext).css('background-color', color)
+    if index is 0
+      context = $('.palette-color')[0]
+      selectColor(context)
 
-# get random palette
-# update palette (grid and palette)
-
-# getColors - randomly pick an array, make it local, make sure the new colors aren't the same as the old colors
-
-activePalette = []
-getPalette = () ->
+newPalette = () ->
   shuffledPalettes = _.shuffle(palettes)
   for palette in shuffledPalettes
     if _.isEqual(activePalette, palette) is false
       activePalette = palette
+      updatePalette()
       break
 
-updatePalette = () ->
-  for color, index in activePalette
-    paletteColor = $('.palette-color')[index]
-    console.log paletteColor
-    $(paletteColor).css('background-color', color)
-  firstColor = $('.palette-color')[0]
-  selectColor(firstColor)
-
-newPalette = () ->
-  getPalette()
-  updatePalette()
-  # updateDrawing
-
-
-  # // var chosen_team = teams.random(teams.length)
-
-
-# updateColors - new palette chosen means update to pallete and grid art pixels
 
 
 $('.color').not('.shuffle').click ->
@@ -67,10 +55,21 @@ $(document).keypress (key) ->
     context = $('.color')[5]
     selectColor(context)
 
+# remove check when renamed to draw.coffee
+if palettes?
+  newPalette()
 
 $('.shuffle').click ->
   newPalette()
-  # console.log 'shuffle colors..'
 
-if palettes?
-  newPalette()
+# drawing
+$('.pixel').mousedown ->
+  color = $('.color.active').css('background-color')
+  pressingDown = true
+  $(@).css("background-color", color)
+$(document).mouseup ->
+  pressingDown = false
+$('.pixel').mousemove ->
+  color = $('.color.active').css('background-color')
+  if pressingDown
+    $(@).css("background-color", color)

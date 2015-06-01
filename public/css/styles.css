@@ -189,3 +189,27 @@ section.palette .shuffle {
   vertical-align: 80%;
   color: #858585;
 }
+section.drawing {
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+section.drawing .row {
+  overflow: auto;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+section.drawing .pixel:last-child {
+  border-right: 1px #404040 solid;
+}
+section.drawing :last-child .pixel {
+  border-bottom: 1px #404040 solid;
+}
+section.drawing .pixel {
+  width: 28px;
+  height: 28px;
+  display: inline-block;
+  border-top: 1px #404040 solid;
+  border-left: 1px #404040 solid;
+}

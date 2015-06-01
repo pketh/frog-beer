@@ -39,3 +39,23 @@ section.palette
     width: auto
     vertical-align: 80%
     color: secondary
+
+section.drawing
+  margin-left: 0.5rem
+  cursor: pointer
+  .row
+    overflow: auto
+    user-select: none
+  .pixel:last-child
+    border-right: 1px tertiary solid
+  :last-child .pixel
+      border-bottom: 1px tertiary solid
+  .pixel
+    width: 28px
+    height: 28px
+    display: inline-block
+    border-top: 1px tertiary solid
+    border-left: 1px tertiary solid
+    // &:hover
+      //   set in frog-beer.coffee
+
