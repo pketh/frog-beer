@@ -1,7 +1,7 @@
 extends template
 
 block content
-  h1= message
+  h1.error= message
   h2 (シ_ _)シ
-  h2= error.status
-  pre #{error.stack}
+  h2.error-details= error.status
+  pre.error-stack #{error.stack}
