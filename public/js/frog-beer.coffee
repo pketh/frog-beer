@@ -1,6 +1,6 @@
 # -> draw.coffee
 # this file should be changed to be draw template specific
-
+# update template, update build/cake tool
 
 activePalette = []
 pressingDown = false

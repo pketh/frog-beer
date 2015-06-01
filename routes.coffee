@@ -22,6 +22,9 @@ router.get '/draw', (req, res, next) ->
     title: 'Frog Beer – draw'
     topic: 'Prarie Dogs on a Tea-Party Acid Trip'
     palettes: Palettes
+    trello: config.trello
+    github: config.github
+
 
 # router.get '/debug', (req, res, next) ->
 #   # res.send config.trello.key

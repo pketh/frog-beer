@@ -18,8 +18,8 @@ html {
 body {
   font-size: 1.6rem;
   max-width: 800px;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
   margin-left: auto;
   margin-right: auto;
 }
@@ -137,6 +137,9 @@ section.last-week .art {
   margin-right: 1.5rem;
   padding-bottom: 1.5rem;
   cursor: pointer;
+}
+section.draw-intro {
+  margin-bottom: 6rem;
 }
 section.draw {
   margin-bottom: 4rem;
