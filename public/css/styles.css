@@ -237,6 +237,11 @@ li img {
       image-rendering: crisp-edges;
   image-rendering: pixelated;
 }
+.topic {
+  font-family: "Plantin", Serif;
+  font-style: italic;
+  margin-top: 0;
+}
 footer p {
   margin-bottom: 2rem;
 }
@@ -274,10 +279,9 @@ header {
   font-size: 2rem;
   line-height: 2.4rem;
 }
-.topic {
-  font-family: "Plantin", Serif;
-  font-style: italic;
-  margin-top: 0;
+section.this-week .topic {
+  font-size: 4rem;
+  line-height: 4.5rem;
 }
 section.draw-intro {
   margin-bottom: 6rem;
