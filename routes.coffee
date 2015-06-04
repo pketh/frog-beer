@@ -10,21 +10,11 @@ router.get '/', (req, res, next) ->
   res.render 'index',
     title: 'Frog Beer'
     topic: 'Prarie Dogs on a Tea-Party Acid Trip'
-    thisWeek: ['hello', 'yolo', 'ribbbit']
     lastTopic: 'Duplo Times with LEGO'
     lastWeek: ['LEGOoOo', 'Bricks', 'Bloops']
-    palettes: null
-    trello: config.trello
-    github: config.github
-
-router.get '/draw', (req, res, next) ->
-  res.render 'draw',
-    title: 'Frog Beer – draw'
-    topic: 'Prarie Dogs on a Tea-Party Acid Trip'
     palettes: Palettes
     trello: config.trello
     github: config.github
-
 
 # router.get '/debug', (req, res, next) ->
 #   # res.send config.trello.key

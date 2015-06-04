@@ -13,6 +13,6 @@
     "express": "~4.12.4",
     "jade": "~1.10.0",
     "morgan": "~1.5.3",
-    "mongoskin": "1.4.13",
+    "mongoskin": "1.4.13"
   }
 }
