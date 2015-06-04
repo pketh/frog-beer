@@ -7,7 +7,7 @@ Palettes = require './palettes'
 
 # GET
 router.get '/', (req, res, next) ->
-  res.render 'index',
+  res.render 'draw',
     title: 'Frog Beer'
     topic: 'Prarie Dogs on a Tea-Party Acid Trip'
     lastTopic: 'Duplo Times with LEGO'

@@ -1,0 +1,10 @@
+header
+  div.frog
+    a(href='/')
+      img(src='img/frog.png' srcset='img/frog@2x.png 2x')
+  if artistIsIn
+    p.artist @username –
+    a(href='#') sign out
+  else
+    p.artist.logged-out
+      a(href='#' class='secondary-link') Sign up or in
