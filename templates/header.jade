@@ -4,7 +4,6 @@ header
       img(src='img/frog.png' srcset='img/frog@2x.png 2x')
   if artistIsIn
     p.artist @username –
-    a(href='#') sign out
+    span.secondary-link.log-out sign out
   else
-    p.artist.logged-out
-      a(href='#' class='secondary-link') Sign up or in
+    p.artist.secondary-link.sign-up-in Sign up or in

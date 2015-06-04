@@ -215,6 +215,7 @@ a {
   text-decoration: none;
 }
 .secondary-link {
+  cursor: pointer;
   color: #858585;
   border-bottom: 1px #858585 solid;
 }
@@ -407,5 +408,5 @@ section.last-week li {
 section.last-week .art {
   margin-right: 1.5rem;
   padding-bottom: 1.5rem;
-  cursor: pointer;
+  cursor: help;
 }
