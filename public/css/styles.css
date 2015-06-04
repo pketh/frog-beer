@@ -201,9 +201,25 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+.frog,
+.art {
+  -webkit-transition: 0.1s;
+          transition: 0.1s;
+}
+.frog:hover,
+.art:hover {
+  opacity: 0.8;
+}
 a {
   color: #fff;
   text-decoration: none;
+}
+a.secondary {
+  color: #858585;
+  border-bottom: 1px #858585 solid;
+}
+a.secondary:hover {
+  border-bottom: none;
 }
 section,
 footer {
@@ -245,30 +261,19 @@ li img {
 footer p {
   margin-bottom: 2rem;
 }
-footer a {
-  color: #858585;
-  border-bottom: 1px #858585 solid;
-}
-footer a:hover {
-  border-bottom: none;
-}
 header {
   margin-top: 5rem;
   margin-bottom: 5rem;
+  clear: both;
 }
 .frog {
   cursor: pointer;
   display: inline-block;
   border-bottom: 0;
 }
-.frog,
-.art {
-  -webkit-transition: 0.1s;
-          transition: 0.1s;
-}
-.frog:hover,
-.art:hover {
-  opacity: 0.8;
+.artist {
+  display: inline-block;
+  float: right;
 }
 .instructions-list {
   margin-top: 0;

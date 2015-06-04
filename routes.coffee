@@ -11,8 +11,9 @@ router.get '/', (req, res, next) ->
     title: 'Frog Beer'
     topic: 'Prarie Dogs on a Tea-Party Acid Trip'
     lastTopic: 'Duplo Times with LEGO'
-    lastWeek: ['LEGOoOo', 'Bricks', 'Bloops']
+    lastWeek: {'path1':'artist1', 'path2':'artist2', 'path3':'artist3'}
     palettes: Palettes
+    artistIsIn: false
     trello: config.trello
     github: config.github
 

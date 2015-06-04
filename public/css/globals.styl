@@ -36,9 +36,21 @@ body
   margin-left: auto
   margin-right: auto
 
+.frog,
+.art
+  transition: 0.1s
+  &:hover
+    opacity: 0.8
+
 a
   color: white
   text-decoration: none
+
+a.secondary
+  color: secondary
+  border-bottom: 1px secondary solid
+  &:hover
+    border-bottom: none
 
 section,
 footer
@@ -75,8 +87,3 @@ li
 footer
   p
     margin-bottom: 2rem
-  a
-    color: secondary
-    border-bottom: 1px secondary solid
-    &:hover
-      border-bottom: none
