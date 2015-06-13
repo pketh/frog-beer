@@ -129,6 +129,13 @@ drawPixelsOnCanvas = (pixels) ->
     if index < 400
       paintCanvasRow(pixelColor, index, 19)
 
+saveCanvas = () ->
+  canvas = document.getElementById("canvas")
+  image = canvas.toDataURL("image/png")
+  console.log "use AJAX to POST the img variable to the server"
+
+
 $('.save-button').click ->
   getPixels()
   drawPixelsOnCanvas(pixels)
+  saveCanvas()
