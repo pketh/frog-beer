@@ -1,5 +1,6 @@
 activePalette = []
 pressingDown = false
+$('.drawing-saved').hide()
 
 selectColor = (context) ->
   color = $(context).css('background-color')
@@ -132,10 +133,20 @@ drawPixelsOnCanvas = (pixels) ->
 saveCanvas = () ->
   canvas = document.getElementById("canvas")
   image = canvas.toDataURL("image/png")
-  console.log "use AJAX to POST the img variable to the server"
-
+  $.post '/save', {'image': image, 'week': 0, 'artistID': 'yr32saf32'}, (response) ->
+    console.log response
+    $('.save-drawing').hide()
+    $('.drawing-saved').show()
 
 $('.save-button').click ->
   getPixels()
   drawPixelsOnCanvas(pixels)
   saveCanvas()
+
+clearCanvas = () ->
+  $('.pixel').css('background-color', '')
+
+$('.draw-another').click ->
+  clearCanvas()
+  $('.save-drawing').show()
+  $('.drawing-saved').hide()

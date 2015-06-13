@@ -2,12 +2,14 @@ express = require 'express'
 router = express.Router()
 store = require './store'
 config = require './config.json'
+colors = require 'colors'
 
 Palettes = require './palettes'
+store = require './store'
 
 # GET
-router.get '/', (req, res, next) ->
-  res.render 'draw',
+router.get '/', (request, response, next) ->
+  response.render 'draw',
     title: 'Frog Beer'
     description: 'Draw cool things every week. 6% alcohol by volume. 4% frogs.'
     topic: 'Prarie Dogs on a Tea-Party Acid Trip'
@@ -18,11 +20,8 @@ router.get '/', (req, res, next) ->
     trello: config.trello
     github: config.github
 
-# router.get '/debug', (req, res, next) ->
-#   # res.send config.trello.key
-#   res.send trello: config.trello.board
-
-
-# POSTs ..
+router.post '/save', (request, response, next) ->
+  console.log request.body
+  response.send '🌺 \n'
 
 module.exports = router

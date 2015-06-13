@@ -75,10 +75,15 @@ section.drawing
     border-top: 1px tertiary solid
     border-left: 1px tertiary solid
 
-section.save-drawing
+#canvas
+  display: none
+
+section.save-drawing,
+section.drawing-saved,
+section.drawing-saved-without-artist
   margin-bottom: 0rem
 
-  .save-button
+  .primary-button
     display: inline-block
     border: 2px white solid
     border-radius: 5px
@@ -89,6 +94,17 @@ section.save-drawing
       background-color: rgba(255,255,255,0.2)
     &:active
       background-color: rgba(255,255,255,0.4)
+
+  .saved-notice
+    background-color: white
+    color: black
+    display: inline-block
+    padding: 6px 10px
+    border-radius: 5px
+
+  .saved-message
+    max-width: 500px
+    line-height: 2.4rem
 
 section.tips
   color: secondary

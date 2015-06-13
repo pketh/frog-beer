@@ -368,10 +368,17 @@ section.drawing .pixel {
   border-top: 1px #404040 solid;
   border-left: 1px #404040 solid;
 }
-section.save-drawing {
+#canvas {
+  display: none;
+}
+section.save-drawing,
+section.drawing-saved,
+section.drawing-saved-without-artist {
   margin-bottom: 0rem;
 }
-section.save-drawing .save-button {
+section.save-drawing .primary-button,
+section.drawing-saved .primary-button,
+section.drawing-saved-without-artist .primary-button {
   display: inline-block;
   border: 2px #fff solid;
   border-radius: 5px;
@@ -382,11 +389,30 @@ section.save-drawing .save-button {
           user-select: none;
   cursor: pointer;
 }
-section.save-drawing .save-button:hover {
+section.save-drawing .primary-button:hover,
+section.drawing-saved .primary-button:hover,
+section.drawing-saved-without-artist .primary-button:hover {
   background-color: rgba(255,255,255,0.2);
 }
-section.save-drawing .save-button:active {
+section.save-drawing .primary-button:active,
+section.drawing-saved .primary-button:active,
+section.drawing-saved-without-artist .primary-button:active {
   background-color: rgba(255,255,255,0.4);
+}
+section.save-drawing .saved-notice,
+section.drawing-saved .saved-notice,
+section.drawing-saved-without-artist .saved-notice {
+  background-color: #fff;
+  color: #000;
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+section.save-drawing .saved-message,
+section.drawing-saved .saved-message,
+section.drawing-saved-without-artist .saved-message {
+  max-width: 500px;
+  line-height: 2.4rem;
 }
 section.tips {
   color: #858585;
