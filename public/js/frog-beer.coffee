@@ -1,7 +1,3 @@
-# ?-> draw.coffee
-# this file should be changed to be draw template specific
-# update template, update build/cake tool
-
 activePalette = []
 pressingDown = false
 
@@ -53,9 +49,7 @@ $(document).keypress (key) ->
     context = $('.color')[5]
     selectColor(context)
 
-# remove check when renamed to draw.coffee
-if palettes?
-  newPalette()
+newPalette()
 
 $('.shuffle').click ->
   newPalette()
@@ -71,3 +65,70 @@ $('.pixel').mousemove ->
   color = $('.color.active').css('background-color')
   if pressingDown
     $(@).css("background-color", color)
+
+#saving
+pixels = []
+getPixels = () ->
+  drawing = $('.drawing .pixel')
+  pixels = []
+  for pixel in drawing
+    pixelColor = $(pixel).css('background-color')
+    pixels.push(pixelColor)
+
+
+paintCanvasRow = (pixelColor, index, row) ->
+    PIXEL_SIZE = 20
+    X = 20 * index - (400 * row)
+    Y = 20 * row
+    canvas = document.getElementById("canvas")
+    context = canvas.getContext '2d'
+    context.fillStyle = pixelColor
+    context.fillRect(X, Y, PIXEL_SIZE, PIXEL_SIZE)
+
+
+drawPixelsOnCanvas = (pixels) ->
+  for pixelColor, index in pixels
+    if index < 20
+      paintCanvasRow(pixelColor, index, 0)
+    if index < 40
+      paintCanvasRow(pixelColor, index, 1)
+    if index < 60
+      paintCanvasRow(pixelColor, index, 2)
+    if index < 80
+      paintCanvasRow(pixelColor, index, 3)
+    if index < 100
+      paintCanvasRow(pixelColor, index, 4)
+    if index < 120
+      paintCanvasRow(pixelColor, index, 5)
+    if index < 140
+      paintCanvasRow(pixelColor, index, 6)
+    if index < 160
+      paintCanvasRow(pixelColor, index, 7)
+    if index < 180
+      paintCanvasRow(pixelColor, index, 8)
+    if index < 200
+      paintCanvasRow(pixelColor, index, 9)
+    if index < 220
+      paintCanvasRow(pixelColor, index, 10)
+    if index < 240
+      paintCanvasRow(pixelColor, index, 11)
+    if index < 260
+      paintCanvasRow(pixelColor, index, 12)
+    if index < 280
+      paintCanvasRow(pixelColor, index, 13)
+    if index < 300
+      paintCanvasRow(pixelColor, index, 14)
+    if index < 320
+      paintCanvasRow(pixelColor, index, 15)
+    if index < 340
+      paintCanvasRow(pixelColor, index, 16)
+    if index < 360
+      paintCanvasRow(pixelColor, index, 17)
+    if index < 380
+      paintCanvasRow(pixelColor, index, 18)
+    if index < 400
+      paintCanvasRow(pixelColor, index, 19)
+
+$('.save-button').click ->
+  getPixels()
+  drawPixelsOnCanvas(pixels)
