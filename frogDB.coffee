@@ -1,13 +1,21 @@
 mongo = require 'mongoskin'
 config = require './config.json'
 
-store = {} # ..
+frogDB = () ->
 
-storeHost = {}
-if process.env.NODE_ENV is 'development'
-  storeHost = config.store
-else
-  storeHost = config.storeProd
+  console.log path
+
+  if process.env.NODE_ENV is 'development'
+    path = "mongodb://#{config.frogDevDB.user}:#{config.frogDevDB.password}@#{config.frogDevDB.path}"
+    console.log path
+  else
+    path = "mongodb://#{config.frogProdDB.user}:#{config.frogProdDB.password}@#{config.frogProdDB.path}"
+    console.log path
+
+
+
+module.exports = frogDB
+
 
 
 
@@ -19,9 +27,7 @@ else
 # });
 
 
-module.exports = store
-
-#store.people === db.collection('people')
+# store.people === db.collection('people')
 # can require the above as... people = require 'store.people' , etc.
 ## this might be require('store')('people')
 

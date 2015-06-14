@@ -4,6 +4,14 @@ logger = require 'morgan'
 cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
 routes = require './routes'
+passwordless = require 'passwordless'
+MongoStore = require 'passwordless-mongostore'
+
+frogDB = require './frogDB'
+console.log frogDB.path
+
+
+# passwordless.init(artistTokenDB)
 app = express()
 
 app.set 'views', path.join __dirname, 'templates'

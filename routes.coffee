@@ -1,12 +1,8 @@
 express = require 'express'
 router = express.Router()
 config = require './config.json'
+palettes = require './palettes'
 
-Palettes = require './palettes'
-
-store = require './store'
-
-# GET
 router.get '/', (request, response, next) ->
   response.render 'draw',
     title: 'Frog Beer'
@@ -14,7 +10,7 @@ router.get '/', (request, response, next) ->
     topic: 'Prarie Dogs on a Tea-Party Acid Trip'
     lastTopic: 'Duplo Times with LEGO'
     lastWeek: {'path1':'artist1', 'path2':'artist2', 'path3':'artist3'}
-    palettes: Palettes
+    palettes: palettes
     hasLoginToken: false
     trello: config.trello
     github: config.github
