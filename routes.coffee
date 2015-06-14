@@ -22,6 +22,6 @@ router.get '/', (request, response, next) ->
 
 router.post '/save', (request, response, next) ->
   console.log request.body
-  response.send '🌺 \n'
+  response.send '🎑 \n'
 
 module.exports = router

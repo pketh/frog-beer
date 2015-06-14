@@ -1,6 +1,11 @@
 activePalette = []
 pressingDown = false
+pixels = []
+PIXEL_SIZE = 20
+CANVAS_SIZE = 400
+
 $('.drawing-saved').hide()
+$('#canvas').hide()
 
 selectColor = (context) ->
   color = $(context).css('background-color')
@@ -68,7 +73,6 @@ $('.pixel').mousemove ->
     $(@).css("background-color", color)
 
 #saving
-pixels = []
 getPixels = () ->
   drawing = $('.drawing .pixel')
   pixels = []
@@ -76,11 +80,9 @@ getPixels = () ->
     pixelColor = $(pixel).css('background-color')
     pixels.push(pixelColor)
 
-
 paintCanvasRow = (pixelColor, index, row) ->
-    PIXEL_SIZE = 20
-    X = 20 * index - (400 * row)
-    Y = 20 * row
+    X = PIXEL_SIZE * index - (CANVAS_SIZE * row)
+    Y = PIXEL_SIZE * row
     canvas = document.getElementById("canvas")
     context = canvas.getContext '2d'
     context.fillStyle = pixelColor
@@ -137,6 +139,9 @@ saveCanvas = () ->
     console.log response
     $('.save-drawing').hide()
     $('.drawing-saved').show()
+    $('.palette').hide()
+    $('.drawing').hide()
+    $('#canvas').show()
 
 $('.save-button').click ->
   getPixels()
@@ -144,9 +149,15 @@ $('.save-button').click ->
   saveCanvas()
 
 clearCanvas = () ->
+  canvas = document.getElementById("canvas")
+  context = canvas.getContext '2d'
+  context.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
   $('.pixel').css('background-color', '')
 
 $('.draw-another').click ->
   clearCanvas()
   $('.save-drawing').show()
   $('.drawing-saved').hide()
+  $('.palette').show()
+  $('.drawing').show()
+  $('#canvas').hide()

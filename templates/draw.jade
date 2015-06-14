@@ -32,6 +32,8 @@ block draw
           .pixel
           - pixels--
 
+  canvas#canvas(width='400' height='400')
+
   section.save-drawing
     p.primary-button.save-button Share Masterpiece →
 
@@ -39,8 +41,6 @@ block draw
     p.saved-notice Saved!
     p.saved-message Next week, you’ll get an email with everyone else’s drawings, and a new topic.
     p.primary-button.draw-another Draw Another ×
-
-  canvas#canvas(width='400' height='400')
 
   section.tips
     img(src='img/keys.svg' class='keys-icon')
