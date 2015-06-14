@@ -8,6 +8,7 @@ routes = require './routes'
 passwordless = require 'passwordless'
 MongoStore = require 'passwordless-mongostore'
 frogDB = require './frogDB'
+config = require './config.json'
 
 
 passwordless.init new MongoStore frogDB.path,
@@ -29,7 +30,7 @@ app.use bodyParser.urlencoded
 app.use cookieParser()
 app.use express.static path.join __dirname, 'public'
 app.use session
-  secret: 'keyboard cat'
+  secret: config.secret
 app.use passwordless.sessionSupport()
 app.use passwordless.acceptToken()
 
