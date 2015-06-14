@@ -35,6 +35,7 @@ task 'start', 'Start 🐸 🍺', (options) ->
   child.stdout.on 'data', (data) -> console.log data.toString().trim()
 
 task 'styles', 'Watch and compile styl → css', ->
+  exec 'export NODE_ENV=development'
   child = exec 'stylus --watch public/css/styles.styl -u autoprefixer-stylus'
   child.stdout.on 'data', (data) -> console.log data
 

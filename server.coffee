@@ -9,6 +9,7 @@ MongoStore = require 'passwordless-mongostore'
 
 frogDB = require './frogDB'
 console.log frogDB.path
+console.log process.env.NODE_ENV
 
 
 # passwordless.init(artistTokenDB)

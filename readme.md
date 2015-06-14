@@ -14,6 +14,10 @@ Edit `config.json`,
 
 Then run `cake setup` to setup your environment.
 
+## Set your environment [??]
+
+`export NODE_ENV=development` (or production)
+
 ## 🍰 Party
 
 Cool things happen through `cake`
@@ -23,7 +27,3 @@ Cool things happen through `cake`
 Then,
 
 `localhost:3000`
-
-## Debugging `cake start`
-
-`DEBUG=frog-bar:* ./bin/www`
