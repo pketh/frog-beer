@@ -3,10 +3,12 @@ path = require 'path'
 logger = require 'morgan'
 cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
+session = require 'express-session'
 routes = require './routes'
 passwordless = require 'passwordless'
 MongoStore = require 'passwordless-mongostore'
 frogDB = require './frogDB'
+
 
 passwordless.init new MongoStore frogDB.path,
   server:
@@ -14,7 +16,7 @@ passwordless.init new MongoStore frogDB.path,
   mongostore:
     collection: 'tokens'
 
-passwordless.addDelivery (tokenToSend, uidToSend, recipient, callback) ->
+# passwordless.addDelivery (tokenToSend, uidToSend, recipient, callback) ->
   # send out a token
 
 app = express()
@@ -26,6 +28,8 @@ app.use bodyParser.urlencoded
   extended: false
 app.use cookieParser()
 app.use express.static path.join __dirname, 'public'
+app.use session
+  secret: 'keyboard cat'
 app.use passwordless.sessionSupport()
 app.use passwordless.acceptToken()
 
