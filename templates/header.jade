@@ -2,7 +2,7 @@ header
   div.frog
     a(href='/')
       img(src='img/frog.png' srcset='img/frog@2x.png 2x')
-  if artistIsIn
+  if hasLoginToken
     p.artist @username –
     span.secondary-link.log-out sign out
   else
