@@ -5,5 +5,5 @@ header
   if hasLoginToken
     p.artist @username –
     span.secondary-link.log-out sign out
-  else
-    p.artist.secondary-link.sign-up-in Sign up or in
+  else if contentPage
+    a(href='/hello').artist.secondary-link.sign-up-in Sign up or in

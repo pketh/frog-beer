@@ -442,3 +442,36 @@ section.last-week .art {
   margin-right: 1.5rem;
   padding-bottom: 1.5rem;
 }
+section.signup .intro {
+  margin-bottom: 2em;
+}
+section.signup input {
+  display: block;
+  border: 2px #404040 solid;
+  background-color: #000;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 1rem;
+  width: 30rem;
+}
+section.signup input:focus {
+  outline: none;
+  border-color: #fff;
+}
+section.signup input.error {
+  border-color: #ff3026;
+}
+section.signup .submit {
+  background-color: #fff;
+  border-color: #fff;
+  color: #000;
+}
+section.signup .submit:focus {
+  outline: initial;
+}
+section.signup .submit:active {
+  background-color: rgba(255,255,255,0.8);
+}
+section.signup .sign-up-in {
+  margin-top: 2em;
+}

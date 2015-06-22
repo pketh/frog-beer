@@ -18,7 +18,7 @@ module.exports = frogDB
 # db.collection('mamals').find().toArray(function(err, result) {
 #   if (err) throw err;
 #   console.log(result);
-# });
+# });#f1f2d8
 
 
 # store.people === db.collection('people')
