@@ -1,10 +1,10 @@
+EMAIL_INPUT = $('input[name="email"]')
+NAME_INPUT = $('input[name="name"]')
+
 $('form.sign-up').submit (event) ->
-  emailInput = $('input[name="email"]')
-  email = emailInput.val()
-  nameInput = $('input[name="name"]')
-  name = nameInput.val()
+  email = EMAIL_INPUT.val()
+  name = NAME_INPUT.val()
   if email and name
-    # add procesing ui
     $.ajax
       url: '/is-valid-email'
       type: 'POST'
@@ -12,17 +12,22 @@ $('form.sign-up').submit (event) ->
       async: false
       success: (isValidEmail) ->
         if isValidEmail
-          emailInput.removeClass('error')
-          console.log 'is an email'
+          clearFieldErrors()
           # post the form
         else
-          # remove processing ui
-          emailInput.addClass('error')
+          EMAIL_INPUT.addClass('error')
     return false
   else
-    alert 'not filled'
+    clearFieldErrors()
+    addErrorsToEmptyFields(email, name)
     false
 
-# $.post( "ajax/test.html", function( data ) {
-#   $( ".result" ).html( data );
-# });
+addErrorsToEmptyFields = (email, name) ->
+  unless email
+    EMAIL_INPUT.addClass('error')
+  unless name
+    NAME_INPUT.addClass('error')
+
+clearFieldErrors = ->
+    EMAIL_INPUT.removeClass('error')
+    NAME_INPUT.removeClass('error')
