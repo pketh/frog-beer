@@ -4,7 +4,7 @@ block content
   section.signup
     h1 ribbit
     p.intro Welcome, friend of frogs.
-    form.sign-up
+    form.sign-up(action='/sign-up' method='post')
       input(name='email' placeholder='email' type='email')
       input(name='name' placeholder='nickname' type='text')
       input(value='submit' type='submit' class='submit')

@@ -1,14 +1,28 @@
-emailPattern = /// ^ #begin of line
-   ([\w.-]+)         #one or more letters, numbers, _ . or -
-   @                 #followed by an @ sign
-   ([\w.-]+)         #then one or more letters, numbers, _ . or -
-   \.                #followed by a period
-   ([a-zA-Z.]{2,6})  #followed by 2 to 6 letters or periods
-   $ ///i            #end of line and ignore case
+$('form.sign-up').submit (event) ->
+  emailInput = $('input[name="email"]')
+  email = emailInput.val()
+  nameInput = $('input[name="name"]')
+  name = nameInput.val()
+  if email and name
+    # add procesing ui
+    $.ajax
+      url: '/is-valid-email'
+      type: 'POST'
+      data: {'email': email}
+      async: false
+      success: (isValidEmail) ->
+        if isValidEmail
+          emailInput.removeClass('error')
+          console.log 'is an email'
+          # post the form
+        else
+          # remove processing ui
+          emailInput.addClass('error')
+    return false
+  else
+    alert 'not filled'
+    false
 
-
-# wrap on submit ->
-if "john.smith@gmail.com".match emailPattern
-   console.log "E-mail is valid"
-else
-   console.log "E-mail is invalid"
+# $.post( "ajax/test.html", function( data ) {
+#   $( ".result" ).html( data );
+# });

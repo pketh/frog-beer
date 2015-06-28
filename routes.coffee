@@ -3,7 +3,7 @@ router = express.Router()
 config = require './config.json'
 palettes = require './palettes'
 cookieParser = require 'cookie-parser'
-
+validator = require 'validator'
 
 # GET #
 
@@ -23,11 +23,25 @@ router.get '/', (request, response, next) ->
     github: config.github
     contentPage: true
 
-
 # POST #
 
 router.post '/save', (request, response, next) ->
   console.log request.body
-  response.send '🎑 \n'
+  response.send 'image received'
+
+router.post '/is-valid-email', (request, response, next) ->
+  console.log request.body
+  isValidEmail = validator.isEmail request.body.email
+  console.log isValidEmail
+  response.send isValidEmail
+
+router.post '/sign-up', (request, response, next) ->
+  console.log request.body
+  isValidEmail = validator.isEmail request.body
+
+router.post '/sign-in', (request, response, next) ->
+  console.log request.body
+  isValidEmail = validator.isEmail request.body
+
 
 module.exports = router
