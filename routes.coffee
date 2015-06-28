@@ -7,8 +7,8 @@ cookieParser = require 'cookie-parser'
 
 # GET #
 
-router.get '/hello', (request, response, next) ->
-  response.render 'hello',
+router.get '/sign-up', (request, response, next) ->
+  response.render 'sign-up',
     palettes: null
     # art: req.cookies # in cookie if exists
 
@@ -29,8 +29,5 @@ router.get '/', (request, response, next) ->
 router.post '/save', (request, response, next) ->
   console.log request.body
   response.send '🎑 \n'
-
-router.post '/sign-up', (request, response, next) ->
-  response.send 'sign up stub'
 
 module.exports = router
