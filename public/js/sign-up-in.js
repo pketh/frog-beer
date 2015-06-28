@@ -11,14 +11,19 @@
     email = EMAIL_INPUT.val();
     name = NAME_INPUT.val();
     if (email && name) {
-      $.post('/is-valid-email', {
-        'email': email
-      }, function(isValidEmail) {
-        console.log(isValidEmail);
-        if (isValidEmail) {
-          return clearFieldErrors();
-        } else {
-          return EMAIL_INPUT.addClass('error');
+      $.ajax({
+        url: '/is-valid-email',
+        type: 'POST',
+        data: {
+          'email': email
+        },
+        async: false,
+        success: function(isValidEmail) {
+          if (isValidEmail) {
+            return clearFieldErrors();
+          } else {
+            return EMAIL_INPUT.addClass('error');
+          }
         }
       });
       return false;
