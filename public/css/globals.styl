@@ -5,6 +5,7 @@ menlo = Menlo, Monaco, monospace
 plantin = "Plantin", Serif
 plantin-book = '../fonts/mplantin-light'
 plantin-italics = '../fonts/mplantin-lightitalic'
+plantin-bold = '../fonts/plantin-bold'
 
 @font-face
   font-family: 'Plantin'
@@ -22,6 +23,16 @@ plantin-italics = '../fonts/mplantin-lightitalic'
        url(plantin-italics + '.woff') format('woff'),
        url(plantin-italics + '.ttf') format('truetype'),
        url(plantin-italics + '.svg#webfont') format('svg')
+
+@font-face
+  font-family: 'Plantin'
+  font-style: normal
+  font-weight: bold
+  src: url(plantin-bold + '.eot')
+  src: url(plantin-bold + '.eot?#iefix') format('embedded-opentype'),
+       url(plantin-bold + '.woff') format('woff'),
+       url(plantin-bold + '.ttf') format('truetype'),
+       url(plantin-bold + '.svg#webfont') format('svg')
 
 html
   font-size: 62.5%

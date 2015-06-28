@@ -11,6 +11,7 @@ submitSignUpForm = (email, name) ->
       }
     success: (response) ->
       console.log response
+      # TODO goto sign-up-success page
 
 $('form.sign-up').submit (event) ->
   event.preventDefault()

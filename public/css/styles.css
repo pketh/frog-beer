@@ -187,6 +187,13 @@ th {
   src: url("../fonts/mplantin-lightitalic.eot");
   src: url("../fonts/mplantin-lightitalic.eot?#iefix") format('embedded-opentype'), url("../fonts/mplantin-lightitalic.woff") format('woff'), url("../fonts/mplantin-lightitalic.ttf") format('truetype'), url("../fonts/mplantin-lightitalic.svg#webfont") format('svg');
 }
+@font-face {
+  font-family: 'Plantin';
+  font-style: normal;
+  font-weight: bold;
+  src: url("../fonts/plantin-bold.eot");
+  src: url("../fonts/plantin-bold.eot?#iefix") format('embedded-opentype'), url("../fonts/plantin-bold.woff") format('woff'), url("../fonts/plantin-bold.ttf") format('truetype'), url("../fonts/plantin-bold.svg#webfont") format('svg');
+}
 html {
   font-size: 62.5%;
   background-color: #000;
