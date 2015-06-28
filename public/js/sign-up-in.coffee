@@ -28,7 +28,7 @@ $('form.sign-up').submit (event) ->
           clearFieldErrors()
           submitSignUpForm(email, name)
         else
-          EMAIL_INPUT.addClass('error')
+          EMAIL_INPUT.addClass 'error'
           false
   else
     clearFieldErrors()
@@ -36,10 +36,10 @@ $('form.sign-up').submit (event) ->
 
 addErrorsToEmptyFields = (email, name) ->
   unless email
-    EMAIL_INPUT.addClass('error')
+    EMAIL_INPUT.addClass 'error'
   unless name
-    NAME_INPUT.addClass('error')
+    NAME_INPUT.addClass 'error'
 
 clearFieldErrors = ->
-    EMAIL_INPUT.removeClass('error')
-    NAME_INPUT.removeClass('error')
+    EMAIL_INPUT.removeClass 'error'
+    NAME_INPUT.removeClass 'error'
