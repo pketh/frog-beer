@@ -5,17 +5,13 @@ $('form.sign-up').submit (event) ->
   email = EMAIL_INPUT.val()
   name = NAME_INPUT.val()
   if email and name
-    $.ajax
-      url: '/is-valid-email'
-      type: 'POST'
-      data: {'email': email}
-      async: false
-      success: (isValidEmail) ->
-        if isValidEmail
-          clearFieldErrors()
-          # post the form
-        else
-          EMAIL_INPUT.addClass('error')
+    $.post '/is-valid-email', {'email': email}, (isValidEmail) ->
+      console.log isValidEmail
+      if isValidEmail
+        clearFieldErrors()
+        # post the form
+      else
+        EMAIL_INPUT.addClass('error')
     return false
   else
     clearFieldErrors()
