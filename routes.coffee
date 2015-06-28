@@ -33,16 +33,11 @@ router.post '/is-valid-email', (request, response, next) ->
   isValidEmail = validator.isEmail request.body.email
   response.send isValidEmail
 
-# sanitizeRequest = ->
-  # validator.isEmail email
-  # validator.toString(email)
-  # validator.toString(name?)
-
-
 router.post '/sign-up', (request, response, next) ->
-  console.log request.body
-  response.send request.body
-  # sanitize(email, name)
+  email = validator.toString request.body.email
+  name = validator.toString request.body.name
+
+  response.send name
 
 # router.post '/sign-in', (request, response, next) ->
 #   console.log request.body
