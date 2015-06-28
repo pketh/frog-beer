@@ -5,8 +5,8 @@ block content
     h1 ribbit
     p.intro Welcome, friend of frogs.
     form.sign-up(action='/sign-up' method='post')
-      input(name='email' placeholder='email' type='email')
-      input(name='name' placeholder='nickname' type='text')
+      input(name='email' placeholder='email' type='email' maxlength='100')
+      input(name='name' placeholder='nickname' type='text' maxlength='100')
       input(value='submit' type='submit' class='submit')
     p.sign-up-in
       a(href="#" class="secondary-link") or Sign in

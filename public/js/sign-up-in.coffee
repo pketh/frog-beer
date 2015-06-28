@@ -1,26 +1,37 @@
 EMAIL_INPUT = $('input[name="email"]')
 NAME_INPUT = $('input[name="name"]')
 
+submitSignUpForm = (email, name) ->
+  $.ajax
+    url: '/sign-up'
+    type: 'POST'
+    data: {
+      'email': email
+      'name': name
+      }
+    success: (response) ->
+      console.log response
+
 $('form.sign-up').submit (event) ->
-  email = EMAIL_INPUT.val()
-  name = NAME_INPUT.val()
+  event.preventDefault()
+  email = EMAIL_INPUT.val().trim()
+  name = NAME_INPUT.val().trim()
   if email and name
     $.ajax
       url: '/is-valid-email'
       type: 'POST'
       data: {'email': email}
-      async: false
       success: (isValidEmail) ->
-        if isValidEmail
+        console.log isValidEmail
+        if isValidEmail is true
           clearFieldErrors()
-          # post the form
+          submitSignUpForm(email, name)
         else
           EMAIL_INPUT.addClass('error')
-    return false
+          false
   else
     clearFieldErrors()
     addErrorsToEmptyFields(email, name)
-    false
 
 addErrorsToEmptyFields = (email, name) ->
   unless email

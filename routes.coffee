@@ -26,22 +26,27 @@ router.get '/', (request, response, next) ->
 # POST #
 
 router.post '/save', (request, response, next) ->
-  console.log request.body
-  response.send 'image received'
+  # console.log request.body #base 64 img
+  response.send request.body
 
 router.post '/is-valid-email', (request, response, next) ->
-  console.log request.body
   isValidEmail = validator.isEmail request.body.email
-  console.log isValidEmail
   response.send isValidEmail
+
+# sanitizeRequest = ->
+  # validator.isEmail email
+  # validator.toString(email)
+  # validator.toString(name?)
+
 
 router.post '/sign-up', (request, response, next) ->
   console.log request.body
-  isValidEmail = validator.isEmail request.body
+  response.send request.body
+  # sanitize(email, name)
 
-router.post '/sign-in', (request, response, next) ->
-  console.log request.body
-  isValidEmail = validator.isEmail request.body
+# router.post '/sign-in', (request, response, next) ->
+#   console.log request.body
+  # sanitize(email, name)
 
 
 module.exports = router
