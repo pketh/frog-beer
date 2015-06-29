@@ -213,7 +213,7 @@
     var canvas, image;
     canvas = document.getElementById("canvas");
     image = canvas.toDataURL("image/png");
-    return $.post('/save', {
+    return $.post('/save-drawing', {
       'image': image,
       'week': 0,
       'artistID': 'yr32saf32'

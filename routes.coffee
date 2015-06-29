@@ -4,8 +4,7 @@ config = require './config.json'
 palettes = require './palettes'
 cookieParser = require 'cookie-parser'
 validator = require 'validator'
-
-# GET #
+uuid = require 'node-uuid'
 
 router.get '/sign-up', (request, response, next) ->
   response.render 'sign-up',
@@ -23,11 +22,9 @@ router.get '/', (request, response, next) ->
     github: config.github
     contentPage: true
 
-# POST #
-
-router.post '/save', (request, response, next) ->
-  # console.log request.body #base 64 img
-  response.send request.body
+#stub
+router.post '/save-drawing', (request, response, next) ->
+  response.send request.body #base 64 img
 
 router.post '/is-valid-email', (request, response, next) ->
   isValidEmail = validator.isEmail request.body.email
@@ -37,12 +34,16 @@ router.post '/sign-up', (request, response, next) ->
   email = validator.toString request.body.email
   name = validator.toString request.body.name
   # generate a token
+  # https://github.com/broofa/node-uuid
+  # uuid.v4()
+
+
   # send an email with the verification token
 
 
-# router.post '/sign-in', (request, response, next) ->
-#   console.log request.body
-  # sanitize(email, name)
+#stub
+router.post '/sign-in', (request, response, next) ->
+  response.send request.body
 
 
 module.exports = router
