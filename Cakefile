@@ -9,7 +9,7 @@ css = './public/js'
 watchedServerFiles = [
   'config.json'
   'errors.coffee'
-  'emails.coffee'
+  'mailer.coffee'
   'palettes.coffee'
   'routes.coffee'
   'server.coffee'

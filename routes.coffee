@@ -36,8 +36,9 @@ router.post '/is-valid-email', (request, response, next) ->
 router.post '/sign-up', (request, response, next) ->
   email = validator.toString request.body.email
   name = validator.toString request.body.name
+  # generate a token
+  # send an email with the verification token
 
-  response.send name
 
 # router.post '/sign-in', (request, response, next) ->
 #   console.log request.body
