@@ -29,6 +29,24 @@ app.use session
   saveUninitialized: false
 
 app.use routes
-require('./errors')(app)
+
+app.use (request, response, next) ->
+  error = new error 'Not Found'
+  error.status = 404
+  next error
+
+if app.get('env') is 'development'
+  app.use (error, request, response, next) ->
+    response.status error.status or 500
+    response.render 'error',
+      message: error.message
+      error: error
+else
+  app.use (error, request, response, next) ->
+    response.status error.status or 500
+    response.render 'error',
+      message: error.message
+      error: {}
+
 
 module.exports = app
