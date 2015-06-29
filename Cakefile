@@ -13,6 +13,7 @@ watchedServerFiles = [
   'routes.coffee'
   'server.coffee'
   'frogDB.coffee'
+  'utils.coffee'
 ]
 
 task 'coffee', 'Watch and compile public ☕️  → js', ->

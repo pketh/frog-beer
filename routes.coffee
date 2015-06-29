@@ -1,10 +1,12 @@
 express = require 'express'
 router = express.Router()
-config = require './config.json'
-palettes = require './palettes'
 cookieParser = require 'cookie-parser'
 validator = require 'validator'
 uuid = require 'node-uuid'
+
+config = require './config.json'
+palettes = require './palettes'
+utils = require './utils'
 
 router.get '/sign-up', (request, response, next) ->
   response.render 'sign-up',
@@ -31,15 +33,13 @@ router.post '/is-valid-email', (request, response, next) ->
   response.send isValidEmail
 
 router.post '/sign-up', (request, response, next) ->
-  email = validator.toString request.body.email
-  name = validator.toString request.body.name
-  # generate a token
+  email = utils.validateEmail request
+  name = utils.validateName request
+  # 🔮 TODO: generate a token
   # https://github.com/broofa/node-uuid
   # uuid.v4()
-
-
+  response.send request.body
   # send an email with the verification token
-
 
 #stub
 router.post '/sign-in', (request, response, next) ->
