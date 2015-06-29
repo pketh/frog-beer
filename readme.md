@@ -20,7 +20,7 @@ Then run `cake setup` to setup your environment.
 
 ## 🍰 Party
 
-Cool things happen through `cake`
+Like life, cool things happen through `cake`
 
 `cake start` for the server, `cake styles` and `cake coffee` for compiling public stuff.
 
