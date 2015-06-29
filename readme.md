@@ -2,7 +2,7 @@
 
 ## Setup
 
-Install some dependencies:
+Install some system dependencies:
 ```shell
 npm install -g stylus
 npm install -g autoprefixer-stylus
