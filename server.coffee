@@ -5,7 +5,7 @@ cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
 session = require 'express-session'
 routes = require './routes'
-frogDB = require './frogDB'
+database = require './database'
 config = require './config.json'
 mailer = require './mailer'
 

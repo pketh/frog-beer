@@ -12,7 +12,7 @@ watchedServerFiles = [
   'palettes.coffee'
   'routes.coffee'
   'server.coffee'
-  'frogDB.coffee'
+  'database.coffee'
   'utils.coffee'
 ]
 

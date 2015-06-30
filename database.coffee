@@ -1,14 +1,14 @@
 mongo = require 'mongoskin'
 config = require './config.json'
 
-frogDB = {}
+database = {}
 
 if process.env.NODE_ENV is 'development'
-  frogDB.path = "mongodb://#{config.frogDevDB.user}:#{config.frogDevDB.password}@#{config.frogDevDB.path}"
+  database.path = "mongodb://#{config.frogDevDB.user}:#{config.frogDevDB.password}@#{config.frogDevDB.path}"
 else
-  frogDB.path = "mongodb://#{config.frogProdDB.user}:#{config.frogProdDB.password}@#{config.frogProdDB.path}"
+  database.path = "mongodb://#{config.frogProdDB.user}:#{config.frogProdDB.password}@#{config.frogProdDB.path}"
 
-module.exports = frogDB
+module.exports = database
 
 
 
