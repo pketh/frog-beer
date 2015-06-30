@@ -13,11 +13,11 @@ watchedServerFiles = [
   'routes.coffee'
   'server.coffee'
   'database.coffee'
-  'utils.coffee'
+  'helpers.coffee'
 ]
 
 task 'coffee', 'Watch and compile public ☕️  → js', ->
-  child = exec 'coffee -w -c public/js/frog-beer.coffee public/js/sign-up-in.coffee'
+  child = exec 'coffee -w -c public/js/client.coffee public/js/sign-up-in.coffee'
   child.stdout.on 'data', (data) -> console.log data
 
 task 'setup', 'Setup environment from packages', ->

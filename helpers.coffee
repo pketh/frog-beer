@@ -1,6 +1,9 @@
 validator = require 'validator'
 
-utils =
+helpers =
+
+  isEmail: (email) ->
+    validator.isEmail email
 
   validateEmail: (request) ->
     email = validator.toString request.body.email
@@ -15,4 +18,4 @@ utils =
       throw new Error('name too long')
     return name
 
-module.exports = utils
+module.exports = helpers
