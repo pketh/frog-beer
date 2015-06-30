@@ -35,9 +35,8 @@ router.post '/is-valid-email', (request, response, next) ->
 router.post '/sign-up', (request, response, next) ->
   email = utils.validateEmail request
   name = utils.validateName request
-  # 🔮 TODO: generate a token
-  # https://github.com/broofa/node-uuid
-  # uuid.v4()
+  signUpToken = uuid.v4()
+
   response.send request.body
   # send an email with the verification token
 
