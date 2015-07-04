@@ -1,13 +1,13 @@
 EMAIL_INPUT = $('input[name="email"]')
-NAME_INPUT = $('input[name="name"]')
+NICKNAME_INPUT = $('input[name="nickname"]')
 
-submitSignUpForm = (email, name) ->
+submitSignUpForm = (email, nickname) ->
   $.ajax
     url: '/sign-up'
     type: 'POST'
     data: {
       'email': email
-      'name': name
+      'nickname': nickname
       }
     success: (response) ->
       console.log response
@@ -16,8 +16,8 @@ submitSignUpForm = (email, name) ->
 $('form.sign-up').submit (event) ->
   event.preventDefault()
   email = EMAIL_INPUT.val().trim()
-  name = NAME_INPUT.val().trim()
-  if email and name
+  nickname = NICKNAME_INPUT.val().trim()
+  if email and nickname
     $.ajax
       url: '/is-valid-email'
       type: 'POST'
@@ -26,20 +26,20 @@ $('form.sign-up').submit (event) ->
         console.log isValidEmail
         if isValidEmail is true
           clearFieldErrors()
-          submitSignUpForm(email, name)
+          submitSignUpForm(email, nickname)
         else
           EMAIL_INPUT.addClass 'error'
           false
   else
     clearFieldErrors()
-    addErrorsToEmptyFields(email, name)
+    addErrorsToEmptyFields(email, nickname)
 
-addErrorsToEmptyFields = (email, name) ->
+addErrorsToEmptyFields = (email, nickname) ->
   unless email
     EMAIL_INPUT.addClass 'error'
   unless name
-    NAME_INPUT.addClass 'error'
+    NICKNAME_INPUT.addClass 'error'
 
 clearFieldErrors = ->
     EMAIL_INPUT.removeClass 'error'
-    NAME_INPUT.removeClass 'error'
+    NICKNAME_INPUT.removeClass 'error'

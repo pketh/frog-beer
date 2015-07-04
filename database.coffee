@@ -1,7 +1,10 @@
 sync = require 'sync'
-config = require './config.json'
 colors = require 'colors'
+moment = require 'moment'
 mongojs = require 'mongojs'
+
+config = require './config.json'
+routes = require './routes'
 
 if process.env.NODE_ENV is 'development'
   path = "mongodb://#{config.devDB.user}:#{config.devDB.password}@#{config.devDB.path}"
@@ -26,11 +29,17 @@ database =
       db.createCollection 'Topics', {}
       collections()
 
+  newSignUp: (email, nickname, signUpToken) ->
+    console.log 'heeey'
+    return "hi #{nickname}"
+    # create user in Users created = has email, nickname, send_email:true, account created:moment() obj,
+    # return true
+    # return 'returned'
+    # response.send 'db created, now do a client redirect thing'
+    # send an email with the verification token
 
-  newSignUp: (email, name, signUpToken) ->
-    # var mycollection = db.collection('mycollection');
-    # insert a sign up object
-    console.log 'hi'.rainbow
+  test: ->
+    console.log 'testing'
 
 
 module.exports = database

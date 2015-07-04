@@ -5,13 +5,10 @@ cookieParser = require 'cookie-parser'
 uuid = require 'node-uuid'
 
 config = require './config.json'
+database = require './database'
 palettes = require './palettes'
 helpers = require './helpers'
 
-router.get '/sign-up', (request, response, next) ->
-  response.render 'sign-up',
-    palettes: null
-    # drawings: req.cookies # in cookie if exists
 
 # stub
 # this is where the emailed token link goes to for verification/welcome
@@ -30,14 +27,18 @@ router.get '/', (request, response, next) ->
     isSignedIn: false #stub
     # userName: userNameReturnFunction(if signedIn)
 
+router.get '/sign-up', (request, response, next) ->
+  response.render 'sign-up',
+    palettes: null
+    # drawings: req.cookies # in cookie if exists
+
 router.post '/sign-up', (request, response, next) ->
   email = helpers.validateEmail request
-  name = helpers.validateName request
+  nickname = helpers.validateName request
   signUpToken = uuid.v4()
-  # TODO store token in db next to email
-  database.newSignUp(email, name, signUpToken)
-  # response.send request.body
-  # send an email with the verification token
+  # console.log "🐸\n email: #{email}\n nickname: #{nickname}\n signUpToken: #{signUpToken}"
+  response.send {email, nickname, signUpToken}
+  # database.newSignUp(email, nickname, signUpToken)
 
 router.post '/is-valid-email', (request, response, next) ->
   email = request.body.email
