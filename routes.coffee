@@ -32,11 +32,10 @@ router.get '/sign-up', (request, response, next) ->
     palettes: null
     # drawings: req.cookies # in cookie if exists
 
-router.post '/sign-up', (request, response, next) ->
+router.post '/new-sign-up', (request, response, next) ->
   email = helpers.validateEmail request
   nickname = helpers.validateName request
   signUpToken = uuid.v4()
-  # console.log "🐸\n email: #{email}\n nickname: #{nickname}\n signUpToken: #{signUpToken}"
   response.send {email, nickname, signUpToken}
   # database.newSignUp(email, nickname, signUpToken)
 

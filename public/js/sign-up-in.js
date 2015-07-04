@@ -8,7 +8,7 @@
 
   submitSignUpForm = function(email, nickname) {
     return $.ajax({
-      url: '/sign-up',
+      url: '/new-sign-up',
       type: 'POST',
       data: {
         'email': email,

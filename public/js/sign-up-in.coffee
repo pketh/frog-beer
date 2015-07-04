@@ -3,7 +3,7 @@ NICKNAME_INPUT = $('input[name="nickname"]')
 
 submitSignUpForm = (email, nickname) ->
   $.ajax
-    url: '/sign-up'
+    url: '/new-sign-up'
     type: 'POST'
     data: {
       'email': email
