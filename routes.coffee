@@ -11,7 +11,7 @@ helpers = require './helpers'
 router.get '/sign-up', (request, response, next) ->
   response.render 'sign-up',
     palettes: null
-    # art: req.cookies # in cookie if exists
+    # drawings: req.cookies # in cookie if exists
 
 # stub
 # this is where the emailed token link goes to for verification/welcome
@@ -24,17 +24,19 @@ router.get '/', (request, response, next) ->
     lastTopic: 'Duplo Times with LEGO' # stub
     lastWeek: {'path1':'artist1', 'path2':'artist2', 'path3':'artist3'} # stub
     palettes: palettes
-    hasLoginToken: false
     trello: config.trello
     github: config.github
     contentPage: true
+    isSignedIn: false #stub
+    # userName: userNameReturnFunction(if signedIn)
 
 router.post '/sign-up', (request, response, next) ->
   email = helpers.validateEmail request
   name = helpers.validateName request
   signUpToken = uuid.v4()
   # TODO store token in db next to email
-  response.send request.body
+  database.newSignUp(email, name, signUpToken)
+  # response.send request.body
   # send an email with the verification token
 
 router.post '/is-valid-email', (request, response, next) ->

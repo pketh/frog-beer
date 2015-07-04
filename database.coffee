@@ -1,51 +1,36 @@
-mongo = require 'mongoskin'
+sync = require 'sync'
 config = require './config.json'
-
-database = {}
+colors = require 'colors'
+mongojs = require 'mongojs'
 
 if process.env.NODE_ENV is 'development'
-  database.path = "mongodb://#{config.frogDevDB.user}:#{config.frogDevDB.password}@#{config.frogDevDB.path}"
+  path = "mongodb://#{config.devDB.user}:#{config.devDB.password}@#{config.devDB.path}"
+  # console.log "mongo #{config.devDB.path} -u #{config.devDB.user} -p #{config.devDB.password}".cyan
 else
-  database.path = "mongodb://#{config.frogProdDB.user}:#{config.frogProdDB.password}@#{config.frogProdDB.path}"
+  path = "mongodb://#{config.prodDB.user}:#{config.prodDB.password}@#{config.prodDB.path}"
+
+db = mongojs path
+
+collections = ->
+  Users = db.collection 'Users'
+  Drawings = db.collection 'Drawings'
+  Drawings = db.collection 'Topics'
+
+
+database =
+
+  init: ->
+    sync ->
+      db.createCollection 'Users', {}
+      db.createCollection 'Drawings', {}
+      db.createCollection 'Topics', {}
+      collections()
+
+
+  newSignUp: (email, name, signUpToken) ->
+    # var mycollection = db.collection('mycollection');
+    # insert a sign up object
+    console.log 'hi'.rainbow
+
 
 module.exports = database
-
-
-
-
-# var db = require('mongoskin').db('localhost:27017/animals');
-#
-# db.collection('mamals').find().toArray(function(err, result) {
-#   if (err) throw err;
-#   console.log(result);
-# });#f1f2d8
-
-
-# store.people === db.collection('people')
-# can require the above as... people = require 'store.people' , etc.
-## this might be require('store')('people')
-
-# store ==> store.collection('people')
-#store.art ...
-
-# *********
-
-# store:
-# exports.bread = function bread() {
-#   return 'bread: 2';
-# };
-#
-# exports.egg = 'egg: 1';
-#
-# // exports = {
-# //              bread: function bread() { ... },
-# //              egg: 'egg: 1'
-# //           };
-
-#app:
-# var fridge = require ('./fridge');
-#
-# // var fridge = {
-# //                bread: function() { ... },
-# //                egg: 'egg: 1'
-# //              };

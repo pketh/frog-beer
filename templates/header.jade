@@ -2,8 +2,8 @@ header
   div.frog
     a(href='/')
       img(src='img/frog.png' srcset='img/frog@2x.png 2x')
-  if hasLoginToken
-    p.artist @username –
+  if isSignedIn
+    p.artist @artistName –
     span.secondary-link.log-out sign out
   else if contentPage
     a(href='/sign-up').artist.secondary-link.sign-up-in Sign up or in
