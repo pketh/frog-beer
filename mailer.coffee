@@ -1,8 +1,9 @@
 express = require 'express'
+juice = require 'juice'
 path = require 'path'
 
 config = require './config.json'
-database = require './database' # unused for now
+database = require './database' # use to get list of emails to send to for weekly mail
 sendgrid = require('sendgrid')(config.sendgrid)
 
 signUpEmail = null
@@ -26,6 +27,7 @@ renderSignUpEmail = (nickname, signUpToken, subject) ->
     signUpUrl: "#{url}?sign-up-token=#{signUpToken}"
   ,
   (error, html) ->
+    html = juice html, {applyWidthAttributes: true}
     console.log html
     signUpEmail = html
 

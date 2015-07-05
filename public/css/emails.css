@@ -286,13 +286,27 @@ header {
   display: inline-block;
   float: right;
 }
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: Menlo, Consolas, Monaco, monospace;
+  padding-top: 5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  height: 100%;
+}
+header {
+  margin-top: 0;
+}
 section,
 header,
 footer {
-  margin-bottom: 3rem;
+  margin-bottom: 0;
+  padding-bottom: 3rem;
 }
 p,
 .link {
+  font-size: 16px;
   font-family: Menlo, Consolas, Monaco, monospace;
   line-height: 24px;
   max-width: 500px;
@@ -305,6 +319,7 @@ p,
   font-style: italic;
 }
 .link {
+  cursor: pointer;
   color: #e88ee5;
   display: inline-block;
   text-decoration: underline;

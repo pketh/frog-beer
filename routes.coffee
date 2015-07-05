@@ -24,12 +24,6 @@ router.post '/new-sign-up', (request, response, next) ->
   signUpToken = uuid.v4()
   database.newSignUp(email, nickname, signUpToken, response)
 
-# stub
-# this is where the emailed token link goes to for verification/welcome
-router.get '/hello', (request, response, next) ->
-  response.send 'hello id: ' + request.query.id
-
-
 
 #stub
 # router.post '/sign-in', (request, response, next) ->
@@ -47,12 +41,20 @@ router.get '/hello', (request, response, next) ->
 router.get '/sign-up-email-test', (request, response, next) ->
   response.render 'emails/sign-up'
 
+# stub: redirect here on form completion
+# delivery for you
+# postbox
+# mailer says hi
+# form success
+router.get '/check-your-email', (request, response, next) ->
+  response.send 'o hi'
 
 # stub:
 # router.get '/unsubscribe', (request, response, next) ->
 #   response.send 'hello id: ' + request.query.id
 
 router.get '/', (request, response, next) ->
+  # if request.query.id ...
   response.render 'draw',
     topic: 'Prarie Dogs on a Tea-Party Acid Trip' # stub
     lastTopic: 'Duplo Times with LEGO' # stub

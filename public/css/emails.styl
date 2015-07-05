@@ -2,13 +2,30 @@
 @require 'globals'
 @require 'header'
 
+body
+  background-color: black
+  color: white
+  font-family: menlo
+  // margin: initial
+  padding-top: 5rem
+  padding-left: 3rem
+  padding-right: 3rem
+  // margin-left: auto
+  // margin-right: auto
+  height: 100%
+
+header
+  margin-top: 0
+
 section,
 header,
 footer
-  margin-bottom: 3rem
+  margin-bottom: 0
+  padding-bottom: 3rem
 
 p,
 .link
+  font-size: 16px
   font-family: menlo
   line-height: 24px
   max-width: 500px
@@ -21,6 +38,7 @@ p,
   font-style: italic
 
 .link
+  cursor: pointer
   color: action
   display: inline-block
   text-decoration: underline
