@@ -1,24 +1,22 @@
-sync = require 'sync'
 colors = require 'colors'
 moment = require 'moment'
 mongojs = require 'mongojs'
+sync = require 'sync'
 
 config = require './config.json'
-routes = require './routes'
+[Users, Drawings, Topics] = [null]
 
 if process.env.NODE_ENV is 'development'
   path = "mongodb://#{config.devDB.user}:#{config.devDB.password}@#{config.devDB.path}"
   # console.log "mongo #{config.devDB.path} -u #{config.devDB.user} -p #{config.devDB.password}".cyan
 else
   path = "mongodb://#{config.prodDB.user}:#{config.prodDB.password}@#{config.prodDB.path}"
-
 db = mongojs path
 
 collections = ->
   Users = db.collection 'Users'
   Drawings = db.collection 'Drawings'
   Drawings = db.collection 'Topics'
-
 
 database =
 
@@ -29,17 +27,20 @@ database =
       db.createCollection 'Topics', {}
       collections()
 
-  newSignUp: (email, nickname, signUpToken) ->
-    console.log 'heeey'
-    return "hi #{nickname}"
-    # create user in Users created = has email, nickname, send_email:true, account created:moment() obj,
-    # return true
-    # return 'returned'
-    # response.send 'db created, now do a client redirect thing'
-    # send an email with the verification token
-
-  test: ->
-    console.log 'testing'
+  newSignUp: (email, nickname, signUpToken, response) ->
+    Users.update
+      email: email
+      {
+        email: email
+        name: nickname
+        signUpToken: signUpToken
+      },
+      upsert: true
+    ,
+    (error, document) ->
+      console.log document
+      # TODO email signUpToken to email
+      response.send true
 
 
 module.exports = database

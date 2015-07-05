@@ -1,7 +1,6 @@
 express = require 'express'
 router = express.Router()
 cookieParser = require 'cookie-parser'
-# validator = require 'validator'
 uuid = require 'node-uuid'
 
 config = require './config.json'
@@ -10,10 +9,43 @@ palettes = require './palettes'
 helpers = require './helpers'
 
 
+router.get '/sign-up', (request, response, next) ->
+  response.render 'sign-up',
+    palettes: null
+    # drawings: req.cookies # in cookie if exists
+
+router.post '/is-valid-email', (request, response, next) ->
+  email = request.body.email
+  response.send helpers.isEmail(email)
+
+router.post '/new-sign-up', (request, response, next) ->
+  email = helpers.validateEmail request
+  nickname = helpers.validateName request
+  signUpToken = uuid.v4()
+  database.newSignUp(email, nickname, signUpToken, response)
+
+
+
+
+
 # stub
 # this is where the emailed token link goes to for verification/welcome
 router.get '/hello', (request, response, next) ->
   response.send 'hello'
+
+
+
+#stub
+# router.post '/sign-in', (request, response, next) ->
+#   response.send request.body
+
+#stub
+# router.post '/save-drawing', (request, response, next) ->
+#   response.send request.body #base 64 img
+
+
+module.exports = router
+
 
 router.get '/', (request, response, next) ->
   response.render 'draw',
@@ -26,30 +58,3 @@ router.get '/', (request, response, next) ->
     contentPage: true
     isSignedIn: false #stub
     # userName: userNameReturnFunction(if signedIn)
-
-router.get '/sign-up', (request, response, next) ->
-  response.render 'sign-up',
-    palettes: null
-    # drawings: req.cookies # in cookie if exists
-
-router.post '/new-sign-up', (request, response, next) ->
-  email = helpers.validateEmail request
-  nickname = helpers.validateName request
-  signUpToken = uuid.v4()
-  response.send {email, nickname, signUpToken}
-  # database.newSignUp(email, nickname, signUpToken)
-
-router.post '/is-valid-email', (request, response, next) ->
-  email = request.body.email
-  response.send helpers.isEmail(email)
-
-#stub
-router.post '/sign-in', (request, response, next) ->
-  response.send request.body
-
-#stub
-router.post '/save-drawing', (request, response, next) ->
-  response.send request.body #base 64 img
-
-
-module.exports = router

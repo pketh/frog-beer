@@ -10,11 +10,6 @@ database = require './database'
 mailer = require './mailer'
 routes = require './routes'
 
-# if process.env.NODE_ENV is 'development'
-#   frogBeer = 'localhost:3000'
-# else
-#   frogBeer = 'frog.beer'
-
 database.init()
 app = express()
 app.set 'views', path.join __dirname, 'templates'
