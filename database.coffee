@@ -4,6 +4,7 @@ mongojs = require 'mongojs'
 sync = require 'sync'
 
 config = require './config.json'
+mailer = require './mailer'
 [Users, Drawings, Topics] = [null]
 
 if process.env.NODE_ENV is 'development'
@@ -38,8 +39,7 @@ database =
       upsert: true
     ,
     (error, document) ->
-      console.log document
-      # TODO email signUpToken to email
+      mailer.sendSignUp(email, nickname, signUpToken)
       response.send true
 
 

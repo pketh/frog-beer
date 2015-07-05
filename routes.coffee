@@ -24,14 +24,10 @@ router.post '/new-sign-up', (request, response, next) ->
   signUpToken = uuid.v4()
   database.newSignUp(email, nickname, signUpToken, response)
 
-
-
-
-
 # stub
 # this is where the emailed token link goes to for verification/welcome
 router.get '/hello', (request, response, next) ->
-  response.send 'hello'
+  response.send 'hello id: ' + request.query.id
 
 
 
@@ -39,13 +35,22 @@ router.get '/hello', (request, response, next) ->
 # router.post '/sign-in', (request, response, next) ->
 #   response.send request.body
 
+
+
 #stub
 # router.post '/save-drawing', (request, response, next) ->
-#   response.send request.body #base 64 img
+  # request.body is #base 64 png img
+  # https://developer.github.com/v3/repos/contents/#create-a-file
+  # https://www.npmjs.com/package/github
+  # create a new public repo
 
+router.get '/email-test', (request, response, next) ->
+  response.render 'emails/sign-up'
+  # add params for email nick
 
-module.exports = router
-
+# stub:
+# router.get '/unsubscribe', (request, response, next) ->
+#   response.send 'hello id: ' + request.query.id
 
 router.get '/', (request, response, next) ->
   response.render 'draw',
@@ -58,3 +63,6 @@ router.get '/', (request, response, next) ->
     contentPage: true
     isSignedIn: false #stub
     # userName: userNameReturnFunction(if signedIn)
+
+
+module.exports = router

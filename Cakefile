@@ -37,7 +37,7 @@ task 'start', 'Start 🐸 🍺', (options) ->
 
 task 'styles', 'Watch and compile styl → css', ->
   exec 'export NODE_ENV=development'
-  child = exec 'stylus --watch public/css/styles.styl -u autoprefixer-stylus'
+  child = exec 'stylus --watch public/css/styles.styl public/css/emails.styl -u autoprefixer-stylus'
   child.stdout.on 'data', (data) -> console.log data
 
 option '-u', '--upgrade', 'upgrade package.json dependencies to match latest versions'
