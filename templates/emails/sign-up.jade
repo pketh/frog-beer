@@ -1,23 +1,41 @@
+// from: Frog Beer
+
+if !subject
+  - subject = '🐸 Confirm your account'
+
+if !nickname
+  - nickname = 'pirijan'
+
+if !url
+  - url = 'http://localhost:3000'
+
+if !signUpUrl
+  - signUpUrl = 'http://localhost:3000?sign-up-token=12345abc'
+
 doctype html
 html
   head
-    title= '@subject'
+    title= subject
     meta(name='viewport' width='device-width' initial-scale='1')
     meta(http-equiv='Content-Type' content='text/html' charset='UTF-8')
     style
       include ../../public/css/emails.css
   body
-    include ../header
 
-    section.hey
-      p white background version..
-      p need hardcoded paths
-      p hey! I'm an email
-      p need to inline the css ...
-      p no scripts.
-      p cta
+    header
+      img(src="#{url}/img/frog.png" srcset="#{url}/img/frog@2x.png 2x")
 
-    include ../footer
+    section.content
+      p= 'Dear '
+        span.nickname= nickname + ','
 
-    div unsubscribe from weekly topic emails link here w hardcoded route and query. /unsubscribe?=pirijan@gmail.com
-    div page contains... Unsubscribed! come back soon.. new topics happen every week, you can still draw things
+      p We are pleased to inform you that you a place at the Frog Beer School of Pixels and Wizardry:
+
+    section.actions
+      a(href=signUpUrl class='link') Confirm your account
+
+    section.sign-off
+      p Yours sincerely,
+      p.signature – All frogs, everywhere.
+
+    // include email-footer

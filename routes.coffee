@@ -44,9 +44,9 @@ router.get '/hello', (request, response, next) ->
   # https://www.npmjs.com/package/github
   # create a new public repo
 
-router.get '/email-test', (request, response, next) ->
+router.get '/sign-up-email-test', (request, response, next) ->
   response.render 'emails/sign-up'
-  # add params for email nick
+
 
 # stub:
 # router.get '/unsubscribe', (request, response, next) ->

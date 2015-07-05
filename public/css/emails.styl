@@ -1,3 +1,46 @@
 @require 'normalize'
 @require 'globals'
 @require 'header'
+
+section,
+header,
+footer
+  margin-bottom: 3rem
+
+p,
+.link
+  font-family: menlo
+  line-height: 24px
+  max-width: 500px
+  color: white
+
+.nickname
+  text-transform: capitalize
+
+.signature
+  font-style: italic
+
+.link
+  color: action
+  display: inline-block
+  text-decoration: underline
+  &:hover,
+  &:active
+    text-decoration: none
+
+// .actions
+  // margin-top: 26px
+
+
+// .submit
+//   display: inline-block
+//   border: 2px white solid
+//   border-radius: 5px
+//   padding: 0px 15px
+//   margin-top: 15px
+//   border-color: white
+//   color: white
+//   &:focus
+//     outline: initial
+//   &:active
+//     background-color: rgba(255,255,255,0.8)

@@ -286,3 +286,30 @@ header {
   display: inline-block;
   float: right;
 }
+section,
+header,
+footer {
+  margin-bottom: 3rem;
+}
+p,
+.link {
+  font-family: Menlo, Consolas, Monaco, monospace;
+  line-height: 24px;
+  max-width: 500px;
+  color: #fff;
+}
+.nickname {
+  text-transform: capitalize;
+}
+.signature {
+  font-style: italic;
+}
+.link {
+  color: #e88ee5;
+  display: inline-block;
+  text-decoration: underline;
+}
+.link:hover,
+.link:active {
+  text-decoration: none;
+}

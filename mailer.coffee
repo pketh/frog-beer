@@ -2,8 +2,9 @@ express = require 'express'
 path = require 'path'
 
 config = require './config.json'
-# database = require './database'
+database = require './database' # unused for now
 sendgrid = require('sendgrid')(config.sendgrid)
+
 signUpEmail = null
 
 app = express()
@@ -11,18 +12,18 @@ app.set 'views', path.join __dirname, 'templates'
 app.set 'view engine', 'jade'
 
 if process.env.NODE_ENV is 'development'
-  url = "http://localhost:3000/"
+  url = "http://localhost:3000"
 else
-  url = "http://frog.beer/"
+  url = "http://frog.beer"
 
 
-renderSignUpEmail = (email, nickname, signUpToken, subject) ->
+renderSignUpEmail = (nickname, signUpToken, subject) ->
+  console.log "rendering email for #{subject}"
   app.render 'emails/sign-up',
-    url: url
-    email: email
-    nickname: nickname
-    signUpToken: signUpToken
     subject: subject
+    nickname: nickname
+    url: url
+    signUpUrl: "#{url}?sign-up-token=#{signUpToken}"
   ,
   (error, html) ->
     console.log html
@@ -32,11 +33,12 @@ mailer =
 
   sendSignUp: (emailRecipient, nickname, signUpToken) ->
     console.log "sending mail to #{nickname}"
-    subject = '🐸 Ribbit'
-    renderSignUpEmail(emailRecipient, nickname, signUpToken, subject)
+    subject = '🐸 Confirm your account'
+    renderSignUpEmail(nickname, signUpToken, subject)
     sendgrid.send
       to: emailRecipient
-      from: 'hi@frog.beer'
+      from: 'frog@frog.beer'
+      fromname: 'Frog Beer'
       replyTo: 'hi@pketh.org'
       subject: subject
       html: signUpEmail
