@@ -38,16 +38,17 @@ router.post '/new-sign-up', (request, response, next) ->
   # https://www.npmjs.com/package/github
   # create a new public repo
 
-# router.get '/sign-up-email-test', (request, response, next) ->
-#   response.render 'emails/sign-up'
+# stub/test
+router.get '/sign-up-email-test', (request, response, next) ->
+  response.render 'emails/sign-up'
 
 # stub: redirect here on sign-up-in form completion
-router.get '/owl-en-route', (request, response, next) ->
-  response.send 'o hi - owls is harry pottery/wizarding reference'
+router.get '/sign-up-in-success', (request, response, next) ->
+  response.send 'o hi - email en route. check your inbox for a nonsurprising nice surprise'
 
-# stub:
+# stub/test:
 router.get '/unsubscribe', (request, response, next) ->
-  response.send 'hello id: ' + request.query.id
+  response.send 'hello id: ' + request.query.signUpToken
 
 router.get '/', (request, response, next) ->
   # if request.query.id ...

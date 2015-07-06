@@ -24,7 +24,7 @@ renderSignUpEmail = (nickname, signUpToken, subject) ->
     subject: subject
     nickname: nickname
     url: url
-    signUpUrl: "#{url}?sign-up-token=#{signUpToken}"
+    signUpUrl: "#{url}?signUpToken=#{signUpToken}"
   ,
   (error, html) ->
     html = juice html, {applyWidthAttributes: true}
