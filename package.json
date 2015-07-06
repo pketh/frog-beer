@@ -21,6 +21,7 @@
     "node-uuid": "^1.4.3",
     "sendgrid": "^1.8.0",
     "sync": "^0.2.5",
+    "underscore": "^1.8.3",
     "validator": "^3.40.1"
   }
 }
