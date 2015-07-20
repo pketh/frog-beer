@@ -488,3 +488,12 @@ section.signup .submit:active {
 section.signup .sign-up-in {
   margin-top: 2em;
 }
+section.signup-success {
+  max-width: 420px;
+}
+section.signup-success .instructions {
+  font-family: "Plantin", Georgia, Serif;
+  font-style: italic;
+  font-size: 2rem;
+  line-height: 2.4rem;
+}

@@ -1,6 +1,11 @@
 EMAIL_INPUT = $('input[name="email"]')
 NICKNAME_INPUT = $('input[name="nickname"]')
 
+showSuccess = (nickname) ->
+  $('.signup').addClass('hidden')
+  $('.email-output').text(nickname)
+  $('.signup-success').removeClass('hidden')
+
 submitSignUpForm = (email, nickname) ->
   $.ajax
     url: '/new-sign-up'
@@ -10,8 +15,7 @@ submitSignUpForm = (email, nickname) ->
       'nickname': nickname
       }
     success: (response) ->
-      console.log response
-      # TODO goto sign-up-in-success page
+      showSuccess(nickname)
 
 $('form.sign-up').submit (event) ->
   event.preventDefault()
