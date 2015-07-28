@@ -16,6 +16,5 @@ helpers =
     unless validator.isLength(nickname, 1, 200)
       throw new Error('name too long')
     return nickname
-  
 
 module.exports = helpers

@@ -2,6 +2,8 @@ colors = require 'colors'
 moment = require 'moment'
 mongojs = require 'mongojs'
 sync = require 'sync'
+uuid = require 'node-uuid'
+_ = require 'underscore'
 
 config = require './config.json'
 mailer = require './mailer'
@@ -17,7 +19,17 @@ db = mongojs path
 collections = ->
   Users = db.collection 'Users'
   Drawings = db.collection 'Drawings'
-  Drawings = db.collection 'Topics'
+  Topics = db.collection 'Topics'
+
+#temp
+# clearSignUpToken = (document) ->
+#   id = mongojs.ObjectId(document._id)
+#   Users.update
+#     _id: id
+#     {
+#       signUpToken: null
+#     }
+
 
 database =
 
@@ -27,6 +39,8 @@ database =
       db.createCollection 'Drawings', {}
       db.createCollection 'Topics', {}
       collections()
+      # Users.find (err, docs) ->
+      #   console.log docs
 
   newSignUp: (email, nickname, signUpToken, response) ->
     Users.update
@@ -41,6 +55,24 @@ database =
     (error, document) ->
       mailer.sendSignUp(email, nickname, signUpToken)
       response.send true
+
+  # if token matches an email acct from the db, a cookie is set w a login token
+  addAccountToken: (signUpToken, response) ->
+    accountToken = uuid.v4()
+    Users.findAndModify
+      query:
+        signUpToken: signUpToken
+      update:
+        $push:
+          accountToken: accountToken
+        # TODO signUpToken: null
+      upsert: true
+    ,
+    (error, document) ->
+      response.send
+        email: document.email
+        accountToken: _.last document.accountToken
+      # temp : clearSignUpToken(document)
 
 
 module.exports = database
