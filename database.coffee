@@ -15,6 +15,7 @@ if process.env.NODE_ENV is 'development'
 else
   path = "mongodb://#{config.prodDB.user}:#{config.prodDB.password}@#{config.prodDB.path}"
   console.log "mongo #{config.prodDB.path} -u #{config.prodDB.user} -p #{config.prodDB.password}".cyan
+
 db = mongojs path
 
 collections = ->
@@ -22,14 +23,34 @@ collections = ->
   Drawings = db.collection 'Drawings'
   Topics = db.collection 'Topics'
 
-#temp
-# clearSignUpToken = (document) ->
-#   id = mongojs.ObjectId(document._id)
-#   Users.update
-#     _id: id
-#     {
-#       signUpToken: null
-#     }
+signInExistingUser = (email, nickname, signUpToken, response) ->
+  console.log 'signInExistingUser'
+  Users.findAndModify
+    query:
+      email: email
+    update:
+      $set:
+        name: nickname
+        signUpToken: signUpToken
+  ,
+  (error, document) ->
+    mailer.sendSignUp(email, nickname, signUpToken)
+
+newUser = (email, nickname, signUpToken, response) ->
+  console.log 'newUser'
+  Users.update
+    email: email
+    {
+      email: email
+      name: nickname
+      signUpToken: signUpToken
+    },
+    upsert: true
+  ,
+  (error, document) ->
+    mailer.sendSignUp(email, nickname, signUpToken)
+    response.send true
+
 
 
 database =
@@ -40,53 +61,21 @@ database =
       db.createCollection 'Drawings', {}
       db.createCollection 'Topics', {}
       collections()
-      # Users.find (err, docs) ->
-      #   console.log docs
 
   newSignUp: (email, nickname, signUpToken, response) ->
-    # emailExists = Users.findOne {email: email}
-    # if not emailExists
-    #   Users.findAndModify
-    #     query:
-    #       email: email
-    #     update:
-    #         name: nickname
-    #         signUpToken: signUpToken
-    #       },
-    #     upsert: true
-    #   ,
-    #   (error, document) ->
-    #     mailer.sendSignUp(email, nickname, signUpToken)
-    #     response.send true
-    # else
-    Users.update
+    Users.findOne
       email: email
-      {
-        email: email
-        name: nickname
-        signUpToken: signUpToken
-      },
-      upsert: true
     ,
     (error, document) ->
-      mailer.sendSignUp(email, nickname, signUpToken)
-      response.send true
-
-
-  # signUpTokenExists: (signUpToken)
-  #   Users.find
-
+      if document
+        console.log '1'
+        signInExistingUser(email, nickname, signUpToken, response)
+      else
+        console.log '2'
+        newUser(email, nickname, signUpToken, response)
 
   addAccountToken: (signUpToken, response) ->
     accountToken = uuid.v4()
-    # if signup token exists, add account tokens
-    # signUpTokenExists = Users.findOne {signUpToken: signUpToken}
-    #
-    # console.log signUpTokenExists
-    #
-    # if signUpTokenExists
-    console.log signUpToken.rainbow
-
     Users.findAndModify
       query:
         signUpToken: signUpToken
@@ -99,8 +88,10 @@ database =
     ,
     (error, document) ->
       console.log document
-      if document
-        response.send accountToken
+      # if document
+        # response.send accountToken
+
+
     # else
     #   console.log 'signup token not found'.rainbow
     #   null
