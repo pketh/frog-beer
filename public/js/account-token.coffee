@@ -8,12 +8,12 @@ GetQueryStringParams = (param) ->
 
 signUpToken = GetQueryStringParams('signUpToken')
 
-if signUpToken
-  $.ajax
-    url: '/add-account-token'
-    type: 'POST'
-    data: {
-      'signUpToken': signUpToken
-      }
-    success: (response) ->
-      console.log JSON.stringify(response)
+# if signUpToken
+#   $.ajax
+#     url: '/add-account-token'
+#     type: 'POST'
+#     data: {
+#       'signUpToken': signUpToken
+#       }
+#     success: (response) ->
+#       console.log JSON.stringify(response)

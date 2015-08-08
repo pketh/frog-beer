@@ -28,7 +28,6 @@ renderSignUpEmail = (nickname, signUpToken, subject) ->
   ,
   (error, html) ->
     html = juice html, {applyWidthAttributes: true}
-    console.log html
     signUpEmail = html
 
 mailer =

@@ -14,6 +14,7 @@ if process.env.NODE_ENV is 'development'
   # console.log "mongo #{config.devDB.path} -u #{config.devDB.user} -p #{config.devDB.password}".cyan
 else
   path = "mongodb://#{config.prodDB.user}:#{config.prodDB.password}@#{config.prodDB.path}"
+  console.log "mongo #{config.prodDB.path} -u #{config.prodDB.user} -p #{config.prodDB.password}".cyan
 db = mongojs path
 
 collections = ->
@@ -43,6 +44,21 @@ database =
       #   console.log docs
 
   newSignUp: (email, nickname, signUpToken, response) ->
+    # emailExists = Users.findOne {email: email}
+    # if not emailExists
+    #   Users.findAndModify
+    #     query:
+    #       email: email
+    #     update:
+    #         name: nickname
+    #         signUpToken: signUpToken
+    #       },
+    #     upsert: true
+    #   ,
+    #   (error, document) ->
+    #     mailer.sendSignUp(email, nickname, signUpToken)
+    #     response.send true
+    # else
     Users.update
       email: email
       {
@@ -56,23 +72,43 @@ database =
       mailer.sendSignUp(email, nickname, signUpToken)
       response.send true
 
-  # if token matches an email acct from the db, a cookie is set w a login token
+
+  # signUpTokenExists: (signUpToken)
+  #   Users.find
+
+
   addAccountToken: (signUpToken, response) ->
     accountToken = uuid.v4()
+    # if signup token exists, add account tokens
+    # signUpTokenExists = Users.findOne {signUpToken: signUpToken}
+    #
+    # console.log signUpTokenExists
+    #
+    # if signUpTokenExists
+    console.log signUpToken.rainbow
+
     Users.findAndModify
       query:
         signUpToken: signUpToken
       update:
+        $set:
+          accountConfirmed: true
+          signUpToken: null
         $push:
-          accountToken: accountToken
-        # TODO signUpToken: null
-      upsert: true
+          accountTokens: accountToken
     ,
     (error, document) ->
-      response.send
-        email: document.email
-        accountToken: _.last document.accountToken
-      # temp : clearSignUpToken(document)
+      console.log document
+      if document
+        response.send accountToken
+    # else
+    #   console.log 'signup token not found'.rainbow
+    #   null
+        # to client -> where a cookie is set w a account token
+        # response.send
+        #   email: document.email
+        #   accountTokens: _.last document.accountToken
+        # temp : clearSignUpToken(document)
 
 
 module.exports = database

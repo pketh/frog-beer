@@ -49,9 +49,9 @@ router.get '/unsubscribe', (request, response, next) ->
 
 router.get '/', (request, response, next) ->
   # temp: test with localhost:3000/?signUpToken=a8430a7a-5a67-4030-942a-977881bcc19f
-  # if request.query.signUpToken
-  #   signUpToken = request.query.signUpToken
-  #   database.addAccountToken(signUpToken)
+  if request.query.signUpToken
+    signUpToken = request.query.signUpToken
+    database.addAccountToken(signUpToken)
   response.render 'draw',
     topic: 'Prarie Dogs on a Tea-Party Acid Trip' # stub
     lastTopic: 'Duplo Times with LEGO' # stub
@@ -63,8 +63,8 @@ router.get '/', (request, response, next) ->
     isSignedIn: false #stub
     # userName: userNameReturnFunction(if signedIn)
 
-router.post '/add-account-token', (request, response, next) ->
-  signUpToken = request.body.signUpToken
-  database.addAccountToken(signUpToken, response)
+# router.post '/add-account-token', (request, response, next) ->
+#   signUpToken = request.body.signUpToken
+#   database.addAccountToken(signUpToken, response)
 
 module.exports = router
