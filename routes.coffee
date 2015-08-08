@@ -9,8 +9,8 @@ palettes = require './palettes'
 helpers = require './helpers'
 
 
-router.get '/sign-up', (request, response, next) ->
-  response.render 'sign-up',
+router.get '/sign-up-in', (request, response, next) ->
+  response.render 'sign-up-in',
     palettes: null
     # drawings: req.cookies # in cookie if exists
 
@@ -25,12 +25,6 @@ router.post '/new-sign-up', (request, response, next) ->
   database.newSignUp(email, nickname, signUpToken, response)
 
 
-#stub - ?needed?
-# router.post '/sign-in', (request, response, next) ->
-#   response.send request.body
-
-
-
 #stub
 # router.post '/save-drawing', (request, response, next) ->
   # request.body is #base 64 png img
@@ -38,20 +32,15 @@ router.post '/new-sign-up', (request, response, next) ->
   # https://www.npmjs.com/package/github
   # create a new public repo
 
-# stub/test
-router.get '/sign-up-email-test', (request, response, next) ->
-  response.render 'emails/sign-up'
-
 
 # stub/test:
-router.get '/unsubscribe', (request, response, next) ->
-  response.send 'hello id: ' + request.query.signUpToken
+# router.get '/unsubscribe-from-emails', (request, response, next) ->
+#   response.send 'hello id: ' + request.query.signUpToken
+
+# stub:
+# route.get '/sign-out' .. kills all accountTokens for an email account
 
 router.get '/', (request, response, next) ->
-  # temp: test with localhost:3000/?signUpToken=a8430a7a-5a67-4030-942a-977881bcc19f
-  if request.query.signUpToken
-    signUpToken = request.query.signUpToken
-    database.addAccountToken(signUpToken)
   response.render 'draw',
     topic: 'Prarie Dogs on a Tea-Party Acid Trip' # stub
     lastTopic: 'Duplo Times with LEGO' # stub
@@ -61,10 +50,11 @@ router.get '/', (request, response, next) ->
     github: config.github
     contentPage: true
     isSignedIn: false #stub
-    # userName: userNameReturnFunction(if signedIn)
 
-# router.post '/add-account-token', (request, response, next) ->
-#   signUpToken = request.body.signUpToken
-#   database.addAccountToken(signUpToken, response)
+
+router.post '/add-account-token', (request, response, next) ->
+  signUpToken = request.body.signUpToken
+  console.log signUpToken
+  database.addAccountToken(signUpToken, response)
 
 module.exports = router

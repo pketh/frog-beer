@@ -24,7 +24,6 @@ collections = ->
   Topics = db.collection 'Topics'
 
 signInExistingUser = (email, nickname, signUpToken, response) ->
-  console.log 'signInExistingUser'
   Users.findAndModify
     query:
       email: email
@@ -37,7 +36,6 @@ signInExistingUser = (email, nickname, signUpToken, response) ->
     mailer.sendSignUp(email, nickname, signUpToken)
 
 newUser = (email, nickname, signUpToken, response) ->
-  console.log 'newUser'
   Users.update
     email: email
     {
@@ -52,7 +50,6 @@ newUser = (email, nickname, signUpToken, response) ->
     response.send true
 
 
-
 database =
 
   init: ->
@@ -63,15 +60,14 @@ database =
       collections()
 
   newSignUp: (email, nickname, signUpToken, response) ->
+    console.log signUpToken.magenta
     Users.findOne
       email: email
     ,
     (error, document) ->
       if document
-        console.log '1'
         signInExistingUser(email, nickname, signUpToken, response)
       else
-        console.log '2'
         newUser(email, nickname, signUpToken, response)
 
   addAccountToken: (signUpToken, response) ->
@@ -87,19 +83,9 @@ database =
           accountTokens: accountToken
     ,
     (error, document) ->
-      console.log document
-      # if document
-        # response.send accountToken
+      if document
+        response.send accountToken
 
-
-    # else
-    #   console.log 'signup token not found'.rainbow
-    #   null
-        # to client -> where a cookie is set w a account token
-        # response.send
-        #   email: document.email
-        #   accountTokens: _.last document.accountToken
-        # temp : clearSignUpToken(document)
 
 
 module.exports = database
