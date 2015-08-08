@@ -17,3 +17,5 @@ if signUpToken
       }
     success: (response) ->
       console.log JSON.stringify(response)
+      # TODO: make the cookie here
+

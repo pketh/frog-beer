@@ -17,7 +17,7 @@ watchedServerFiles = [
 ]
 
 task 'coffee', 'Watch and compile public ☕️  → js', ->
-  child = exec 'coffee -w -c public/js/client.coffee public/js/sign-up-in.coffee public/js/account-token.coffee'
+  child = exec 'coffee -w -c public/js/client.coffee public/js/sign-up-in.coffee public/js/account.coffee'
   child.stdout.on 'data', (data) -> console.log data
 
 task 'setup', 'Setup environment from packages', ->

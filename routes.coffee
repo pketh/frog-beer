@@ -41,6 +41,7 @@ router.post '/new-sign-up', (request, response, next) ->
 # route.get '/sign-out' .. kills all accountTokens for an email account
 
 router.get '/', (request, response, next) ->
+  # server checks for accounttoken cookie
   response.render 'draw',
     topic: 'Prarie Dogs on a Tea-Party Acid Trip' # stub
     lastTopic: 'Duplo Times with LEGO' # stub

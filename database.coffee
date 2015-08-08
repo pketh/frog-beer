@@ -87,5 +87,4 @@ database =
         response.send accountToken
 
 
-
 module.exports = database
