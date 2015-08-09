@@ -8,8 +8,11 @@ GetQueryStringParams = (param) ->
 
 signUpToken = GetQueryStringParams('signUpToken')
 accountCookie = Cookies.get().accountToken
+greetings = ['Aloha', 'Ciao', '今日は', 'Hello', 'Hola', 'Bonjour']
 
 if accountCookie
+  randomGreeting = _.sample(greetings)
+  $('.greeting').html(randomGreeting)
   $.ajax
     url: '/get-user-name'
     type: 'POST'
