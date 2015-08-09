@@ -34,6 +34,7 @@ signInExistingUser = (email, nickname, signUpToken, response) ->
   ,
   (error, document) ->
     mailer.sendSignUp(email, nickname, signUpToken)
+    response.send true
 
 createNewUser = (email, nickname, signUpToken, response) ->
   Users.update
