@@ -94,4 +94,18 @@ database =
       if document
         response.send document.name
 
+  clearAccountTokens: (accountToken) ->
+    Users.findAndModify
+      query:
+        accountToken: accountToken
+      ,
+      update:
+        $set:
+          accountTokens: []
+    ,
+    (error, document) ->
+      if document
+        console.log "You're now signed out everywhere"
+
+
 module.exports = database

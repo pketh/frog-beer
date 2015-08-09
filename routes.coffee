@@ -38,7 +38,12 @@ router.post '/new-sign-up', (request, response) ->
 # router.get '/unsubscribe-from-emails', (request, response) ->
 #   response.send 'hello id: ' + request.query.signUpToken
 
-# route.get '/sign-out' .. kills all accountTokens for an email account
+router.get '/sign-out', (request, response) ->
+  accountToken = request.cookies.accountToken
+  database.clearAccountTokens(accountToken)
+  response.render 'sign-out',
+    palettes: null
+  #.. kills all accountTokens for an email account
 
 
 router.post '/get-user-name', (request, response) ->
@@ -51,6 +56,8 @@ router.post '/add-account-token', (request, response) ->
 
 router.get '/', (request, response) ->
   accountCookie = request.cookies.accountToken
+  # TODO check for database.accountCookieIsValid : bool
+  # and insert return in 'isSignedIn'
   response.render 'draw',
     topic: 'Prarie Dogs on a Tea-Party Acid Trip' # stub
     lastTopic: 'Duplo Times with LEGO' # stub
