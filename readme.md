@@ -10,17 +10,15 @@ npm install -g coffee-script
 npm install -g npm-check-updates
 ```
 
-Edit `config.json`,
+Edit `config.json` using the sample file as a guide,
 
 Then run `cake setup` to setup your environment.
 
-## Set your environment [??]
+## remove this:Set your environment [??]
 
 `export NODE_ENV=development` (or production)
 
 ## 🍰 Party
-
-Cool things happen through `cake`
 
 `cake start` for the server, `cake styles` and `cake coffee` for compiling public stuff.
 
