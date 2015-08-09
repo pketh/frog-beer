@@ -27,6 +27,9 @@ router.post '/new-sign-up', (request, response, next) ->
 
 #stub
 # router.post '/save-drawing', (request, response, next) ->
+  # accountCookie = request.cookies.accountToken
+  # ?if accountCookie
+  #   ?database.saveCookie
   # request.body is #base 64 png img
   # https://developer.github.com/v3/repos/contents/#create-a-file
   # https://www.npmjs.com/package/github
@@ -41,7 +44,7 @@ router.post '/new-sign-up', (request, response, next) ->
 # route.get '/sign-out' .. kills all accountTokens for an email account
 
 router.get '/', (request, response, next) ->
-  # server checks for accounttoken cookie
+  accountCookie = request.cookies.accountToken
   response.render 'draw',
     topic: 'Prarie Dogs on a Tea-Party Acid Trip' # stub
     lastTopic: 'Duplo Times with LEGO' # stub
@@ -50,8 +53,7 @@ router.get '/', (request, response, next) ->
     trello: config.trello
     github: config.github
     contentPage: true
-    isSignedIn: false #stub
-
+    isSignedIn: if accountCookie then true else false
 
 router.post '/add-account-token', (request, response, next) ->
   signUpToken = request.body.signUpToken
