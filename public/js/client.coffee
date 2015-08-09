@@ -54,6 +54,8 @@ $(document).keypress (key) ->
   else if key.which is 54
     context = $('.color')[5]
     selectColor(context)
+  else if key.which is 55
+    $('.shuffle').trigger('click')
 
 newPalette()
 

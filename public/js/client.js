@@ -87,6 +87,8 @@
     } else if (key.which === 54) {
       context = $('.color')[5];
       return selectColor(context);
+    } else if (key.which === 55) {
+      return $('.shuffle').trigger('click');
     }
   });
 
