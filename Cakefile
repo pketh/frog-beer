@@ -51,3 +51,11 @@ task 'update', 'Checks for updates to packages', (options) ->
     update.stdout.on 'data', (data) -> console.log data.toString().trim()
   else
     spawn 'npm-check-updates', [], stdio: 'inherit'
+
+task 'dev', 'Switches environment to development', ->
+  console.log "this doesn't work yet"
+  exec 'export NODE_ENV=development'
+
+task 'prod', 'Switches environment to production', ->
+  console.log "this doesn't work yet"
+  exec 'export NODE_ENV=production'
