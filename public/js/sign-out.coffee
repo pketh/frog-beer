@@ -1,1 +1,2 @@
-console.log 'hello sign out'
+console.log 'removed accountToken cookie :O'
+Cookies.remove('accountToken')

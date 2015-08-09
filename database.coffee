@@ -97,15 +97,14 @@ database =
   clearAccountTokens: (accountToken) ->
     Users.findAndModify
       query:
-        accountToken: accountToken
-      ,
+        accountTokens: accountToken
       update:
-        $set:
-          accountTokens: []
+        $unset:
+          accountTokens: ""
     ,
     (error, document) ->
       if document
-        console.log "You're now signed out everywhere"
+        console.log "💣"
 
 
 module.exports = database

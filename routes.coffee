@@ -9,10 +9,6 @@ palettes = require './palettes'
 helpers = require './helpers'
 
 
-router.get '/sign-up-in', (request, response) ->
-  response.render 'sign-up-in',
-    palettes: null
-    # drawings: req.cookies # in cookie if exists
 
 router.post '/is-valid-email', (request, response) ->
   email = request.body.email
@@ -38,11 +34,18 @@ router.post '/new-sign-up', (request, response) ->
 # router.get '/unsubscribe-from-emails', (request, response) ->
 #   response.send 'hello id: ' + request.query.signUpToken
 
+router.get '/sign-up-in', (request, response) ->
+  response.render 'sign-up-in',
+    palettes: null
+    signUpInPage: true
+    # drawings: req.cookies # in cookie if exists
+
 router.get '/sign-out', (request, response) ->
   accountToken = request.cookies.accountToken
   database.clearAccountTokens(accountToken)
   response.render 'sign-out',
     palettes: null
+    signOutPage: true
   #.. kills all accountTokens for an email account
 
 
