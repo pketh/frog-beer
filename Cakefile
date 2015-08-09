@@ -20,7 +20,7 @@ clientCoffeePath = 'public/js/'
 clientStylesPath = 'public/css/'
 
 task 'coffee', 'Watch and compile public ☕️  → js', ->
-  child = exec "coffee -w -c #{clientCoffeePath}client.coffee #{clientCoffeePath}sign-up-in.coffee #{clientCoffeePath}sign-out.coffee #{clientCoffeePath}account.coffee"
+  child = exec "coffee -w -c #{clientCoffeePath}draw.coffee #{clientCoffeePath}sign-up-in.coffee #{clientCoffeePath}sign-out.coffee #{clientCoffeePath}account.coffee"
   child.stdout.on 'data', (data) -> console.log data
 
 task 'setup', 'Setup environment from packages', ->
