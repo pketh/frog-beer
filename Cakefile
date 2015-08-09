@@ -52,6 +52,9 @@ task 'update', 'Checks for updates to packages', (options) ->
   else
     spawn 'npm-check-updates', [], stdio: 'inherit'
 
+
+# incomplete tasks:
+
 task 'dev', 'Switches environment to development', ->
   console.log "this doesn't work yet"
   exec 'export NODE_ENV=development'
