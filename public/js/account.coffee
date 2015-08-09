@@ -30,3 +30,4 @@ else if signUpToken
       accountToken = response
       Cookies.set 'accountToken', accountToken, { expires: 10000 }
       console.log "cookie saved! #{accountToken}"
+      location.reload()

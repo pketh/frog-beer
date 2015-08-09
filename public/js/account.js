@@ -45,7 +45,8 @@
         Cookies.set('accountToken', accountToken, {
           expires: 10000
         });
-        return console.log("cookie saved! " + accountToken);
+        console.log("cookie saved! " + accountToken);
+        return location.reload();
       }
     });
   }

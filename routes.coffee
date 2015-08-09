@@ -59,8 +59,6 @@ router.post '/add-account-token', (request, response) ->
 
 router.get '/', (request, response) ->
   accountCookie = request.cookies.accountToken
-  # TODO check for database.accountCookieIsValid : bool
-  # and insert return in 'isSignedIn'
   response.render 'draw',
     topic: 'Prarie Dogs on a Tea-Party Acid Trip' # stub
     lastTopic: 'Duplo Times with LEGO' # stub
