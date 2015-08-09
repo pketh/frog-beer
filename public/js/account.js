@@ -25,7 +25,12 @@
         'signUpToken': signUpToken
       },
       success: function(response) {
-        return console.log(JSON.stringify(response));
+        var accountToken;
+        accountToken = response;
+        Cookies.set('accountToken', accountToken, {
+          expires: 10000
+        });
+        return console.log("cookie saved! " + accountToken);
       }
     });
   }

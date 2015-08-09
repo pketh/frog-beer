@@ -55,7 +55,6 @@ router.get '/', (request, response, next) ->
 
 router.post '/add-account-token', (request, response, next) ->
   signUpToken = request.body.signUpToken
-  console.log signUpToken
   database.addAccountToken(signUpToken, response)
 
 module.exports = router

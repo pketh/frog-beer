@@ -60,7 +60,7 @@ database =
       collections()
 
   newSignUp: (email, nickname, signUpToken, response) ->
-    console.log signUpToken.magenta
+    console.log "account token: #{signUpToken}".magenta
     Users.findOne
       email: email
     ,

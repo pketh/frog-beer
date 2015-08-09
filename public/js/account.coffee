@@ -16,6 +16,7 @@ if signUpToken
       'signUpToken': signUpToken
       }
     success: (response) ->
-      console.log JSON.stringify(response)
-      # TODO: make the cookie here
+      accountToken = response
+      Cookies.set 'accountToken', accountToken, { expires: 10000 }
+      console.log "cookie saved! #{accountToken}"
 
