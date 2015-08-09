@@ -216,7 +216,7 @@
     return $.post('/save-drawing', {
       'image': image,
       'week': 0,
-      'artistID': 'yr32saf32'
+      'userID': 'yr32saf32'
     }, function(response) {
       console.log(response);
       $('.save-drawing').hide();

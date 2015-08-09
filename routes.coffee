@@ -48,7 +48,7 @@ router.get '/', (request, response, next) ->
   response.render 'draw',
     topic: 'Prarie Dogs on a Tea-Party Acid Trip' # stub
     lastTopic: 'Duplo Times with LEGO' # stub
-    lastWeek: {'path1':'artist1', 'path2':'artist2', 'path3':'artist3'} # stub - limit to 25 w random order?
+    lastWeek: {'path1':'user1', 'path2':'user2', 'path3':'user3'} # stub - limit to 25 w random order?
     palettes: palettes
     trello: config.trello
     github: config.github

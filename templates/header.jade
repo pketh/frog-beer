@@ -3,7 +3,7 @@ header
     a(href='/')
       img(src='img/frog.png' srcset='img/frog@2x.png 2x')
   if isSignedIn
-    p.artist @artistName –
+    p.user @userName –
     span.secondary-link.log-out sign out
   else if contentPage
-    a(href='/sign-up-in').artist.secondary-link.sign-up-in Sign up or in
+    a(href='/sign-up-in').user.secondary-link.sign-up-in Sign up or in
