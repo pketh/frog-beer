@@ -35,7 +35,7 @@ signInExistingUser = (email, nickname, signUpToken, response) ->
   (error, document) ->
     mailer.sendSignUp(email, nickname, signUpToken)
 
-newUser = (email, nickname, signUpToken, response) ->
+createNewUser = (email, nickname, signUpToken, response) ->
   Users.update
     email: email
     {
@@ -68,7 +68,7 @@ database =
       if document
         signInExistingUser(email, nickname, signUpToken, response)
       else
-        newUser(email, nickname, signUpToken, response)
+        createNewUser(email, nickname, signUpToken, response)
 
   addAccountToken: (signUpToken, response) ->
     accountToken = uuid.v4()
@@ -86,5 +86,12 @@ database =
       if document
         response.send accountToken
 
+  getUserName: (accountToken, response) ->
+    Users.findOne
+      accountToken: accountToken
+    ,
+    (error, document) ->
+      if document
+        response.send document.name
 
 module.exports = database

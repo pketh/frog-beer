@@ -20,7 +20,18 @@
   accountCookie = Cookies.get().accountToken;
 
   if (accountCookie) {
-    console.log("user has account token cookie: " + accountCookie);
+    $.ajax({
+      url: '/get-user-name',
+      type: 'POST',
+      data: {
+        'accountCookie': accountCookie
+      },
+      success: function(response) {
+        var userName;
+        userName = response;
+        return $('.user-name').html(userName);
+      }
+    });
   } else if (signUpToken) {
     $.ajax({
       url: '/add-account-token',

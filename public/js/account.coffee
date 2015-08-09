@@ -10,8 +10,15 @@ signUpToken = GetQueryStringParams('signUpToken')
 accountCookie = Cookies.get().accountToken
 
 if accountCookie
-  # do something else
-  console.log "user has account token cookie: #{accountCookie}"
+  $.ajax
+    url: '/get-user-name'
+    type: 'POST'
+    data: {
+      'accountCookie': accountCookie
+      }
+    success: (response) ->
+      userName = response
+      $('.user-name').html(userName)
 else if signUpToken
   $.ajax
     url: '/add-account-token'

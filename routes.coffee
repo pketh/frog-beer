@@ -41,9 +41,13 @@ router.post '/new-sign-up', (request, response) ->
 # route.get '/sign-out' .. kills all accountTokens for an email account
 
 
-# route.post '/get-user-name', (request, response) ->
-#   accountToken = request.body.email
-#   response.send database.getUserName(accountToken)
+router.post '/get-user-name', (request, response) ->
+  accountToken = request.body.email
+  database.getUserName(accountToken, response)
+
+router.post '/add-account-token', (request, response) ->
+  signUpToken = request.body.signUpToken
+  database.addAccountToken(signUpToken, response)
 
 router.get '/', (request, response) ->
   accountCookie = request.cookies.accountToken
@@ -56,10 +60,6 @@ router.get '/', (request, response) ->
     github: config.github
     contentPage: true
     isSignedIn: if accountCookie then true else false
-
-router.post '/add-account-token', (request, response) ->
-  signUpToken = request.body.signUpToken
-  database.addAccountToken(signUpToken, response)
 
 
 module.exports = router
