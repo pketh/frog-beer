@@ -14,13 +14,20 @@ watchedServerFiles = [
   'server.coffee'
   'database.coffee'
   'helpers.coffee'
+  'drawings.coffee'
+  'trello.coffee'
+  'themes.coffee'
 ]
 
 clientCoffeePath = 'public/js/'
 clientStylesPath = 'public/css/'
 
 task 'coffee', 'Watch and compile public ☕️  → js', ->
-  child = exec "coffee -w -c #{clientCoffeePath}draw.coffee #{clientCoffeePath}sign-up-in.coffee #{clientCoffeePath}sign-out.coffee #{clientCoffeePath}account.coffee"
+  child = exec "coffee -w -c
+    #{clientCoffeePath}draw.coffee
+    #{clientCoffeePath}sign-up-in.coffee
+    #{clientCoffeePath}sign-out.coffee
+    #{clientCoffeePath}account.coffee"
   child.stdout.on 'data', (data) -> console.log data
 
 task 'setup', 'Setup environment from packages', ->
@@ -39,8 +46,10 @@ task 'start', 'Start 🐸 🍺', (options) ->
   child.stdout.on 'data', (data) -> console.log data.toString().trim()
 
 task 'styles', 'Watch and compile styl → css', ->
-  exec 'export NODE_ENV=development'
-  child = exec "stylus --watch #{clientStylesPath}styles.styl #{clientStylesPath}emails.styl -u autoprefixer-stylus"
+  child = exec "stylus --watch
+    #{clientStylesPath}styles.styl
+    #{clientStylesPath}emails.styl
+    -u autoprefixer-stylus"
   child.stdout.on 'data', (data) -> console.log data
 
 option '-u', '--upgrade', 'upgrade package.json dependencies to match latest versions'
