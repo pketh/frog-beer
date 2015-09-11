@@ -208,15 +208,6 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
-.frog,
-.art {
-  -webkit-transition: 0.1s;
-          transition: 0.1s;
-}
-.frog:hover,
-.art:hover {
-  opacity: 0.8;
-}
 a {
   color: #fff;
   text-decoration: none;
