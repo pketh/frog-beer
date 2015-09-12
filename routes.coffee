@@ -6,8 +6,8 @@ uuid = require 'node-uuid'
 config = require './config.json'
 database = require './database'
 palettes = require './palettes'
+drawings = require './drawings'
 helpers = require './helpers'
-
 
 
 router.post '/is-valid-email', (request, response) ->
@@ -21,10 +21,13 @@ router.post '/new-sign-up', (request, response) ->
   database.newSignUp(email, nickname, signUpToken, response)
 
 #stub
-# router.post '/save-drawing', (request, response) ->
-  # accountCookie = request.cookies.accountToken
-  # ?if accountCookie
+router.post '/save-drawing', (request, response) ->
+  accountCookie = request.cookies.accountToken
+  drawing = request.body.image
+  if accountCookie
+    drawings.saveDrawing(drawing)
   #   ?database.saveCookie
+      # also mail me personally re: each new submission
   # request.body is #base 64 png img
   # https://developer.github.com/v3/repos/contents/#create-a-file
   # https://www.npmjs.com/package/github
@@ -60,8 +63,8 @@ router.post '/add-account-token', (request, response) ->
 router.get '/', (request, response) ->
   accountCookie = request.cookies.accountToken
   response.render 'draw',
-    topic: 'Prarie Dogs on a Tea-Party Acid Trip' # stub
-    lastTopic: 'Duplo Times with LEGO' # stub
+    topic: 'Amurica!' # stub
+    lastTopic: 'The Haunting' # stub
     lastWeek: {'path1':'user1', 'path2':'user2', 'path3':'user3'} # stub - limit to 25 w random order?
     palettes: palettes
     trello: config.trello
