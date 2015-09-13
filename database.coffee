@@ -116,5 +116,3 @@ database =
 
 
 module.exports = database
-
-# database.hello()

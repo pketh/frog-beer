@@ -4,6 +4,7 @@ express = require 'express'
 logger = require 'morgan'
 path = require 'path'
 session = require 'express-session'
+limiter = require('express-limiter')(app)
 
 config = require './config.json'
 database = require './database'
@@ -47,3 +48,8 @@ else
 
 
 module.exports = app
+
+limiter {
+  path: '*'
+  lookup: 'connection.remoteAddress'
+}
