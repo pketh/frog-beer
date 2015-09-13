@@ -47,7 +47,7 @@ mailer =
       (error, status) ->
         console.log status
 
-  # sendWeekly: from cron..
+  # sendWeeklyFrog: from cron..
    # subject = thistopic + (re: lasttopic) if lasttopic
     # should I also do background colors based on art sampling (trello style). gridded colors..
 

@@ -7,14 +7,11 @@ _ = require 'underscore'
 
 config = require './config.json'
 mailer = require './mailer'
+drawings = require './drawings'
 [Users, Drawings, Topics] = [null]
 
-if process.env.NODE_ENV is 'development'
-  path = "mongodb://#{config.devDB.user}:#{config.devDB.password}@#{config.devDB.path}"
-  # console.log "mongo #{config.devDB.path} -u #{config.devDB.user} -p #{config.devDB.password}".cyan
-else
-  path = "mongodb://#{config.prodDB.user}:#{config.prodDB.password}@#{config.prodDB.path}"
-  console.log "mongo #{config.prodDB.path} -u #{config.prodDB.user} -p #{config.prodDB.password}".cyan
+path = "mongodb://#{config.mongo.user}:#{config.mongo.password}@#{config.mongo.path}"
+console.log "mongo #{config.mongo.path} -u #{config.mongo.user} -p #{config.mongo.password}".rainbow
 
 db = mongojs path
 
@@ -107,5 +104,17 @@ database =
       if document
         console.log "💣"
 
+  addTopic: (topic) ->
+    Topics.save {
+        week: drawings.getCurrentTopic()
+        topic: topic
+      }
+    ,
+    (error, document) ->
+      if document
+        console.log document
+
 
 module.exports = database
+
+# database.hello()

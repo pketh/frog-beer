@@ -7,7 +7,7 @@ session = require 'express-session'
 
 config = require './config.json'
 database = require './database'
-mailer = require './mailer'
+topics = require './topics'
 routes = require './routes'
 
 database.init()

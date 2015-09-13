@@ -3,7 +3,6 @@ moment = require 'moment'
 uuid = require 'node-uuid' ##temp
 
 config = require './config.json'
-topics = require './topics'
 dropbox = new Dropbox.Client {token: config.dropbox}
 
 year = moment().year()
@@ -11,28 +10,27 @@ week = moment().week()
 currentWeek = "#{year}-#{week}"
 lastWeek = "#{year}-#{week - 1}"
 
-drawingsInCurrentWeek = []
-
 drawings =
 
   getDropboxAccountInfo: ->
     dropbox.getAccountInfo (error, accountInfo) ->
       console.log accountInfo
 
-
   # triggered on a schedule cron, or accompanying email send (decentralized or centralized)
-  createcurrentWeekPath: ->
+  createCurrentWeekPath: ->
     dropbox.createDir currentWeek, (error, response, body) ->
       console.log body
 
-  recordcurrentWeekTheme: ->
-    # get the thing that picks trello picker
-      # // dropbox: inside this weeks path, create a text file with theme .txt and contents with moment.today \n theme
-      dropbox.writeFile "#{currentWeek}/theme-#{theme}.txt", theme, (error, data) ->
-        if error
-          console.log error
-        console.log "theme set as #{theme}"
-        console.log data
+  recordCurrentWeekTopic: ->
+    dropbox.writeFile "#{currentWeek}/topic-#{topic}.txt", topic, (error, data) ->
+      if error
+        console.log error
+      database.addNewTopic(topic)
+      console.log "topic set as #{topic}"
+      console.log data
+
+  getCurrentTopic: ->
+    return currentWeek
 
   getDrawingsInCurrentWeek: ->
     dropbox.readdir "/#{currentWeek}", (error, entries) ->
@@ -65,14 +63,11 @@ drawings =
 
   #
   saveDrawing: (drawing, response) ->
-    # console.log drawing
     filename = "#{uuid.v4()}"
     # username + get number of uploaded images + 1
     # ?filename in format like Bob1.png, Bob2.png, Bob3.png
     # anonified to not rely on username: 1.png , 2.png, 3...
     path = "#{currentWeek}/#{filename}.png"
-    # drawing = drawing.replace(/^data:image\/\w+;base64,/, "")
-    # drawing = drawing.replace(/ /g, '+')
     dropbox.writeFile path, drawing, (error, stat) ->
       if error
         console.log error
@@ -90,9 +85,6 @@ drawings =
     console.log "#{stat.name} saved to: #{stat.path}"
 
 
-    # temp - random name , associated w user cookie
-
 module.exports = drawings
 
-#
 # drawings.getDropboxAccountInfo()
