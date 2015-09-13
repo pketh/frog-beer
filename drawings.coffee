@@ -3,7 +3,7 @@ moment = require 'moment'
 uuid = require 'node-uuid' ##temp
 
 config = require './config.json'
-themes = require './themes'
+topics = require './topics'
 dropbox = new Dropbox.Client {token: config.dropbox}
 
 year = moment().year()
@@ -30,14 +30,14 @@ drawings =
       # // dropbox: inside this weeks path, create a text file with theme .txt and contents with moment.today \n theme
       dropbox.writeFile "#{currentWeek}/theme-#{theme}.txt", theme, (error, data) ->
         if error
-          return showError error
+          console.log error
         console.log "theme set as #{theme}"
         console.log data
 
   getDrawingsInCurrentWeek: ->
     dropbox.readdir "/#{currentWeek}", (error, entries) ->
       if error
-        return showError error
+        console.log error
       for entry in entries
         console.log entry
         # define drawing = entry.data or whatever for the image
@@ -50,7 +50,7 @@ drawings =
   getDrawingsInLastWeek: ->
     dropbox.readdir "/#{lastWeek}", (error, entries) ->
       if error
-        return showError error
+        console.log error
       for entry in entries
         console.log entry
         # do things like above..
@@ -58,7 +58,7 @@ drawings =
   getDrawing: (path) ->
     dropbox.readFile path, (error, data) ->
       if error
-        return showError error
+        console.log error
       console.log "#{path} retrieved"
       console.log data
       # return response or true
@@ -75,7 +75,7 @@ drawings =
     # drawing = drawing.replace(/ /g, '+')
     dropbox.writeFile path, drawing, (error, stat) ->
       if error
-        return showError error
+        console.log error
       console.log "#{stat.name} saved to: #{stat.path}"
       console.log stat
       response.send true
@@ -86,7 +86,7 @@ drawings =
     path = "anonymous/#{filename}.png"
     dropbox.writeFile path, drawing, (error, stat) ->
       if error
-        return showError error
+        console.log error
     console.log "#{stat.name} saved to: #{stat.path}"
 
 
