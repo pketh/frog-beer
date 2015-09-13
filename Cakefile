@@ -16,7 +16,7 @@ watchedServerFiles = [
   'helpers.coffee'
   'drawings.coffee'
   'trello.coffee'
-  'themes.coffee'
+  'topics.coffee'
 ]
 
 clientCoffeePath = 'public/js/'
