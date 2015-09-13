@@ -30,6 +30,7 @@ newPalette = () ->
       activePalette = palette
       updatePalette()
       break
+newPalette()
 
 $('.color').not('.shuffle').click ->
   context = @
@@ -57,7 +58,8 @@ $(document).keypress (key) ->
   else if key.which is 55
     $('.shuffle').trigger('click')
 
-newPalette()
+
+# nextPalette
 
 $('.shuffle').click ->
   newPalette()
