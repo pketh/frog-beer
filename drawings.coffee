@@ -64,8 +64,8 @@ drawings =
       # return response or true
 
   #
-  saveDrawing: (drawing) ->
-    console.log drawing
+  saveDrawing: (drawing, response) ->
+    # console.log drawing
     filename = "#{uuid.v4()}"
     # username + get number of uploaded images + 1
     # ?filename in format like Bob1.png, Bob2.png, Bob3.png
@@ -76,8 +76,9 @@ drawings =
     dropbox.writeFile path, drawing, (error, stat) ->
       if error
         return showError error
-      console.log "#{filename} save: #{stat}"
-      return true
+      console.log "#{stat.name} saved to: #{stat.path}"
+      console.log stat
+      response.send true
 
 
   saveAnonymousDrawing: ->
@@ -86,12 +87,12 @@ drawings =
     dropbox.writeFile path, drawing, (error, stat) ->
       if error
         return showError error
-    console.log "#{filename} save: #{stat}"
+    console.log "#{stat.name} saved to: #{stat.path}"
 
 
     # temp - random name , associated w user cookie
 
 module.exports = drawings
 
-
-drawings.getDropboxAccountInfo()
+#
+# drawings.getDropboxAccountInfo()

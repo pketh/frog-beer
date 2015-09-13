@@ -20,18 +20,18 @@ router.post '/new-sign-up', (request, response) ->
   signUpToken = uuid.v4()
   database.newSignUp(email, nickname, signUpToken, response)
 
-#stub
+#🔮
 router.post '/save-drawing', (request, response) ->
   accountCookie = request.cookies.accountToken
   drawing = request.body.image
   if accountCookie
-    drawings.saveDrawing(drawing)
+    drawing = drawing.substring drawing.indexOf('base64,')+7
+    drawingBuffer = new Buffer(drawing, 'base64')
+    drawings.saveDrawing(drawingBuffer, response)
   #   ?database.saveCookie
       # also mail me personally re: each new submission
   # request.body is #base 64 png img
-  # https://developer.github.com/v3/repos/contents/#create-a-file
-  # https://www.npmjs.com/package/github
-  # create a new public repo
+
 
 # the link to this is in the email
 # router.get '/unsubscribe-from-emails', (request, response) ->

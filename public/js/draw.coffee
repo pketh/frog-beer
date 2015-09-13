@@ -136,8 +136,8 @@ drawPixelsOnCanvas = (pixels) ->
 
 saveCanvas = () ->
   canvas = document.getElementById("canvas")
-  image = canvas.toDataURL("image/png")
-  $.post '/save-drawing', {'image': image, 'week': 0, 'userID': 'yr32saf32'}, (response) ->
+  drawing = canvas.toDataURL("image/png")
+  $.post '/save-drawing', {'image': drawing, 'week': 0, 'userID': 'yr32saf32'}, (response) ->
     console.log response
     $('.save-drawing').hide()
     $('.drawing-saved').show()
