@@ -1,14 +1,29 @@
 # uses the trello board to pick a random theme
 # sets currentTheme and lastTheme globally accessible vars
 
-# Trello = req trello lib
+Trello = require 'node-trello'
 
 config = require './config.json'
-# trello = the board
+trello = new Trello(config.trello.key, config.trello.token)
+
+# board = the board
+
+themes =
+
+  getTrelloAccountInfo: ->
+    trello.get "/1/members/me", (error, data) ->
+      console.log data
 
 # getBoardInfo:
 #
-# SelectTheme:
+# selectTheme:
 #   retrieve cards in list as array
 #   shuffle the array
 #   pick one
+
+# lastTheme:
+
+
+
+module.exports = themes
+

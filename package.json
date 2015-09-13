@@ -19,6 +19,7 @@
     "moment": "^2.10.3",
     "mongojs": "^1.0.2",
     "morgan": "~1.5.3",
+    "node-trello": "^1.1.2",
     "node-uuid": "^1.4.3",
     "sendgrid": "^1.8.0",
     "sync": "^0.2.5",
