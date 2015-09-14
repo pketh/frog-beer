@@ -1,0 +1,36 @@
+if !nickname
+- nickname = 'friend'
+
+
+doctype html
+html
+  head
+    title= subject
+    meta(name='viewport' width='device-width' initial-scale='1')
+    meta(http-equiv='Content-Type' content='text/html' charset='UTF-8')
+    style
+      include ../../public/css/emails.css
+  body
+
+    header
+      img(src="#{url}/img/frog.png" srcset="#{url}/img/frog@2x.png 2x" width="59" height="55")
+
+    section.content
+      p= 'Dear '
+        span.nickname= nickname + ','
+
+      p We are pleased to inform you that you have a place at the Frog Beer School of Pixels and Wizardry:
+
+    section.actions
+      a(href=signUpUrl class='link') Confirm your account
+
+    section.sign-off
+      p Yours sincerely,
+      p.signature – All frogs, everywhere.
+
+
+footer
+  hr
+  div unsubscribe from weekly topic emails link here w hardcoded route and query. /unsubscribe?=pirijan@gmail.com
+  // div page contains... Unsubscribed! come back soon.. new topics happen every week, you can still draw things
+  div contact me direct at hi@pketh.org
