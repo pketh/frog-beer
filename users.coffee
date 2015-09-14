@@ -3,10 +3,7 @@ moment = require 'moment'
 uuid = require 'node-uuid'
 _ = require 'underscore'
 
-config = require './config.json'
 mailer = require './mailer'
-drawings = require './drawings'
-
 
 signInExistingUser = (email, nickname, signUpToken, response) ->
   Users.findAndModify
@@ -18,6 +15,8 @@ signInExistingUser = (email, nickname, signUpToken, response) ->
         signUpToken: signUpToken
   ,
   (error, document) ->
+    if error
+      console.log error
     mailer.sendSignUp(email, nickname, signUpToken)
     response.send true
 
@@ -32,12 +31,13 @@ createNewUser = (email, nickname, signUpToken, response) ->
     upsert: true
   ,
   (error, document) ->
+    if error
+      console.log error
     mailer.sendSignUp(email, nickname, signUpToken)
     response.send true
 
 
 users =
-
 
   newSignUp: (email, nickname, signUpToken, response) ->
     console.log "account token: #{signUpToken}".magenta
@@ -45,7 +45,9 @@ users =
       email: email
     ,
     (error, document) ->
-      if document
+      if error
+        console.log error
+      else if document
         signInExistingUser(email, nickname, signUpToken, response)
       else
         createNewUser(email, nickname, signUpToken, response)
@@ -63,16 +65,18 @@ users =
           accountTokens: accountToken
     ,
     (error, document) ->
-      if document
-        response.send accountToken
+      if error
+        console.log error
+      response.send accountToken
 
   getUserName: (accountToken, response) ->
     Users.findOne
       accountToken: accountToken
     ,
     (error, document) ->
-      if document
-        response.send document.name
+      if error
+        console.log error
+      response.send document.name
 
   # getUsers: array of objs: name? and email for use in weekly mail
 
@@ -85,8 +89,9 @@ users =
           accountTokens: ""
     ,
     (error, document) ->
-      if document
-        console.log "💣"
+      if error
+        console.log error
+      console.log "💣 #{document}"
 
 
 

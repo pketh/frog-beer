@@ -11,7 +11,6 @@ drawings = require './drawings'
 signUpEmail = null
 
 app = express()
-# app.set 'views', path.join __dirname, 'templates'
 app.set 'view engine', 'jade'
 
 #
@@ -77,6 +76,8 @@ mailer =
 
   sendWeekly: () ->
     renderWeeklyEmail('joe')
+    # get users..
+      # then iterate over the list
   # sendWeekly: starts here - from cron.. sunday midnight or monday morning..
    # subject = thistopic + (re: lasttopic) if lasttopic
     # should I also do background colors based on art sampling (trello style). gridded colors..
