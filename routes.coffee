@@ -4,7 +4,7 @@ cookieParser = require 'cookie-parser'
 uuid = require 'node-uuid'
 
 config = require './config.json'
-database = require './database'
+users = require './users'
 palettes = require './palettes'
 drawings = require './drawings'
 # topics = require './topics'
@@ -19,7 +19,7 @@ router.post '/new-sign-up', (request, response) ->
   email = helpers.validateEmail request
   nickname = helpers.validateName request
   signUpToken = uuid.v4()
-  database.newSignUp(email, nickname, signUpToken, response)
+  users.newSignUp(email, nickname, signUpToken, response)
 
 #🔮
 router.post '/save-drawing', (request, response) ->
@@ -29,7 +29,7 @@ router.post '/save-drawing', (request, response) ->
     drawing = drawing.substring drawing.indexOf('base64,')+7
     drawingBuffer = new Buffer(drawing, 'base64')
     drawings.saveDrawing(drawingBuffer, response)
-  #   ?database.saveCookie
+  #   ?users.saveCookie
       # also mail me personally re: each new submission
   # request.body is #base 64 png img
 
@@ -46,7 +46,7 @@ router.get '/sign-up-in', (request, response) ->
 
 router.get '/sign-out', (request, response) ->
   accountToken = request.cookies.accountToken
-  database.clearAccountTokens(accountToken)
+  users.clearAccountTokens(accountToken)
   response.render 'sign-out',
     palettes: null
     signOutPage: true
@@ -55,11 +55,11 @@ router.get '/sign-out', (request, response) ->
 
 router.post '/get-user-name', (request, response) ->
   accountToken = request.body.email
-  database.getUserName(accountToken, response)
+  users.getUserName(accountToken, response)
 
 router.post '/add-account-token', (request, response) ->
   signUpToken = request.body.signUpToken
-  database.addAccountToken(signUpToken, response)
+  users.addAccountToken(signUpToken, response)
 
 router.get '/', (request, response) ->
   accountCookie = request.cookies.accountToken

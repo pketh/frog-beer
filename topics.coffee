@@ -3,7 +3,6 @@ _ = require 'underscore'
 
 config = require './config.json'
 trello = new Trello(config.trello.key, config.trello.token)
-database = require './database'
 
 board = '55458e45bbd7364c39f36b54'
 upcomingTopicsList = '55458e8002d6d526cff3ff10'
@@ -39,9 +38,24 @@ topics =
       cards = data.cards
       shuffled = _.shuffle cards
       topic = shuffled[0]
-      console.log topic
-      database.addTopic topic.name
+      topics.saveTopic topic.name
       topics.moveTopicToPastTopics topic
+      return topic.name
+
+  saveTopic: (topic) ->
+    dropbox.writeFile "#{currentWeek}/topic-#{topic}.txt", topic, (error, data) ->
+      if error
+        console.log error
+      Topics.save {
+          week: drawings.getCurrentTopic()
+          topic: topic
+        }
+      ,
+      (error, document) ->
+        if error
+          console.log error
+        console.log "topic set as #{topic}"
+        console.log document
 
   moveTopicToPastTopics: (card) ->
     options = {value: pastTopicsList}
@@ -51,6 +65,9 @@ topics =
       console.log card # card object w id and name
       console.log data
 
+  getCurrentTopic: ->
+    # look in db
+    return 'current topic'
 
 module.exports = topics
 

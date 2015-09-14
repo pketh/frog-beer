@@ -12,6 +12,9 @@ lastWeek = "#{year}-#{week - 1}"
 
 drawings =
 
+  getWeekNumber: ->
+    return week
+
   getDropboxAccountInfo: ->
     dropbox.getAccountInfo (error, accountInfo) ->
       console.log accountInfo
@@ -20,17 +23,6 @@ drawings =
   createCurrentWeekPath: ->
     dropbox.createDir currentWeek, (error, response, body) ->
       console.log body
-
-  recordCurrentWeekTopic: ->
-    dropbox.writeFile "#{currentWeek}/topic-#{topic}.txt", topic, (error, data) ->
-      if error
-        console.log error
-      database.addNewTopic(topic)
-      console.log "topic set as #{topic}"
-      console.log data
-
-  getCurrentTopic: ->
-    return currentWeek
 
   getDrawingsInCurrentWeek: ->
     dropbox.readdir "/#{currentWeek}", (error, entries) ->
@@ -61,7 +53,7 @@ drawings =
       console.log data
       # return response or true
 
-  #
+
   saveDrawing: (drawing, response) ->
     filename = "#{uuid.v4()}"
     # username + get number of uploaded images + 1

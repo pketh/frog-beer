@@ -1,24 +1,12 @@
 colors = require 'colors'
 moment = require 'moment'
-mongojs = require 'mongojs'
-sync = require 'sync'
 uuid = require 'node-uuid'
 _ = require 'underscore'
 
 config = require './config.json'
 mailer = require './mailer'
 drawings = require './drawings'
-[Users, Drawings, Topics] = [null]
 
-path = "mongodb://#{config.mongo.user}:#{config.mongo.password}@#{config.mongo.path}"
-console.log "mongo #{config.mongo.path} -u #{config.mongo.user} -p #{config.mongo.password}".rainbow
-
-db = mongojs path
-
-collections = ->
-  Users = db.collection 'Users'
-  Drawings = db.collection 'Drawings'
-  Topics = db.collection 'Topics'
 
 signInExistingUser = (email, nickname, signUpToken, response) ->
   Users.findAndModify
@@ -48,14 +36,8 @@ createNewUser = (email, nickname, signUpToken, response) ->
     response.send true
 
 
-database =
+users =
 
-  init: ->
-    sync ->
-      db.createCollection 'Users', {}
-      db.createCollection 'Drawings', {}
-      db.createCollection 'Topics', {}
-      collections()
 
   newSignUp: (email, nickname, signUpToken, response) ->
     console.log "account token: #{signUpToken}".magenta
@@ -92,6 +74,8 @@ database =
       if document
         response.send document.name
 
+  # getUsers: array of objs: name? and email for use in weekly mail
+
   clearAccountTokens: (accountToken) ->
     Users.findAndModify
       query:
@@ -104,15 +88,6 @@ database =
       if document
         console.log "💣"
 
-  addTopic: (topic) ->
-    Topics.save {
-        week: drawings.getCurrentTopic()
-        topic: topic
-      }
-    ,
-    (error, document) ->
-      if document
-        console.log document
 
 
-module.exports = database
+module.exports = users

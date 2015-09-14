@@ -12,7 +12,7 @@ watchedServerFiles = [
   'palettes.coffee'
   'routes.coffee'
   'server.coffee'
-  'database.coffee'
+  'users.coffee'
   'helpers.coffee'
   'drawings.coffee'
   'trello.coffee'
