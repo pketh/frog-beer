@@ -6,31 +6,12 @@ colors = require 'colors'
 path = require 'path'
 session = require 'express-session'
 limiter = require('express-limiter') app
-mongojs = require 'mongojs'
-sync = require 'sync'
 
 config = require './config.json'
 # topics = require './topics'
 # users = require './users'
 routes = require './routes'
-[Users, Drawings, Topics] = [null]
-
-path = "mongodb://#{config.mongo.user}:#{config.mongo.password}@#{config.mongo.path}"
-console.log "mongo #{config.mongo.path} -u #{config.mongo.user} -p #{config.mongo.password}".magenta
-
-db = mongojs path
-
-collections = ->
-  Users = db.collection 'Users'
-  Drawings = db.collection 'Drawings'
-  Topics = db.collection 'Topics'
-
-sync ->
-  db.createCollection 'Users', {}
-  db.createCollection 'Drawings', {}
-  db.createCollection 'Topics', {}
-  collections()
-
+db = require './db'
 
 app = express()
 app.set 'view engine', 'jade'

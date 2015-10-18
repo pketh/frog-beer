@@ -3,10 +3,11 @@ moment = require 'moment'
 uuid = require 'node-uuid'
 _ = require 'underscore'
 
+db = require './db'
 mailer = require './mailer'
 
 signInExistingUser = (email, nickname, signUpToken, response) ->
-  Users.findAndModify
+  db.Users.findAndModify
     query:
       email: email
     update:
@@ -21,7 +22,7 @@ signInExistingUser = (email, nickname, signUpToken, response) ->
     response.send true
 
 createNewUser = (email, nickname, signUpToken, response) ->
-  Users.update
+  db.Users.update
     email: email
     {
       email: email
@@ -41,7 +42,7 @@ users =
 
   newSignUp: (email, nickname, signUpToken, response) ->
     console.log "account token: #{signUpToken}".magenta
-    Users.findOne
+    db.Users.findOne
       email: email
     ,
     (error, document) ->
@@ -54,7 +55,7 @@ users =
 
   addAccountToken: (signUpToken, response) ->
     accountToken = uuid.v4()
-    Users.findAndModify
+    db.Users.findAndModify
       query:
         signUpToken: signUpToken
       update:
@@ -70,7 +71,7 @@ users =
       response.send accountToken
 
   getUserName: (accountToken, response) ->
-    Users.findOne
+    db.Users.findOne
       accountToken: accountToken
     ,
     (error, document) ->
@@ -81,7 +82,7 @@ users =
   # getUsers: array of objs: name? and email for use in weekly mail
 
   clearAccountTokens: (accountToken) ->
-    Users.findAndModify
+    db.Users.findAndModify
       query:
         accountTokens: accountToken
       update:

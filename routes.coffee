@@ -24,12 +24,20 @@ router.post '/new-sign-up', (request, response) ->
 #🔮
 router.post '/save-drawing', (request, response) ->
   accountCookie = request.cookies.accountToken
+  # console.log accountCookie
   drawing = request.body.image
+  drawing = drawing.substring drawing.indexOf('base64,')+7
+  # console.log drawing
+  drawingBuffer = new Buffer(drawing, 'base64')
+  # console.log drawingBuffer
   if accountCookie
-    drawing = drawing.substring drawing.indexOf('base64,')+7
-    drawingBuffer = new Buffer(drawing, 'base64')
-    drawings.saveDrawing(drawingBuffer, response)
-  #   ?users.saveCookie
+    drawings.saveDrawing(drawingBuffer, accountCookie, response)
+  else
+    # console.log 'save anon'
+    drawings.saveAnonymousDrawing(drawingBuffer, response)
+
+
+  # ?users.saveCookie
       # also mail me personally re: each new submission
   # request.body is #base 64 png img
 
@@ -46,6 +54,7 @@ router.get '/sign-up-in', (request, response) ->
 
 router.get '/sign-out', (request, response) ->
   accountToken = request.cookies.accountToken
+  console.log accountToken
   users.clearAccountTokens(accountToken)
   response.render 'sign-out',
     palettes: null

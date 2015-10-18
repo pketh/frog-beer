@@ -54,27 +54,30 @@ drawings =
       # return response or true
 
 
-  saveDrawing: (drawing, response) ->
+  saveDrawing: (drawing, accountCookie, response) ->
     filename = "#{uuid.v4()}"
-    # username + get number of uploaded images + 1
-    # ?filename in format like Bob1.png, Bob2.png, Bob3.png
-    # anonified to not rely on username: 1.png , 2.png, 3...
     path = "#{currentWeek}/#{filename}.png"
     dropbox.writeFile path, drawing, (error, stat) ->
       if error
         console.log error
       console.log "#{stat.name} saved to: #{stat.path}"
       console.log stat
+      # get username from accountcookie token
       response.send true
-
+      # also mail me personally re: each new submission (reponse)
 
   saveAnonymousDrawing: ->
     filename = "#{uuid.v4()}"
     path = "anonymous/#{filename}.png"
+    console.log filename
+    console.log dropbox
     dropbox.writeFile path, drawing, (error, stat) ->
+      console.log stat
       if error
         console.log error
-    console.log "#{stat.name} saved to: #{stat.path}"
+      console.log "ANON DRAWING: #{stat.name} saved to: #{stat.path}"
+      response.send true
+      # also mail me personally re: each new submission
 
 
 module.exports = drawings
