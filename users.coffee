@@ -40,8 +40,8 @@ createNewUser = (email, nickname, signUpToken, response) ->
 
 users =
 
-  newSignUp: (email, nickname, signUpToken, response) ->
-    console.log "account token: #{signUpToken}".magenta
+  signUp: (email, nickname, signUpToken, response) ->
+    console.log "sign up w account token: #{signUpToken}".magenta
     db.Users.findOne
       email: email
     ,

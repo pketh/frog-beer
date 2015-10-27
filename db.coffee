@@ -8,7 +8,8 @@ config = require './config.json'
 path = "mongodb://#{config.mongo.user}:#{config.mongo.password}@#{config.mongo.path}"
 # console.log "mongo #{config.mongo.path} -u #{config.mongo.user} -p #{config.mongo.password}".magenta
 
-database = mongojs path
+database = mongojs path, [],
+  authMechanism : 'ScramSHA1'
 
 sync ->
   database.createCollection 'Users', {}

@@ -19,7 +19,7 @@ router.post '/new-sign-up', (request, response) ->
   email = helpers.validateEmail request
   nickname = helpers.validateName request
   signUpToken = uuid.v4()
-  users.newSignUp(email, nickname, signUpToken, response)
+  users.signUp(email, nickname, signUpToken, response)
 
 #🔮
 router.post '/save-drawing', (request, response) ->
@@ -31,9 +31,10 @@ router.post '/save-drawing', (request, response) ->
   drawingBuffer = new Buffer(drawing, 'base64')
   # console.log drawingBuffer
   if accountCookie
+    console.log 'save acct'
     drawings.saveDrawing(drawingBuffer, accountCookie, response)
   else
-    # console.log 'save anon'
+    console.log 'save anon'
     drawings.saveAnonymousDrawing(drawingBuffer, response)
 
 

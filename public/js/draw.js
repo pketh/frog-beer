@@ -61,6 +61,8 @@
     return _results;
   };
 
+  newPalette();
+
   $('.color').not('.shuffle').click(function() {
     var context;
     context = this;
@@ -91,8 +93,6 @@
       return $('.shuffle').trigger('click');
     }
   });
-
-  newPalette();
 
   $('.shuffle').click(function() {
     return newPalette();
@@ -212,11 +212,11 @@
   };
 
   saveCanvas = function() {
-    var canvas, image;
+    var canvas, drawing;
     canvas = document.getElementById("canvas");
-    image = canvas.toDataURL("image/png");
+    drawing = canvas.toDataURL("image/png");
     return $.post('/save-drawing', {
-      'image': image,
+      'image': drawing,
       'week': 0,
       'userID': 'yr32saf32'
     }, function(response) {
