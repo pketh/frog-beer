@@ -8,8 +8,6 @@ session = require 'express-session'
 limiter = require('express-limiter') app
 
 config = require './config.json'
-# topics = require './topics'
-# users = require './users'
 routes = require './routes'
 db = require './db-init'
 
@@ -53,3 +51,7 @@ limiter {
   path: '*'
   lookup: 'connection.remoteAddress'
 }
+
+# dropbox = require './dropbox'
+# dropbox.getAccountInfo (error, accountInfo) ->
+#   console.log accountInfo

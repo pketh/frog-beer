@@ -7,6 +7,7 @@ config = require './config.json'
 sendgrid = require('sendgrid')(config.sendgrid)
 topics = require './topics'
 drawings = require './drawings'
+time = require './time'
 
 signUpEmail = null
 
@@ -34,8 +35,10 @@ renderSignUpEmail = (nickname, signUpToken, subject) ->
     html = juice html, {applyWidthAttributes: true}
     signUpEmail = html
 
-renderWeeklyEmail = (nickname) ->
-  week = drawings.getWeekNumber()
+renderWeeklyEmail = ->
+  console.log "render weekly email for week ##{time.week}"
+
+  # should I also do background colors based on art sampling (trello style). gridded colors..
 
   # sync ->
   #   topic = topics.getCurrentTopic()
@@ -75,12 +78,8 @@ mailer =
         console.log status
 
   sendWeekly: () ->
-    renderWeeklyEmail('joe')
-    # get users..
-      # then iterate over the list
-  # sendWeekly: starts here - from cron.. sunday midnight or monday morning..
+    renderWeeklyEmail()
    # subject = thistopic + (re: lasttopic) if lasttopic
-    # should I also do background colors based on art sampling (trello style). gridded colors..
 
 module.exports = mailer
 

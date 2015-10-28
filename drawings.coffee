@@ -1,30 +1,18 @@
-moment = require 'moment'
 uuid = require 'node-uuid' ##temp
 
 config = require './config.json'
 dropbox = require './dropbox-init'
-
-year = moment().year()
-week = moment().week()
-currentWeek = "#{year}-#{week}"
-lastWeek = "#{year}-#{week - 1}"
+time = require './time'
 
 drawings =
 
-  getWeekNumber: ->
-    return week
-
-  getDropboxAccountInfo: ->
-    dropbox.getAccountInfo (error, accountInfo) ->
-      console.log accountInfo
-
   # triggered on a schedule cron, or accompanying email send (decentralized or centralized)
-  createCurrentWeekPath: ->
-    dropbox.createDir currentWeek, (error, response, body) ->
-      console.log body
+  # createCurrentWeekPath: ->
+  #   dropbox.createDir time.currentWeek, (error, response, body) ->
+  #     console.log body
 
   getDrawingsInCurrentWeek: ->
-    dropbox.readdir "/#{currentWeek}", (error, entries) ->
+    dropbox.readdir "/#{time.currentWeek}", (error, entries) ->
       if error
         console.log error
       for entry in entries
@@ -55,7 +43,7 @@ drawings =
 
   saveDrawing: (drawing, accountCookie, response) ->
     filename = "#{uuid.v4()}"
-    path = "#{currentWeek}/#{filename}.png"
+    path = "#{time.currentWeek}/#{filename}.png"
     dropbox.writeFile path, drawing, (error, stat) ->
       if error
         console.log error
@@ -80,7 +68,7 @@ drawings =
       # also mail me personally re: each new submission
 
   saveTopic: (topic) ->
-    dropbox.writeFile "#{currentWeek}/topic-#{topic}.txt", topic, (error, data) ->
+    dropbox.writeFile "#{time.currentWeek}/topic-#{topic}.txt", topic, (error, data) ->
       if error
         console.log error
       db.Topics.save {
@@ -96,5 +84,3 @@ drawings =
 
 
 module.exports = drawings
-
-# drawings.getDropboxAccountInfo()

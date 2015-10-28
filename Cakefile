@@ -8,16 +8,17 @@ css = './public/js'
 
 watchedServerFiles = [
   'config.json'
+  'drawings.coffee'
   'dropbox.coffee'
+  'helpers.coffee'
   'mailer.coffee'
   'palettes.coffee'
   'routes.coffee'
+  'scheduled.coffee'
   'server.coffee'
-  'users.coffee'
-  'helpers.coffee'
-  'drawings.coffee'
-  'trello.coffee'
+  'time.coffee'
   'topics.coffee'
+  'users.coffee'
 ]
 
 clientCoffeePath = 'public/js/'
