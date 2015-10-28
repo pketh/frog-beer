@@ -67,20 +67,4 @@ drawings =
       response.send true
       # also mail me personally re: each new submission
 
-  saveTopic: (topic) ->
-    dropbox.writeFile "#{time.currentWeek}/topic-#{topic}.txt", topic, (error, data) ->
-      if error
-        console.log error
-      db.Topics.save {
-          week: drawings.getCurrentTopic()
-          topic: topic
-        }
-      ,
-      (error, document) ->
-        if error
-          console.log error
-        console.log "topic set as #{topic}"
-        console.log document
-
-
 module.exports = drawings

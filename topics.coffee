@@ -2,6 +2,9 @@ Trello = require 'node-trello'
 _ = require 'underscore'
 
 config = require './config.json'
+dropbox = require './dropbox'
+time = require './time'
+db = require './db-init'
 trello = new Trello(config.trello.key, config.trello.token)
 
 board = '55458e45bbd7364c39f36b54'
@@ -53,6 +56,22 @@ topics =
   getCurrentTopic: ->
     # look in db
     return 'current topic'
+
+  saveTopic: (topic) ->
+    dropbox.writeFile "#{time.currentWeek}/topic-#{topic}.txt", topic, (error, data) ->
+      if error
+        console.log error
+      db.Topics.save {
+          week: drawings.getCurrentTopic()
+          topic: topic
+        }
+      ,
+      (error, document) ->
+        if error
+          console.log error
+        console.log "topic set as #{topic}"
+        console.log document
+
 
 module.exports = topics
 
