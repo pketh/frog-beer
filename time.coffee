@@ -1,7 +1,7 @@
 moment = require 'moment'
 
-year = moment().year()
-week = moment().week()
+year = moment.utc().year()
+week = moment.utc().week()
 
 time =
 

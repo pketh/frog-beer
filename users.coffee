@@ -1,5 +1,4 @@
 colors = require 'colors'
-moment = require 'moment'
 uuid = require 'node-uuid'
 _ = require 'underscore'
 
