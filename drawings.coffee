@@ -1,9 +1,8 @@
-Dropbox = require 'dropbox'
 moment = require 'moment'
 uuid = require 'node-uuid' ##temp
 
 config = require './config.json'
-dropbox = new Dropbox.Client {token: config.dropbox}
+dropbox = require './dropbox-init'
 
 year = moment().year()
 week = moment().week()
