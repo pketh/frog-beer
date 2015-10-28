@@ -2,9 +2,9 @@ Trello = require 'node-trello'
 _ = require 'underscore'
 
 config = require './config.json'
-dropbox = require './dropbox'
-time = require './time'
-db = require './db-init'
+dropbox = require './services/dropbox'
+time = require './services/time'
+db = require './services/db'
 trello = new Trello(config.trello.key, config.trello.token)
 
 board = '55458e45bbd7364c39f36b54'

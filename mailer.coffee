@@ -7,7 +7,7 @@ config = require './config.json'
 sendgrid = require('sendgrid')(config.sendgrid)
 topics = require './topics'
 drawings = require './drawings'
-time = require './time'
+time = require './services/time'
 
 signUpEmail = null
 

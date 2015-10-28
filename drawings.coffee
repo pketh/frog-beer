@@ -1,8 +1,8 @@
 uuid = require 'node-uuid' ##temp
 
 config = require './config.json'
-dropbox = require './dropbox-init'
-time = require './time'
+dropbox = require './services/dropbox'
+time = require './services/time'
 
 drawings =
 

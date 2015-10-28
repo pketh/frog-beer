@@ -9,7 +9,7 @@ limiter = require('express-limiter') app
 
 config = require './config.json'
 routes = require './routes'
-db = require './db-init'
+db = require './services/db'
 
 app = express()
 app.set 'view engine', 'jade'

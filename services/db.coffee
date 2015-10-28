@@ -1,7 +1,7 @@
 sync = require 'sync'
 mongojs = require 'mongojs'
 
-config = require './config.json'
+config = require '../config.json'
 
 [Users, Drawings, Topics] = [null]
 

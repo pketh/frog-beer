@@ -2,7 +2,7 @@ colors = require 'colors'
 uuid = require 'node-uuid'
 _ = require 'underscore'
 
-db = require './db-init'
+db = require './services/db'
 mailer = require './mailer'
 
 signInExistingUser = (email, nickname, signUpToken, response) ->
