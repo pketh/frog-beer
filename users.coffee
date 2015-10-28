@@ -3,7 +3,7 @@ moment = require 'moment'
 uuid = require 'node-uuid'
 _ = require 'underscore'
 
-db = require './db'
+db = require './db-init'
 mailer = require './mailer'
 
 signInExistingUser = (email, nickname, signUpToken, response) ->

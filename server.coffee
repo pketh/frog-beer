@@ -11,7 +11,7 @@ config = require './config.json'
 # topics = require './topics'
 # users = require './users'
 routes = require './routes'
-db = require './db'
+db = require './db-init'
 
 app = express()
 app.set 'view engine', 'jade'

@@ -60,11 +60,12 @@ drawings =
     dropbox.writeFile path, drawing, (error, stat) ->
       if error
         console.log error
-      console.log "#{stat.name} saved to: #{stat.path}"
-      console.log stat
-      # get username from accountcookie token
-      response.send true
-      # also mail me personally re: each new submission (reponse)
+      else
+        console.log "#{stat.name} saved to: #{stat.path}"
+        console.log stat
+        # get username from accountcookie token
+        response.send true
+        # also mail me personally re: each new submission (reponse)
 
   saveAnonymousDrawing: ->
     filename = "#{uuid.v4()}"
@@ -78,6 +79,21 @@ drawings =
       console.log "ANON DRAWING: #{stat.name} saved to: #{stat.path}"
       response.send true
       # also mail me personally re: each new submission
+
+  saveTopic: (topic) ->
+    dropbox.writeFile "#{currentWeek}/topic-#{topic}.txt", topic, (error, data) ->
+      if error
+        console.log error
+      db.Topics.save {
+          week: drawings.getCurrentTopic()
+          topic: topic
+        }
+      ,
+      (error, document) ->
+        if error
+          console.log error
+        console.log "topic set as #{topic}"
+        console.log document
 
 
 module.exports = drawings

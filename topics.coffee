@@ -38,24 +38,9 @@ topics =
       cards = data.cards
       shuffled = _.shuffle cards
       topic = shuffled[0]
-      topics.saveTopic topic.name
+      drawings.saveTopic topic.name
       topics.moveTopicToPastTopics topic
       return topic.name
-
-  saveTopic: (topic) ->
-    dropbox.writeFile "#{currentWeek}/topic-#{topic}.txt", topic, (error, data) ->
-      if error
-        console.log error
-      Topics.save {
-          week: drawings.getCurrentTopic()
-          topic: topic
-        }
-      ,
-      (error, document) ->
-        if error
-          console.log error
-        console.log "topic set as #{topic}"
-        console.log document
 
   moveTopicToPastTopics: (card) ->
     options = {value: pastTopicsList}
