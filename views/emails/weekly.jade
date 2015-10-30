@@ -1,3 +1,5 @@
+// from: Frog Beer
+
 doctype html
 html
   head
@@ -14,7 +16,9 @@ html
     section.content
       p Dear You / hey hon / sup / salut! / random openers
 
-      p We are pleased to inform you that you have a place at the Frog Beer School of Pixels and Wizardry:
+    section.drawings
+      each drawing in drawings
+        img.drawing(src="#{drawing}")
 
     section.actions
       a(href=signUpUrl class='link') Confirm your account

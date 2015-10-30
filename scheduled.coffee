@@ -1,17 +1,17 @@
 later = require 'later'
 later.date.UTC()
 
-drawings = require './drawings'
-topics = require './topics'
+drawings = require '../drawings'
+topics = require '../topics'
+time = require './time'
 
 schedule = later.parse.text('every monday at 12:00am')
 
 scheduled =
 
   weekly: ->
-    # drawings.createCurrentWeekPath()
     topics.selectTopic()
-    console.log topics.getCurrentTopic()
+    console.log "🍰 Topic for week ##{time.week} set to #{topics.getCurrentTopic()}"
 
 
 module.exports = scheduled

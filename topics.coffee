@@ -50,19 +50,28 @@ topics =
     trello.put "/1/cards/#{card.id}/idList", options, (error, data) ->
       if error
         console.log error
+      console.log "card moved"
       console.log card # card object w id and name
       console.log data
 
   getCurrentTopic: ->
-    # look in db
-    return 'current topic'
+    db.Topics.findOne
+      week: time.currentWeek
+    ,
+    (error, document) ->
+      if error
+        console.log error
+      response.send document.topic
+
+#  getPreviousTopic: ->
+#    update / upsert false
 
   saveTopic: (topic) ->
     dropbox.writeFile "#{time.currentWeek}/topic-#{topic}.txt", topic, (error, data) ->
       if error
         console.log error
       db.Topics.save {
-          week: drawings.getCurrentTopic()
+          week: time.currentWeek
           topic: topic
         }
       ,

@@ -10,6 +10,7 @@ drawings = require './drawings'
 time = require './services/time'
 
 signUpEmail = null
+WeeklyEmail = null
 
 app = express()
 app.set 'view engine', 'jade'
@@ -35,10 +36,10 @@ renderSignUpEmail = (nickname, signUpToken, subject) ->
     html = juice html, {applyWidthAttributes: true}
     signUpEmail = html
 
-renderWeeklyEmail = ->
+renderWeeklyEmail = (subject, weeklyDrawings) ->
   console.log "render weekly email for week ##{time.week}"
 
-  # should I also do background colors based on art sampling (trello style). gridded colors..
+  # ?should I also do background colors based on art sampling (trello style). gridded colors..
 
   # sync ->
   #   topic = topics.getCurrentTopic()
@@ -46,18 +47,17 @@ renderWeeklyEmail = ->
   #   drawings = topics.getDrawingsForCurrentTopic() # array of paths
     # console.log "#{topic}, #{week}, #{newTopic}, #{drawings}"
 
-  # app.render 'emails/weekly',
-  #   subject: "🐸##{week}: #{newTopic}"
-  #   newTopic: newTopic
-  #   nickname: nickname
-  #   topic: topic
-  #   url: url
-  # ,
-  # (error, html) ->
-  #   if error
-  #     console.log error
-  #   html = juice html, {applyWidthAttributes: true}
-  #   WeeklyEmail = html
+  app.render 'emails/weekly',
+    subject: subject
+    newTopic: topic.getCurrentTopic()
+    previousTopic: topic.getPreviousTopic()
+    url: url
+  ,
+  (error, html) ->
+    if error
+      console.log error
+    html = juice html, {applyWidthAttributes: true}
+    WeeklyEmail = html
 
 
 mailer =
@@ -77,9 +77,13 @@ mailer =
       (error, status) ->
         console.log status
 
-  sendWeekly: () ->
-    renderWeeklyEmail()
-   # subject = thistopic + (re: lasttopic) if lasttopic
+  sendWeekly: ->
+    console.log "send weekly mail to everyone"
+    # subject = "🐸 #{topic.getCurrentTopic()} + (re: #{topic.getPreviousTopic()})"
+    weeklyDrawings = drawings.getDrawingsInLastWeek()
+    renderWeeklyEmail(subject, weeklyDrawings)
+    # for each user -> sendgrid
+
 
 module.exports = mailer
 
