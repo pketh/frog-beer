@@ -15,26 +15,6 @@ pastTopicsList = '55458ea267f62bfd5cb3fb13'
 
 topics =
 
-  # getTrelloAccountInfo: ->
-  #   trello.get "/1/members/me", (error, data) ->
-  #     if error
-  #       console.log error
-  #     console.log data
-
-  getBoardInfo: ->
-    trello.get "/1/boards/#{board}", (error, data) ->
-      if error
-        console.log error
-      console.log "info for board: #{data.name}:"
-      console.log data
-
-  getLists: ->
-    options = {lists: 'open', list_fields: 'name'}
-    trello.get "/1/boards/#{board}", options, (error, data) ->
-      if error
-        console.log error
-      console.log data
-
   selectTopic: ->
     options = {cards: 'open', card_fields: 'name'}
     trello.get "/1/lists/#{upcomingTopicsList}", options, (error, data) ->
