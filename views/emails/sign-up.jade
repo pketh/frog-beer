@@ -1,16 +1,7 @@
 // from: Frog Beer
 
-if !subject
-  - subject = '🐸 Confirm your account'
-
 if !nickname
   - nickname = 'friend'
-
-if !url
-  - url = 'http://localhost:3000'
-
-if !signUpUrl
-  - signUpUrl = 'http://localhost:3000?signUpToken=12345abc'
 
 doctype html
 html
@@ -23,7 +14,8 @@ html
   body
 
     header
-      img(src="#{url}/img/frog.png" srcset="#{url}/img/frog@2x.png 2x" width="59" height="55")
+      a(href=url)
+        img(src="#{url}/img/frog.png" srcset="#{url}/img/frog@2x.png 2x" width="59" height="55")
 
     section.content
       p= 'Dear '

@@ -6,6 +6,7 @@ colors = require 'colors'
 path = require 'path'
 session = require 'express-session'
 
+env = require './env'
 config = require './config.json'
 routes = require './routes'
 topics = require './topics'
@@ -34,18 +35,6 @@ app.use (request, response, next) ->
   error.status = 404
   next error
 
-# if app.get('env') is 'development'
-#   app.use (error, request, response, next) ->
-#     response.status error.status or 500
-#     response.render 'error',
-#       message: error.message
-#       error: error
-# else
-#   app.use (error, request, response, next) ->
-#     response.status error.status or 500
-#     response.render 'error',
-#       message: error.message
-#       error: {}
 
 
 module.exports = app

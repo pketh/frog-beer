@@ -11,25 +11,26 @@ html
   body
 
     header
-      img(src="#{url}/img/frog.png" srcset="#{url}/img/frog@2x.png 2x" width="59" height="55")
+      a(href=url)
+        img(src="#{url}/img/frog.png" srcset="#{url}/img/frog@2x.png 2x" width="59" height="55")
 
     section.content
-      p Dear You / hey hon / sup / salut! / random openers
-
-    section.drawings
-      each drawing in drawings
-        img.drawing(src="#{drawing}")
+      p= currentTopic
 
     section.actions
-      a(href=signUpUrl class='link') Confirm your account
+      a(href=url class='link') Draw it
+
+    section.drawings
+      p= previousTopic
+      each drawing in drawings
+        img.drawing(src="#{drawing}")
 
     section.sign-off
       p Yours sincerely,
       p.signature – All frogs, everywhere.
 
-
-footer
-  hr
-  div unsubscribe from weekly topic emails link here w hardcoded route and query. /unsubscribe?=pirijan@gmail.com
-  // div page contains... Unsubscribed! come back soon.. new topics happen every week, you can still draw things
-  div contact me direct at hi@pketh.org
+    footer
+      hr
+      div unsubscribe from weekly topic emails link here w hardcoded route and query. /unsubscribe?=pirijan@gmail.com
+      // div page contains... Unsubscribed! come back soon.. new topics happen every week, you can still draw things
+      div contact me direct at hi@pketh.org

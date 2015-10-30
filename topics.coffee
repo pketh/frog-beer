@@ -8,9 +8,6 @@ dropbox = require './services/dropbox'
 time = require './services/time'
 db = require './services/db'
 trello = new Trello(config.trello.key, config.trello.token)
-# async = require 'async'
-
-
 
 board = '55458e45bbd7364c39f36b54'
 upcomingTopicsList = '55458e8002d6d526cff3ff10'
@@ -36,8 +33,7 @@ topics =
     trello.get "/1/boards/#{board}", options, (error, data) ->
       if error
         console.log error
-      else
-        console.log data
+      console.log data
 
   selectTopic: ->
     options = {cards: 'open', card_fields: 'name'}
@@ -56,10 +52,8 @@ topics =
     trello.put "/1/cards/#{card.id}/idList", options, (error, data) ->
       if error
         console.log error
-      # console.log "card moved"
-      # console.log "new topic: #{card.name}" # card object w id and name
+      console.log "card is now old: #{card.name}"
       # console.log data
-
 
   getPreviousTopic: (callback) ->
     db.Topics.findOne
@@ -68,11 +62,8 @@ topics =
     (error, previousTopic) ->
       if error
         console.log error
-      # else
       console.log "PREVIOUS TOPIC".yellow
       console.log previousTopic.topic
-
-      # topics.getCurrentTopic()
       GLOBAL.previousTopic = previousTopic.topic
       callback null
 
@@ -83,11 +74,9 @@ topics =
     (error, currentTopic) ->
       if error
         console.log error
-      # else
       console.log "CURRENT TOPIC".yellow
       console.log currentTopic.topic
       GLOBAL.currentTopic = currentTopic.topic
-      console.log "globals init as #{GLOBAL.currentTopic}, #{GLOBAL.previousTopic}".rainbow
       callback null
 
   saveTopic: (topic) ->
@@ -102,11 +91,8 @@ topics =
       (error, document) ->
         if error
           console.log error
-        else
-          console.log "topic set as #{topic}"
-          console.log document
+        console.log "topic set as #{topic}"
+        console.log document
 
 
 module.exports = topics
-
-# topics.selectTopic()

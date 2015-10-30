@@ -16,19 +16,12 @@ weeklyEmail = null
 app = express()
 app.set 'view engine', 'jade'
 
-#
-if process.env.NODE_ENV is 'development'
-  url = "http://localhost:3000"
-else
-  url = "http://frog.beer"
-
-
 renderSignUpEmail = (nickname, signUpToken, subject) ->
   console.log "rendering email for #{subject}"
   app.render 'emails/sign-up',
     subject: subject
     nickname: nickname
-    url: url
+    url: GLOBAL.url
     signUpUrl: "#{url}?signUpToken=#{signUpToken}"
   ,
   (error, html) ->
@@ -41,9 +34,9 @@ renderWeeklyEmail = (subject, drawingsInLastWeek) ->
   console.log "render weekly email for week ##{time.week}"
   app.render 'emails/weekly',
     subject: subject
-    newTopic: GLOBAL.currentTopic
+    currentTopic: GLOBAL.currentTopic
     previousTopic: GLOBAL.previousTopic
-    url: url
+    url: GLOBAL.url
     drawings: drawingsInLastWeek #array of imgs or abs paths
   ,
   (error, html) ->
@@ -52,58 +45,45 @@ renderWeeklyEmail = (subject, drawingsInLastWeek) ->
     html = juice html, {applyWidthAttributes: true}
     weeklyEmail = html
 
+sendMail = (email, subject, rendered) ->
+  sendgrid.send
+    to: email
+    from: 'frog@frog.beer'
+    fromname: 'Frog Beer'
+    replyTo: 'hi@pketh.org'
+    subject: subject
+    html: rendered
+    ,
+    (error, status) ->
+      if error
+        console.log error
+      console.log status
+
+
 
 mailer =
 
-  sendSignUp: (emailRecipient, nickname, signUpToken) ->
+  sendSignUp: (email, nickname, signUpToken) ->
     console.log "sending mail to #{nickname}"
     subject = '🐸 Confirm your account'
     renderSignUpEmail(nickname, signUpToken, subject)
-    sendgrid.send
-      to: emailRecipient
-      from: 'frog@frog.beer'
-      fromname: 'Frog Beer'
-      replyTo: 'hi@pketh.org'
-      subject: subject
-      html: signUpEmail
-      ,
-      (error, status) ->
-        if error
-          console.log error
-        else
-          console.log status
+    sendMail(email, subject, signUpEmail)
 
   sendWeekly: ->
-    console.log "send weekly mail to everyone"
     subject = "🐸 #{GLOBAL.currentTopic} + (re: #{GLOBAL.previousTopic})"
-    console.log subject
 
+    # ! ... get drawings as a list of referenceable paths
     drawingsInLastWeek = drawings.getDrawingsInLastWeek()
     console.log "DRAWINGS"
-    # console.log drawingsInLastWeek
+    console.log drawingsInLastWeek
 
     renderWeeklyEmail(subject, drawingsInLastWeek)
-
     db.Users.find {}, {email: true, _id:false}, (error, users) ->
       if error
         console.log error
       else
         emails = _.pluck(users, 'email')
         console.log emails
-
-        sendgrid.send
-          to: emails
-          from: 'frog@frog.beer'
-          fromname: 'Frog Beer'
-          replyTo: 'hi@pketh.org'
-          subject: subject
-          html: weeklyEmail
-          ,
-          (error, status) ->
-            if error
-              console.log error
-            else
-              console.log status
-
+        sendMail(emails, subject, weeklyEmail)
 
 module.exports = mailer

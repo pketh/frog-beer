@@ -8,6 +8,7 @@ users = require './users'
 palettes = require './palettes'
 drawings = require './drawings'
 # topics = require './topics'
+# mailer = require './mailer'
 helpers = require './helpers'
 
 
@@ -70,6 +71,10 @@ router.post '/get-user-name', (request, response) ->
 router.post '/add-account-token', (request, response) ->
   signUpToken = request.body.signUpToken
   users.addAccountToken(signUpToken, response)
+
+# router.get '/test', (request, response) ->
+#   mailer.renderWeeklyEmail()
+
 
 router.get '/', (request, response) ->
   accountCookie = request.cookies.accountToken

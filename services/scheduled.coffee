@@ -15,15 +15,12 @@ scheduled =
       topics.getCurrentTopic
     ], ->
       schedule = later.parse.text('every monday at 12:00am')
+      # ! ... later sends on startup , (also?)/not on schedule
       later.setInterval scheduled.weekly(), schedule
-
 
   weekly: ->
     topics.selectTopic()
     console.log "🍰 Topic for week ##{time.week} set to #{GLOBAL.currentTopic}"
     mailer.sendWeekly()
-
-
-# later sends on startup , (also?)/not on schedule
 
 module.exports = scheduled
