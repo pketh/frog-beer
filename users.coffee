@@ -78,8 +78,6 @@ users =
         console.log error
       response.send document.name
 
-  # getUsers: array of objs: name? and email for use in weekly mail
-
   clearAccountTokens: (accountToken) ->
     db.Users.findAndModify
       query:

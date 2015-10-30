@@ -61,7 +61,8 @@ topics =
     (error, document) ->
       if error
         console.log error
-      return document.topic
+      else
+        return document.topic
 
   getPreviousTopic: ->
     db.Topics.findOne
@@ -70,8 +71,8 @@ topics =
     (error, document) ->
       if error
         console.log error
-      console.log document.topic
-      return document.topic
+      else
+        return document.topic
 
   saveTopic: (topic) ->
     dropbox.writeFile "#{time.currentWeek}/topic-#{topic}.txt", topic, (error, data) ->

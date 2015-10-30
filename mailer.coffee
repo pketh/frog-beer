@@ -2,15 +2,17 @@ express = require 'express'
 juice = require 'juice'
 path = require 'path'
 sync = require 'sync'
+_ = require 'underscore'
 
 config = require './config.json'
 sendgrid = require('sendgrid')(config.sendgrid)
 topics = require './topics'
 drawings = require './drawings'
 time = require './services/time'
+db = require './services/db'
 
 signUpEmail = null
-WeeklyEmail = null
+weeklyEmail = null
 
 app = express()
 app.set 'view engine', 'jade'
@@ -36,19 +38,20 @@ renderSignUpEmail = (nickname, signUpToken, subject) ->
     html = juice html, {applyWidthAttributes: true}
     signUpEmail = html
 
-renderWeeklyEmail = (subject, weeklyDrawings) ->
+renderWeeklyEmail = (subject, drawingsInLastWeek) ->
   console.log "render weekly email for week ##{time.week}"
   app.render 'emails/weekly',
     subject: subject
-    newTopic: topic.getCurrentTopic()
-    previousTopic: topic.getPreviousTopic()
+    newTopic: topics.getCurrentTopic()
+    previousTopic: topics.getPreviousTopic()
     url: url
+    drawings: drawingsInLastWeek #array of imgs or abs paths
   ,
   (error, html) ->
     if error
       console.log error
     html = juice html, {applyWidthAttributes: true}
-    WeeklyEmail = html
+    weeklyEmail = html
 
 
 mailer =
@@ -66,16 +69,43 @@ mailer =
       html: signUpEmail
       ,
       (error, status) ->
-        console.log status
+        if error
+          console.log error
+        else
+          console.log status
 
   sendWeekly: ->
     console.log "send weekly mail to everyone"
-    subject = "🐸 #{topic.getCurrentTopic()} + (re: #{topic.getPreviousTopic()})"
-    weeklyDrawings = drawings.getDrawingsInLastWeek()
-    renderWeeklyEmail(subject, weeklyDrawings)
-    # for each user -> sendgrid
+    subject = "🐸 #{topics.getCurrentTopic()} + (re: #{topics.getPreviousTopic()})"
+    console.log subject
+    drawingsInLastWeek = drawings.getDrawingsInLastWeek()
+    renderWeeklyEmail(subject, drawingsInLastWeek)
+
+    db.Users.find {}, {email: true, _id:false}, (error, users) ->
+      if error
+        console.log error
+      else
+        console.log users
+        # [ { email: 'pirijan@gmail.com' }, { email: 'hi@pketh.org' } ]
+
+        emails = _.pluck(users, 'email')
+        console.log emails
+
+        sendgrid.send
+          to: emails
+          from: 'frog@frog.beer'
+          fromname: 'Frog Beer'
+          replyTo: 'hi@pketh.org'
+          subject: subject
+          html: weeklyEmail
+          ,
+          (error, status) ->
+            if error
+              console.log error
+            else
+              console.log status
 
 
 module.exports = mailer
 
-# mailer.sendWeekly()
+mailer.sendWeekly()

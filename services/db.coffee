@@ -6,7 +6,7 @@ config = require '../config.json'
 [Users, Drawings, Topics] = [null]
 
 path = "mongodb://#{config.mongo.user}:#{config.mongo.password}@#{config.mongo.path}"
-# console.log "mongo #{config.mongo.path} -u #{config.mongo.user} -p #{config.mongo.password}".magenta
+console.log "mongo #{config.mongo.path} -u #{config.mongo.user} -p #{config.mongo.password}".magenta
 
 database = mongojs path, [],
   authMechanism : 'ScramSHA1'

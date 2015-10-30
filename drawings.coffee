@@ -22,7 +22,7 @@ drawings =
             ##  will need to serialize/deserialize image data blob <-> ascii
 
   getDrawingsInLastWeek: ->
-    dropbox.readdir "/#{lastWeek}", (error, entries) ->
+    dropbox.readdir "/#{time.lastWeek}", (error, entries) ->
       if error
         console.log error
       for entry in entries
