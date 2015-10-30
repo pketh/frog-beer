@@ -61,10 +61,17 @@ topics =
     (error, document) ->
       if error
         console.log error
-      response.send document.topic
+      return document.topic
 
-#  getPreviousTopic: ->
-#    update / upsert false
+  getPreviousTopic: ->
+    db.Topics.findOne
+      week: time.lastWeek
+    ,
+    (error, document) ->
+      if error
+        console.log error
+      console.log document.topic
+      return document.topic
 
   saveTopic: (topic) ->
     dropbox.writeFile "#{time.currentWeek}/topic-#{topic}.txt", topic, (error, data) ->
@@ -78,8 +85,9 @@ topics =
       (error, document) ->
         if error
           console.log error
-        console.log "topic set as #{topic}"
-        console.log document
+        else
+          console.log "topic set as #{topic}"
+          console.log document
 
 
 module.exports = topics

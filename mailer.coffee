@@ -38,15 +38,6 @@ renderSignUpEmail = (nickname, signUpToken, subject) ->
 
 renderWeeklyEmail = (subject, weeklyDrawings) ->
   console.log "render weekly email for week ##{time.week}"
-
-  # ?should I also do background colors based on art sampling (trello style). gridded colors..
-
-  # sync ->
-  #   topic = topics.getCurrentTopic()
-  #   newTopic = topics.selectTopic()
-  #   drawings = topics.getDrawingsForCurrentTopic() # array of paths
-    # console.log "#{topic}, #{week}, #{newTopic}, #{drawings}"
-
   app.render 'emails/weekly',
     subject: subject
     newTopic: topic.getCurrentTopic()
@@ -79,7 +70,7 @@ mailer =
 
   sendWeekly: ->
     console.log "send weekly mail to everyone"
-    # subject = "🐸 #{topic.getCurrentTopic()} + (re: #{topic.getPreviousTopic()})"
+    subject = "🐸 #{topic.getCurrentTopic()} + (re: #{topic.getPreviousTopic()})"
     weeklyDrawings = drawings.getDrawingsInLastWeek()
     renderWeeklyEmail(subject, weeklyDrawings)
     # for each user -> sendgrid
