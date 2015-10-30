@@ -107,5 +107,3 @@ mailer =
 
 
 module.exports = mailer
-
-# mailer.sendWeekly()

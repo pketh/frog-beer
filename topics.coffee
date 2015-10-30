@@ -87,13 +87,8 @@ topics =
       console.log "CURRENT TOPIC".yellow
       console.log currentTopic.topic
       GLOBAL.currentTopic = currentTopic.topic
-      console.log "globals init as #{GLOBAL.currentTopic}, #{GLOBAL.previousTopic}".red
+      console.log "globals init as #{GLOBAL.currentTopic}, #{GLOBAL.previousTopic}".rainbow
       callback null
-
-
-
-
-
 
   saveTopic: (topic) ->
     dropbox.writeFile "#{time.currentWeek}/topic-#{topic}.txt", topic, (error, data) ->
@@ -115,4 +110,3 @@ topics =
 module.exports = topics
 
 # topics.selectTopic()
-
