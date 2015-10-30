@@ -1,7 +1,6 @@
 express = require 'express'
 juice = require 'juice'
 path = require 'path'
-sync = require 'sync'
 _ = require 'underscore'
 
 config = require './config.json'
@@ -42,8 +41,8 @@ renderWeeklyEmail = (subject, drawingsInLastWeek) ->
   console.log "render weekly email for week ##{time.week}"
   app.render 'emails/weekly',
     subject: subject
-    newTopic: topics.getCurrentTopic()
-    previousTopic: topics.getPreviousTopic()
+    newTopic: GLOBAL.currentTopic
+    previousTopic: GLOBAL.previousTopic
     url: url
     drawings: drawingsInLastWeek #array of imgs or abs paths
   ,
@@ -76,18 +75,19 @@ mailer =
 
   sendWeekly: ->
     console.log "send weekly mail to everyone"
-    subject = "🐸 #{topics.getCurrentTopic()} + (re: #{topics.getPreviousTopic()})"
+    subject = "🐸 #{GLOBAL.currentTopic} + (re: #{GLOBAL.previousTopic})"
     console.log subject
+
     drawingsInLastWeek = drawings.getDrawingsInLastWeek()
+    console.log "DRAWINGS"
+    # console.log drawingsInLastWeek
+
     renderWeeklyEmail(subject, drawingsInLastWeek)
 
     db.Users.find {}, {email: true, _id:false}, (error, users) ->
       if error
         console.log error
       else
-        console.log users
-        # [ { email: 'pirijan@gmail.com' }, { email: 'hi@pketh.org' } ]
-
         emails = _.pluck(users, 'email')
         console.log emails
 
@@ -108,4 +108,4 @@ mailer =
 
 module.exports = mailer
 
-mailer.sendWeekly()
+# mailer.sendWeekly()

@@ -5,11 +5,14 @@ logger = require 'morgan'
 colors = require 'colors'
 path = require 'path'
 session = require 'express-session'
-limiter = require('express-limiter') app
 
 config = require './config.json'
 routes = require './routes'
+topics = require './topics'
 db = require './services/db'
+scheduled = require './services/scheduled'
+
+scheduled.init()
 
 app = express()
 app.set 'view engine', 'jade'
@@ -31,27 +34,24 @@ app.use (request, response, next) ->
   error.status = 404
   next error
 
-if app.get('env') is 'development'
-  app.use (error, request, response, next) ->
-    response.status error.status or 500
-    response.render 'error',
-      message: error.message
-      error: error
-else
-  app.use (error, request, response, next) ->
-    response.status error.status or 500
-    response.render 'error',
-      message: error.message
-      error: {}
+# if app.get('env') is 'development'
+#   app.use (error, request, response, next) ->
+#     response.status error.status or 500
+#     response.render 'error',
+#       message: error.message
+#       error: error
+# else
+#   app.use (error, request, response, next) ->
+#     response.status error.status or 500
+#     response.render 'error',
+#       message: error.message
+#       error: {}
 
 
 module.exports = app
 
-limiter {
-  path: '*'
-  lookup: 'connection.remoteAddress'
-}
-
-# dropbox = require './dropbox'
-# dropbox.getAccountInfo (error, accountInfo) ->
-#   console.log accountInfo
+# limiter = require('express-limiter') app
+# limiter {
+#   path: '*'
+#   lookup: 'connection.remoteAddress'
+# }

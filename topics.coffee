@@ -1,11 +1,16 @@
 Trello = require 'node-trello'
 _ = require 'underscore'
+colors = require 'colors'
 
 config = require './config.json'
+drawings = require './drawings'
 dropbox = require './services/dropbox'
 time = require './services/time'
 db = require './services/db'
 trello = new Trello(config.trello.key, config.trello.token)
+# async = require 'async'
+
+
 
 board = '55458e45bbd7364c39f36b54'
 upcomingTopicsList = '55458e8002d6d526cff3ff10'
@@ -13,11 +18,11 @@ pastTopicsList = '55458ea267f62bfd5cb3fb13'
 
 topics =
 
-  getTrelloAccountInfo: ->
-    trello.get "/1/members/me", (error, data) ->
-      if error
-        console.log error
-      console.log data
+  # getTrelloAccountInfo: ->
+  #   trello.get "/1/members/me", (error, data) ->
+  #     if error
+  #       console.log error
+  #     console.log data
 
   getBoardInfo: ->
     trello.get "/1/boards/#{board}", (error, data) ->
@@ -31,7 +36,8 @@ topics =
     trello.get "/1/boards/#{board}", options, (error, data) ->
       if error
         console.log error
-      console.log data
+      else
+        console.log data
 
   selectTopic: ->
     options = {cards: 'open', card_fields: 'name'}
@@ -41,7 +47,7 @@ topics =
       cards = data.cards
       shuffled = _.shuffle cards
       topic = shuffled[0]
-      drawings.saveTopic topic.name
+      topics.saveTopic topic.name
       topics.moveTopicToPastTopics topic
       return topic.name
 
@@ -50,29 +56,44 @@ topics =
     trello.put "/1/cards/#{card.id}/idList", options, (error, data) ->
       if error
         console.log error
-      console.log "card moved"
-      console.log card # card object w id and name
-      console.log data
+      # console.log "card moved"
+      # console.log "new topic: #{card.name}" # card object w id and name
+      # console.log data
 
-  getCurrentTopic: ->
-    db.Topics.findOne
-      week: time.currentWeek
-    ,
-    (error, document) ->
-      if error
-        console.log error
-      else
-        return document.topic
 
-  getPreviousTopic: ->
+  getPreviousTopic: (callback) ->
     db.Topics.findOne
       week: time.lastWeek
     ,
-    (error, document) ->
+    (error, previousTopic) ->
       if error
         console.log error
-      else
-        return document.topic
+      # else
+      console.log "PREVIOUS TOPIC".yellow
+      console.log previousTopic.topic
+
+      # topics.getCurrentTopic()
+      GLOBAL.previousTopic = previousTopic.topic
+      callback null
+
+  getCurrentTopic: (callback) ->
+    db.Topics.findOne
+      week: time.currentWeek
+    ,
+    (error, currentTopic) ->
+      if error
+        console.log error
+      # else
+      console.log "CURRENT TOPIC".yellow
+      console.log currentTopic.topic
+      GLOBAL.currentTopic = currentTopic.topic
+      console.log "globals init as #{GLOBAL.currentTopic}, #{GLOBAL.previousTopic}".red
+      callback null
+
+
+
+
+
 
   saveTopic: (topic) ->
     dropbox.writeFile "#{time.currentWeek}/topic-#{topic}.txt", topic, (error, data) ->

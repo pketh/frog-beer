@@ -9,11 +9,12 @@ time = require './services/time'
 drawings =
 
   getDrawingsInCurrentWeek: ->
-    dropbox.readdir "/#{time.currentWeek}", (error, entries) ->
+    dropbox.readdir "/#{time.currentWeek}", (error, drawings) ->
       if error
         console.log error
-      for entry in entries
-        console.log entry
+      else
+        for drawing in drawings
+          console.log drawing
         # define drawing = entry.data or whatever for the image
         # for each file in files
           # drawings.getDrawing(drawing) .. do a callback
@@ -22,11 +23,12 @@ drawings =
             ##  will need to serialize/deserialize image data blob <-> ascii
 
   getDrawingsInLastWeek: ->
-    dropbox.readdir "/#{time.lastWeek}", (error, entries) ->
+    dropbox.makeUrl "/#{time.lastWeek}", {downloadHack: true}, (error, drawings) ->
       if error
         console.log error
-      for entry in entries
-        console.log entry
+      else
+        console.log drawings
+        return drawings
         # do things like above..
         # returns array of paths
 

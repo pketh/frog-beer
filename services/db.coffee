@@ -1,4 +1,3 @@
-sync = require 'sync'
 mongojs = require 'mongojs'
 
 config = require '../config.json'
@@ -11,10 +10,9 @@ console.log "mongo #{config.mongo.path} -u #{config.mongo.user} -p #{config.mong
 database = mongojs path, [],
   authMechanism : 'ScramSHA1'
 
-sync ->
-  database.createCollection 'Users', {}
-  database.createCollection 'Drawings', {}
-  database.createCollection 'Topics', {}
+database.createCollection 'Users', {}
+database.createCollection 'Drawings', {}
+database.createCollection 'Topics', {}
 
 db =
 
