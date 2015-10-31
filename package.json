@@ -24,6 +24,7 @@
     "morgan": "~1.6.1",
     "node-trello": "^1.1.2",
     "node-uuid": "^1.4.3",
+    "s3": "^4.4.0",
     "sendgrid": "^1.9.2",
     "underscore": "^1.8.3",
     "validator": "^4.1.0"
