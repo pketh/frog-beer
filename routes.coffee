@@ -22,15 +22,11 @@ router.post '/new-sign-up', (request, response) ->
   signUpToken = uuid.v4()
   users.signUp(email, nickname, signUpToken, response)
 
-#🔮
 router.post '/save-drawing', (request, response) ->
   accountCookie = request.cookies.accountToken
-  # console.log accountCookie
   drawing = request.body.image
   drawing = drawing.substring drawing.indexOf('base64,')+7
-  # console.log drawing
   drawingBuffer = new Buffer(drawing, 'base64')
-  # console.log drawingBuffer
   if accountCookie
     console.log 'save acct'
     drawings.saveDrawing(drawingBuffer, accountCookie, response)
@@ -61,8 +57,6 @@ router.get '/sign-out', (request, response) ->
   response.render 'sign-out',
     palettes: null
     signOutPage: true
-  #.. kills all accountTokens for an email account
-
 
 router.post '/get-user-name', (request, response) ->
   accountToken = request.body.email

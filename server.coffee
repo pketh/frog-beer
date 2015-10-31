@@ -13,7 +13,7 @@ topics = require './topics'
 db = require './services/db'
 scheduled = require './services/scheduled'
 
-scheduled.init()
+# scheduled.init()
 
 app = express()
 app.set 'view engine', 'jade'

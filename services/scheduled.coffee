@@ -10,12 +10,12 @@ mailer = require '../mailer'
 scheduled =
 
   init: ->
-    async.series [
+    async.parallel [
       topics.getPreviousTopic
       topics.getCurrentTopic
     ], ->
       schedule = later.parse.text('every monday at 12:00am')
-      # ! ... later sends on startup , (also?)/not on schedule
+      # ! BUG ... later sends on startup , (also?)/not on schedule
       later.setInterval scheduled.weekly(), schedule
 
   weekly: ->

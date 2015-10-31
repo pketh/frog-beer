@@ -22,3 +22,32 @@
   #     if error
   #       console.log error
   #     console.log data
+
+
+  # ! DRAWINGS output this on mainpage
+  # getDrawingsInCurrentWeek: ->
+  #   dropbox.readdir "/#{time.currentWeek}", (error, drawings) ->
+  #     if error
+  #       console.log error
+  #     else
+  #       for drawing in drawings
+  #         console.log drawing
+        # define drawing = entry.data or whatever for the image
+        # for each file in files
+          # drawings.getDrawing(drawing) .. do a callback
+            # on the call back, do ..
+            # drawingscurrentWeek.push(returned img) to an array of image data
+            ##  will need to serialize/deserialize image data blob <-> ascii
+
+  # ! output this on weekly email
+  # getDrawingsInLastWeek: ->
+  #   dropbox.makeUrl "/#{time.lastWeek}", {downloadHack: true}, (error, drawings) ->
+  #     if error
+  #       console.log error
+  #     else
+  #       console.log "DRAWINGS IN LAST WEEK".yellow
+  #       console.log drawings
+  #       return drawings
+        # do things like above..
+        # returns array of paths
+
