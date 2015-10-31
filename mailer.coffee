@@ -72,7 +72,7 @@ mailer =
     subject = "🐸 #{GLOBAL.currentTopic} + (re: #{GLOBAL.previousTopic})"
     drawingsInLastWeek = GLOBAL.drawingsInLastWeek
     renderWeeklyEmail subject, drawingsInLastWeek
-    db.Users.find {}, {email: true, _id:false}, (error, users) ->
+    db.Users.find {unsubscribed: null}, {email: true, _id:false}, (error, users) ->
       if error
         console.log error
       emails = _.pluck(users, 'email')
