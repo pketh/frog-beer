@@ -1,39 +1,23 @@
+async = require 'async'
+mkdirp = require 'mkdirp'
+fs = require 'fs'
 Trello = require 'node-trello'
 _ = require 'underscore'
 colors = require 'colors'
+kaomoji = require 'kaomoji'
 
 config = require './config.json'
 drawings = require './drawings'
-dropbox = require './services/dropbox'
 time = require './services/time'
 db = require './services/db'
-trello = new Trello(config.trello.key, config.trello.token)
+s3 = require './services/s3'
 
+trello = new Trello(config.trello.key, config.trello.token)
 board = '55458e45bbd7364c39f36b54'
 upcomingTopicsList = '55458e8002d6d526cff3ff10'
 pastTopicsList = '55458ea267f62bfd5cb3fb13'
 
 topics =
-
-  selectTopic: ->
-    options = {cards: 'open', card_fields: 'name'}
-    trello.get "/1/lists/#{upcomingTopicsList}", options, (error, data) ->
-      if error
-        console.log error
-      cards = data.cards
-      shuffled = _.shuffle cards
-      topic = shuffled[0]
-      topics.saveTopic topic.name
-      topics.moveTopicToPastTopics topic
-      return topic.name
-
-  moveTopicToPastTopics: (card) ->
-    options = {value: pastTopicsList}
-    trello.put "/1/cards/#{card.id}/idList", options, (error, data) ->
-      if error
-        console.log error
-      console.log "card is now old: #{card.name}"
-      # console.log data
 
   getPreviousTopic: (callback) ->
     db.Topics.findOne
@@ -59,20 +43,69 @@ topics =
       GLOBAL.currentTopic = currentTopic.topic
       callback null
 
-  saveTopic: (topic) ->
-    dropbox.writeFile "#{time.currentWeek}/topic-#{topic}.txt", topic, (error, data) ->
+  selectTopic: ->
+    options = {cards: 'open', card_fields: 'name'}
+    trello.get "/1/lists/#{upcomingTopicsList}", options, (error, data) ->
       if error
         console.log error
-      db.Topics.save {
-          week: time.currentWeek
-          topic: topic
-        }
-      ,
-      (error, document) ->
+      cards = data.cards
+      shuffled = _.shuffle cards
+      topic = shuffled[0]
+      topics.saveTopic topic.name
+      topics.moveTopicToPastTopics topic
+      return topic.name
+
+  moveTopicToPastTopics: (card) ->
+    options = {value: pastTopicsList}
+    trello.put "/1/cards/#{card.id}/idList", options, (error, data) ->
+      if error
+        console.log error
+      console.log "card is now old: #{card.name}"
+
+  saveTopicLocally: (file, path, callback) ->
+    localPath = "#{path}/#{file}"
+    mkdirp path, (error) ->
+      if error
+        console.log error
+      fs.writeFile localPath, kaomoji.happy(), (error) ->
         if error
           console.log error
-        console.log "topic set as #{topic}"
-        console.log document
+        console.log "#{file} saved".green
+        callback null
 
+  saveTopicToS3: (file, path, remotePath, callback) ->
+    params =
+      localFile: "#{path}/#{file}"
+      s3Params:
+        Bucket: "frog-beer"
+        Key: remotePath
+        ACL: "public-read"
+    upload = s3.uploadFile params
+    upload.on 'error', (error) ->
+      console.log error
+    upload.on 'end', ->
+      console.log "Topic Uploaded to S3".green
+      callback null
+
+  saveTopicToDB: (topic) ->
+    db.Topics.save {
+        week: time.currentWeek
+        topic: topic
+      }
+    ,
+    (error, document) ->
+      if error
+        console.log error
+      console.log "topic set as #{topic}"
+
+  saveTopic: (topic) ->
+    file = "topic-#{topic}.txt"
+    path = "./public/blobs/#{time.currentWeek}"
+    remotePath = "#{time.currentWeek}/#{file}"
+    async.series [
+      async.apply topics.saveTopicLocally, file, path
+      async.apply topics.saveTopicToS3, file, path, remotePath
+    ], ->
+      topics.saveTopicToDB topic
 
 module.exports = topics

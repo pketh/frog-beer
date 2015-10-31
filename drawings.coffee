@@ -4,6 +4,7 @@ uuid = require 'node-uuid'
 moment = require 'moment'
 colors = require 'colors'
 mkdirp = require 'mkdirp'
+_ = require 'underscore'
 
 config = require './config.json'
 db = require './services/db'
@@ -13,20 +14,28 @@ s3 = require './services/s3'
 
 drawings =
 
-  saveDrawingToFileSystem: (path, filename, drawing, callback) ->
-    file = "#{path}/#{filename}.png"
+  updateDrawingsInLastWeek: (callback) ->
+    lastweek = time.week - 1
+    db.Drawings.find {week: lastweek}, {url: true, _id:false}, (error, drawings) ->
+      if error
+        console.log error
+      GLOBAL.drawingsInLastWeek = _.pluck(drawings, 'url')
+      callback null
+
+  saveDrawingLocally: (path, file, drawing, callback) ->
+    localPath = "#{path}/#{file}"
     mkdirp path, (error) ->
       if error
         console.log error
-      fs.writeFile file, drawing, (error) ->
+      fs.writeFile localPath, drawing, (error) ->
         if error
           console.log error
-        console.log "#{filename}.png saved".green
+        console.log "#{file} saved".green
         callback null
 
-  saveDrawingToS3: (path, filename, remotePath, callback) ->
+  saveDrawingToS3: (path, file, remotePath, callback) ->
     params =
-      localFile: "#{path}/#{filename}.png"
+      localFile: "#{path}/#{file}"
       s3Params:
         Bucket: "frog-beer"
         Key: remotePath
@@ -47,8 +56,8 @@ drawings =
       if error
         console.log error
       db.Drawings.insert
-        created: moment.utc()
-        path: "#{config.s3.bucketPath}/#{remotePath}"
+        created: moment.utc().format('MMMM Do YYYY, h:mm:ss a')
+        url: "#{config.s3.bucketPath}/#{remotePath}"
         week: time.week
         name: user.name
         userId: user._id
@@ -60,23 +69,23 @@ drawings =
         console.log "image info saved to db".green
 
   saveDrawing: (drawing, accountCookie, response) ->
-    filename = "#{uuid.v4()}"
+    file = "#{uuid.v4()}.png"
     path = "./public/blobs/#{time.currentWeek}"
-    remotePath = "#{time.currentWeek}/#{filename}.png"
+    remotePath = "#{time.currentWeek}/#{file}"
     async.series [
-      async.apply drawings.saveDrawingToFileSystem, path, filename, drawing
-      async.apply drawings.saveDrawingToS3, path, filename, remotePath
+      async.apply drawings.saveDrawingLocally, path, file, drawing
+      async.apply drawings.saveDrawingToS3, path, file, remotePath
     ], ->
       drawings.saveDrawingInfoToDB accountCookie, remotePath
       response.send true
 
 # .......
-  saveAnonymousDrawing: ->
-    filename = "#{uuid.v4()}"
-    path = "./public/blobs/anonymous/#{filename}.png"
-    remotePath = "anonymous/#{filename}.png"
-    console.log filename
-    response.send true
+  # saveAnonymousDrawing: ->
+  #   file = "#{uuid.v4()}.png"
+  #   path = "./public/blobs/anonymous/#{file}"
+  #   remotePath = "anonymous/#{file}"
+  #   console.log file
+  #   response.send true
 #     console.log dropbox
 #     dropbox.writeFile path, drawing, (error, stat) ->
 #       console.log stat

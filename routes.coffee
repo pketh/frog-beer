@@ -2,6 +2,8 @@ express = require 'express'
 router = express.Router()
 cookieParser = require 'cookie-parser'
 uuid = require 'node-uuid'
+colors = require 'colors'
+_ = require 'underscore'
 
 config = require './config.json'
 users = require './users'
@@ -28,10 +30,8 @@ router.post '/save-drawing', (request, response) ->
   drawing = drawing.substring drawing.indexOf('base64,')+7
   drawingBuffer = new Buffer(drawing, 'base64')
   if accountCookie
-    console.log 'save acct'
     drawings.saveDrawing(drawingBuffer, accountCookie, response)
   else
-    console.log 'save anon'
     drawings.saveAnonymousDrawing(drawingBuffer, response)
 
 
@@ -72,10 +72,11 @@ router.post '/add-account-token', (request, response) ->
 
 router.get '/', (request, response) ->
   accountCookie = request.cookies.accountToken
+  drawingsInLastWeek = _.sample GLOBAL.drawingsInLastWeek, 25
   response.render 'draw',
-    topic: 'Amurica!' # stub
-    lastTopic: 'The Haunting' # stub
-    lastWeek: {'path1':'user1', 'path2':'user2', 'path3':'user3'} # stub - limit to 25 w random order?
+    topic: GLOBAL.currentTopic
+    lastTopic: GLOBAL.previousTopic
+    drawingsInLastWeek: drawingsInLastWeek
     palettes: palettes
     trello: config.trello
     github: config.github

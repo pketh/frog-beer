@@ -60,7 +60,6 @@ sendMail = (email, subject, rendered) ->
       console.log status
 
 
-
 mailer =
 
   sendSignUp: (email, nickname, signUpToken) ->
@@ -72,8 +71,7 @@ mailer =
   sendWeekly: ->
     subject = "🐸 #{GLOBAL.currentTopic} + (re: #{GLOBAL.previousTopic})"
 
-    # ! ... get drawings as a list of referenceable paths
-    drawingsInLastWeek = drawings.getDrawingsInLastWeek()
+    drawingsInLastWeek = GLOBAL.drawingsInLastWeek
     console.log "DRAWINGS"
     console.log drawingsInLastWeek
 
@@ -81,9 +79,8 @@ mailer =
     db.Users.find {}, {email: true, _id:false}, (error, users) ->
       if error
         console.log error
-      else
-        emails = _.pluck(users, 'email')
-        console.log emails
-        sendMail(emails, subject, weeklyEmail)
+      emails = _.pluck(users, 'email')
+      console.log emails
+      sendMail(emails, subject, weeklyEmail)
 
 module.exports = mailer
