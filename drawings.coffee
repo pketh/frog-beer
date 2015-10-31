@@ -26,13 +26,12 @@ drawings =
         console.log "#{filename}.png saved".green
         callback null
 
-  saveDrawingToS3: (path, filename, callback) ->
-    file = "#{time.currentWeek}/#{filename}.png"
+  saveDrawingToS3: (path, filename, remotePath, callback) ->
     params =
       localFile: "#{path}/#{filename}.png"
       s3Params:
         Bucket: "frog-beer"
-        Key: file
+        Key: remotePath
         ACL: "public-read"
         ContentType: "image/png"
     upload = s3.uploadFile params
@@ -42,7 +41,7 @@ drawings =
       console.log "Uploaded to S3".green
       callback null
 
-  saveDrawingInfoToDB: (accountCookie, path, callback) ->
+  saveDrawingInfoToDB: (accountCookie, remotePath, callback) ->
     db.Users.findOne
       accountTokens: accountCookie
     ,
@@ -51,7 +50,7 @@ drawings =
         console.log error
       db.Drawings.insert
         created: moment.utc()
-        path: path
+        path: "#{config.s3.bucketPath}/#{remotePath}"
         week: time.week
         name: user.name
         userId: user._id
@@ -65,11 +64,12 @@ drawings =
   saveDrawing: (drawing, accountCookie, response) ->
     filename = "#{uuid.v4()}"
     path = "./public/blobs/#{time.currentWeek}"
+    remotePath = "#{time.currentWeek}/#{filename}.png"
     async.series [
       async.apply drawings.saveDrawingToFileSystem, path, filename, drawing
-      async.apply drawings.saveDrawingToS3, path, filename
+      async.apply drawings.saveDrawingToS3, path, filename, remotePath
     ], ->
-      drawings.saveDrawingInfoToDB accountCookie, path
+      drawings.saveDrawingInfoToDB accountCookie, remotePath
       response.send true
 
 # .......
