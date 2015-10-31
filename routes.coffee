@@ -9,8 +9,6 @@ config = require './config.json'
 users = require './users'
 palettes = require './palettes'
 drawings = require './drawings'
-# topics = require './topics'
-# mailer = require './mailer'
 helpers = require './helpers'
 
 
@@ -35,14 +33,26 @@ router.post '/save-drawing', (request, response) ->
     drawings.saveAnonymousDrawing(drawingBuffer, response)
 
 
-  # ?users.saveCookie
-      # also mail me personally re: each new submission
-  # request.body is #base 64 png img
-
-
 # the link to this is in the email
 # router.get '/unsubscribe-from-emails', (request, response) ->
+  # flip a db bool for unsubscribed: true
+  # don't send emails to ppl with unsubscribed: true
+    # res render emails/unsubscribed.jade
+    # please enter your email to unsubscribe
+    # (シ_ _)シ
+    # (sorry about the extra step, I'm just lazy)
 #   response.send 'hello id: ' + request.query.signUpToken
+
+
+# router.get '/unsubscribed-from-emails', (request, response) ->
+# (res render emails/unsubscribed.jade)
+# You're now unsubscribed. I still love you.
+# (╯°□°）╯︵ ┻━┻
+
+# new topics happen every week, you can still visit and draw things
+# if you want to start getting weekly emails again, just let me know at hi@pketh.org and we'll be all chummy again.
+# ┬──┬◡ﾉ(° -°ﾉ)
+
 
 router.get '/sign-up-in', (request, response) ->
   response.render 'sign-up-in',
@@ -65,10 +75,6 @@ router.post '/get-user-name', (request, response) ->
 router.post '/add-account-token', (request, response) ->
   signUpToken = request.body.signUpToken
   users.addAccountToken(signUpToken, response)
-
-# router.get '/test', (request, response) ->
-#   mailer.renderWeeklyEmail()
-
 
 router.get '/', (request, response) ->
   accountCookie = request.cookies.accountToken

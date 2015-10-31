@@ -1,5 +1,7 @@
 // from: Frog Beer
 
+- trello = "https://trello.com/b/sGyRPlQ0/frog-beer"
+
 - frog = "https://s3.amazonaws.com/frog-beer/frog.png"
 - frog2x = "https://s3.amazonaws.com/frog-beer/frog2x.png"
 
@@ -17,23 +19,28 @@ html
       a(href=url)
         img(src=frog srcset="#{frog2x} 2x")
 
-    section.content
-      p= currentTopic
+    section.this-week
+      h2 This Week
+      p.topic= currentTopic
 
-    section.actions
-      a(href=url class='link') Draw it
+      section.actions
+        p
+          a(href=url) Draw it →
+        p
+          a(href=trello) Add topics
 
-    section.drawings
-      p= previousTopic
-      each drawing in drawings
-        img.drawing(src="#{drawing}")
+    section.last-week
+      h2 Last Week
+      p.topic= previousTopic
 
-    section.sign-off
-      p Yours sincerely,
-      p.signature – All frogs, everywhere.
+      ul.last-week
+        each drawing in drawingsInLastWeek
+          li(align="left")
+            img.drawing(src="#{drawing}" width="200px" height="200px")
 
     footer
       hr
-      div unsubscribe from weekly topic emails link here w hardcoded route and query. /unsubscribe?=pirijan@gmail.com
-      // div page contains... Unsubscribed! come back soon.. new topics happen every week, you can still draw things
-      div contact me direct at hi@pketh.org
+      p You're receiving this because you like drawing little things on the internet.
+      p= " psst, you can also "
+        span
+          a(href="#{url}/unsubscribe-from-emails") unsubscribe

@@ -37,7 +37,7 @@ renderWeeklyEmail = (subject, drawingsInLastWeek) ->
     currentTopic: GLOBAL.currentTopic
     previousTopic: GLOBAL.previousTopic
     url: GLOBAL.url
-    drawings: drawingsInLastWeek #array of imgs or abs paths
+    drawingsInLastWeek: _.shuffle drawingsInLastWeek
   ,
   (error, html) ->
     if error
@@ -70,12 +70,8 @@ mailer =
 
   sendWeekly: ->
     subject = "🐸 #{GLOBAL.currentTopic} + (re: #{GLOBAL.previousTopic})"
-
     drawingsInLastWeek = GLOBAL.drawingsInLastWeek
-    console.log "DRAWINGS"
-    console.log drawingsInLastWeek
-
-    renderWeeklyEmail(subject, drawingsInLastWeek)
+    renderWeeklyEmail subject, drawingsInLastWeek
     db.Users.find {}, {email: true, _id:false}, (error, users) ->
       if error
         console.log error
