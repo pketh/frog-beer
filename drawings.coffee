@@ -5,10 +5,8 @@ moment = require 'moment'
 colors = require 'colors'
 mkdirp = require 'mkdirp'
 
-
 config = require './config.json'
 db = require './services/db'
-dropbox = require './services/dropbox'
 time = require './services/time'
 s3 = require './services/s3'
 
@@ -76,16 +74,18 @@ drawings =
   saveAnonymousDrawing: ->
     filename = "#{uuid.v4()}"
     path = "./public/blobs/anonymous/#{filename}.png"
+    remotePath = "anonymous/#{filename}.png"
     console.log filename
-    console.log dropbox
-    dropbox.writeFile path, drawing, (error, stat) ->
-      console.log stat
-      if error
-        console.log error
-      else
-# .............insert db add anon drawing info to db ..
-        console.log "ANON DRAWING: #{stat.name} saved to: #{stat.path}"
-        response.send true
+    response.send true
+#     console.log dropbox
+#     dropbox.writeFile path, drawing, (error, stat) ->
+#       console.log stat
+#       if error
+#         console.log error
+#       else
+# # .............insert db add anon drawing info to db ..
+#         console.log "ANON DRAWING: #{stat.name} saved to: #{stat.path}"
+#         response.send true
       # also mail me personally re: each new submission - sendModerationMail
 
 module.exports = drawings
