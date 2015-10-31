@@ -1,5 +1,8 @@
 // from: Frog Beer
 
+- frog = "https://s3.amazonaws.com/frog-beer/frog.png"
+- frog2x = "https://s3.amazonaws.com/frog-beer/frog2x.png"
+
 doctype html
 html
   head
@@ -12,7 +15,7 @@ html
 
     header
       a(href=url)
-        img(src="#{url}/img/frog.png" srcset="#{url}/img/frog@2x.png 2x" width="59" height="55")
+        img(src=frog srcset="#{frog2x} 2x")
 
     section.content
       p= currentTopic
