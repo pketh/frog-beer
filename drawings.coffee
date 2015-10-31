@@ -1,5 +1,6 @@
-uuid = require 'node-uuid' ##temp
+uuid = require 'node-uuid'
 moment = require 'moment'
+colors = require 'colors'
 
 config = require './config.json'
 db = require './services/db'
@@ -8,6 +9,7 @@ time = require './services/time'
 
 drawings =
 
+  # ! output this on mainpage
   getDrawingsInCurrentWeek: ->
     dropbox.readdir "/#{time.currentWeek}", (error, drawings) ->
       if error
@@ -22,26 +24,30 @@ drawings =
             # drawingscurrentWeek.push(returned img) to an array of image data
             ##  will need to serialize/deserialize image data blob <-> ascii
 
+  # ! output this on weekly email
   getDrawingsInLastWeek: ->
     dropbox.makeUrl "/#{time.lastWeek}", {downloadHack: true}, (error, drawings) ->
       if error
         console.log error
       else
+        console.log "DRAWINGS IN LAST WEEK".yellow
         console.log drawings
         return drawings
         # do things like above..
         # returns array of paths
 
-  getDrawing: (path) ->
-    dropbox.readFile path, (error, data) ->
-      if error
-        console.log error
-      console.log "#{path} retrieved"
-      console.log data
-      # return response or true
 
-  extractColor: () ->
-    console.log 'return bk color'
+
+  #
+  # getDrawing: (path) ->
+  #   dropbox.readFile path, (error, data) ->
+  #     if error
+  #       console.log error
+  #     console.log "#{path} retrieved"
+  #     console.log data
+  #     # return response or true
+  #
+
 
   saveDrawingInfoToDB: (accountCookie, path, response) ->
     db.Users.findOne
