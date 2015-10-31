@@ -16,14 +16,31 @@ s3 = require './services/s3'
 drawings =
 
   saveDrawingToFileSystem: (path, filename, drawing, callback) ->
+    file = "#{path}/#{filename}.png"
     mkdirp path, (error) ->
       if error
         console.log error
-      fs.writeFile "#{path}/#{filename}.png", drawing, (error) ->
+      fs.writeFile file, drawing, (error) ->
         if error
           console.log error
         console.log "#{filename}.png saved".green
         callback null
+
+  saveDrawingToS3: (path, filename, callback) ->
+    file = "#{time.currentWeek}/#{filename}.png"
+    params =
+      localFile: "#{path}/#{filename}.png"
+      s3Params:
+        Bucket: "frog-beer"
+        Key: file
+        ACL: "public-read"
+        ContentType: "image/png"
+    upload = s3.uploadFile params
+    upload.on 'error', (error) ->
+      console.log error
+    upload.on 'end', ->
+      console.log "Uploaded to S3".green
+      callback null
 
   saveDrawingInfoToDB: (accountCookie, path, callback) ->
     db.Users.findOne
@@ -44,20 +61,18 @@ drawings =
         if error
           console.log error
         console.log "image info saved to db".green
-        console.log document
-        callback null
-
 
   saveDrawing: (drawing, accountCookie, response) ->
     filename = "#{uuid.v4()}"
     path = "./public/blobs/#{time.currentWeek}"
-    async.parallel [
+    async.series [
       async.apply drawings.saveDrawingToFileSystem, path, filename, drawing
-      async.apply drawings.saveDrawingInfoToDB, accountCookie, path
+      async.apply drawings.saveDrawingToS3, path, filename
     ], ->
+      drawings.saveDrawingInfoToDB accountCookie, path
       response.send true
 
-
+# .......
   saveAnonymousDrawing: ->
     filename = "#{uuid.v4()}"
     path = "./public/blobs/anonymous/#{filename}.png"
