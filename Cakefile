@@ -30,6 +30,7 @@ task 'coffee', 'Watch and compile public ☕️  → js', ->
     #{clientCoffeePath}draw.coffee
     #{clientCoffeePath}sign-up-in.coffee
     #{clientCoffeePath}sign-out.coffee
+    #{clientCoffeePath}unsubscribe.coffee
     #{clientCoffeePath}account.coffee"
   child.stdout.on 'data', (data) -> console.log data
 

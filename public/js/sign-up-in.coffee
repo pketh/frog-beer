@@ -10,10 +10,9 @@ submitSignUpForm = (email, nickname) ->
   $.ajax
     url: '/new-sign-up'
     type: 'POST'
-    data: {
+    data:
       'email': email
       'nickname': nickname
-      }
     success: (response) ->
       showSuccess(nickname)
 
@@ -30,7 +29,7 @@ $('form.sign-up').submit (event) ->
         console.log isValidEmail
         if isValidEmail is true
           clearFieldErrors()
-          submitSignUpForm(email, nickname)
+          submitSignUpForm email, nickname
         else
           EMAIL_INPUT.addClass 'error'
           false

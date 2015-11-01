@@ -36,6 +36,7 @@ router.post '/save-drawing', (request, response) ->
 router.get '/unsubscribe', (request, response) ->
   response.render 'unsubscribe',
     palettes: null
+    unsubscribePage: true
 
 router.post '/unsubscribe', (request, response) ->
   email = helpers.validateEmail request
@@ -49,9 +50,11 @@ router.post '/unsubscribe', (request, response) ->
   (error, document) ->
     if error
       console.log error
-      response.send false
-    else
+      response.send 500
+    else if document
       response.send true
+    else
+      response.send 404
 
 router.get '/sign-up-in', (request, response) ->
   response.render 'sign-up-in',
