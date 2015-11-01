@@ -30,11 +30,6 @@ app.use session
 
 app.use routes
 
-app.use (request, response, next) ->
-  error = new error 'Not Found'
-  error.status = 404
-  next error
-
 module.exports = app
 
 limiter = require('express-limiter') app

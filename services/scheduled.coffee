@@ -13,7 +13,8 @@ scheduled =
       topics.getPreviousTopic
       topics.getCurrentTopic
       drawings.updateDrawingsInLastWeek
-    ]
+    ], ->
+      console.log "🐸  🐸  🐸  🐸  🐸  🐸  🐸  🐸  🐸  🐸  🐸  🐸  🐸  🐸  🐸"
 
   weekly: ->
     async.series [
