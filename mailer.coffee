@@ -45,7 +45,7 @@ renderWeeklyEmail = (subject, drawingsInLastWeek) ->
     html = juice html, {applyWidthAttributes: true}
     weeklyEmail = html
 
-sendMail = (email, subject, rendered) ->
+sendMail = (email, subject, rendered, callback) ->
   sendgrid.send
     to: email
     from: 'frog@frog.beer'
@@ -58,6 +58,8 @@ sendMail = (email, subject, rendered) ->
       if error
         console.log error
       console.log status
+      if callback
+        callback null
 
 
 mailer =
@@ -68,7 +70,7 @@ mailer =
     renderSignUpEmail(nickname, signUpToken, subject)
     sendMail(email, subject, signUpEmail)
 
-  sendWeekly: ->
+  sendWeekly: (callback) ->
     subject = "🐸 #{GLOBAL.currentTopic} + (re: #{GLOBAL.previousTopic})"
     drawingsInLastWeek = GLOBAL.drawingsInLastWeek
     renderWeeklyEmail subject, drawingsInLastWeek
@@ -77,6 +79,6 @@ mailer =
         console.log error
       emails = _.pluck(users, 'email')
       console.log emails
-      sendMail(emails, subject, weeklyEmail)
+      sendMail(emails, subject, weeklyEmail, callback)
 
 module.exports = mailer

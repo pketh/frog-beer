@@ -4,15 +4,16 @@ config = require '../config.json'
 
 [Users, Drawings, Topics] = [null]
 
-path = "mongodb://#{config.mongo.user}:#{config.mongo.password}@#{config.mongo.path}"
+GLOBAL.mongoURL = "mongodb://#{config.mongo.user}:#{config.mongo.password}@#{config.mongo.path}"
 console.log "mongo #{config.mongo.path} -u #{config.mongo.user} -p #{config.mongo.password}".magenta
 
-database = mongojs path, [],
+database = mongojs GLOBAL.mongoURL, [],
   authMechanism : 'ScramSHA1'
 
 database.createCollection 'Users', {}
 database.createCollection 'Drawings', {}
 database.createCollection 'Topics', {}
+database.createCollection 'Agenda', {}
 
 db =
 

@@ -35,12 +35,10 @@ app.use (request, response, next) ->
   error.status = 404
   next error
 
-
-
 module.exports = app
 
-# limiter = require('express-limiter') app
-# limiter {
-#   path: '*'
-#   lookup: 'connection.remoteAddress'
-# }
+limiter = require('express-limiter') app
+limiter
+  path: '*'
+  method: 'all'
+  lookup: 'connection.remoteAddress'

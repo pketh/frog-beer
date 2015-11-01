@@ -26,9 +26,12 @@ topics =
     (error, previousTopic) ->
       if error
         console.log error
-      console.log "PREVIOUS TOPIC".yellow
-      console.log previousTopic.topic
-      GLOBAL.previousTopic = previousTopic.topic
+      if previousTopic
+        console.log "PREVIOUS TOPIC".yellow
+        console.log previousTopic.topic
+        GLOBAL.previousTopic = previousTopic.topic
+      else
+        GLOBAL.previousTopic = "Abstractions"
       callback null
 
   getCurrentTopic: (callback) ->
@@ -38,12 +41,18 @@ topics =
     (error, currentTopic) ->
       if error
         console.log error
-      console.log "CURRENT TOPIC".yellow
-      console.log currentTopic.topic
-      GLOBAL.currentTopic = currentTopic.topic
-      callback null
+      if currentTopic
+        console.log "CURRENT TOPIC".yellow
+        console.log currentTopic.topic
+        GLOBAL.currentTopic = currentTopic.topic
+        callback null
+      else
+        async.series [
+          topics.selectTopic
+          topics.getCurrentTopic
+        ]
 
-  selectTopic: ->
+  selectTopic: (callback) ->
     options = {cards: 'open', card_fields: 'name'}
     trello.get "/1/lists/#{upcomingTopicsList}", options, (error, data) ->
       if error
@@ -51,16 +60,15 @@ topics =
       cards = data.cards
       shuffled = _.shuffle cards
       topic = shuffled[0]
-      topics.saveTopic topic.name
-      topics.moveTopicToPastTopics topic
-      return topic.name
+      topics.saveTopic topic, callback
 
-  moveTopicToPastTopics: (card) ->
+  moveTopicCardToPastTopics: (card, callback) ->
     options = {value: pastTopicsList}
     trello.put "/1/cards/#{card.id}/idList", options, (error, data) ->
       if error
         console.log error
       console.log "card is now old: #{card.name}"
+      callback null
 
   saveTopicLocally: (file, path, callback) ->
     localPath = "#{path}/#{file}"
@@ -98,14 +106,16 @@ topics =
         console.log error
       console.log "topic set as #{topic}"
 
-  saveTopic: (topic) ->
-    file = "topic-#{topic}.txt"
+  saveTopic: (topic, callback) ->
+    file = "topic-#{topic.name}.txt"
     path = "./public/blobs/#{time.currentWeek}"
     remotePath = "#{time.currentWeek}/#{file}"
+    card = topic
     async.series [
       async.apply topics.saveTopicLocally, file, path
       async.apply topics.saveTopicToS3, file, path, remotePath
     ], ->
-      topics.saveTopicToDB topic
+      topics.saveTopicToDB topic.name
+      topics.moveTopicCardToPastTopics card, callback
 
 module.exports = topics

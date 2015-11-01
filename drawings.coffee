@@ -75,6 +75,7 @@ drawings =
     async.series [
       async.apply drawings.saveDrawingLocally, path, file, drawing
       async.apply drawings.saveDrawingToS3, path, file, remotePath
+      async.apply drawings.updateDrawingsInLastWeek
     ], ->
       drawings.saveDrawingInfoToDB accountCookie, remotePath
       response.send true
