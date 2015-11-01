@@ -9,7 +9,7 @@ config = require './config.json'
 users = require './users'
 palettes = require './palettes'
 drawings = require './drawings'
-helpers = require './helpers'
+helpers = require './services/helpers'
 
 
 router.post '/is-valid-email', (request, response) ->
