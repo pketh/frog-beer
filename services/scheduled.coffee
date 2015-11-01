@@ -1,8 +1,5 @@
 Agenda = require 'agenda'
 async = require 'async'
-# later = require 'later'
-# later.date.UTC()
-# crontab = require 'crontab'
 
 drawings = require '../drawings'
 topics = require '../topics'
@@ -17,19 +14,13 @@ scheduled =
       topics.getCurrentTopic
       drawings.updateDrawingsInLastWeek
     ]
-    # , ->
-      # schedule = later.parse.text('every monday at 12:00am')
-      # ! BUG ... later sends on startup , (also?)/not on schedule
-      # later.setTimeout scheduled.weekly(), schedule
 
   weekly: ->
     async.series [
       topics.selectTopic
-      # console.log "🍰 Topic for week ##{time.week} set to #{GLOBAL.currentTopic}"
-      # console.log "drawings for last week are : #{GLOBAL.drawingsInLastWeek}"
       mailer.sendWeekly
     ], ->
-      console.log "🍰 Weekly tasks complete"
+      console.log "🍰 schedule.weekly complete"
 
 module.exports = scheduled
 
@@ -47,5 +38,3 @@ agenda.define 'schedule.weekly', (job, done) ->
 agenda.on 'ready', ->
   agenda.every '1 week', 'schedule.weekly'
   agenda.start()
-
-# scheduled.weekly()
