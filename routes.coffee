@@ -10,6 +10,7 @@ users = require './users'
 palettes = require './palettes'
 drawings = require './drawings'
 helpers = require './services/helpers'
+db = require './services/db'
 
 
 router.post '/is-valid-email', (request, response) ->
@@ -32,27 +33,25 @@ router.post '/save-drawing', (request, response) ->
   else
     drawings.saveAnonymousDrawing(drawingBuffer, response)
 
+router.get '/unsubscribe', (request, response) ->
+  response.render 'unsubscribe',
+    palettes: null
 
-# the link to this is in the email
-# router.get '/unsubscribe-from-emails', (request, response) ->
-  # flip a db bool for unsubscribed: true
-  # don't send emails to ppl with unsubscribed: true
-    # res render emails/unsubscribed.jade
-    # please enter your email to unsubscribe
-    # (シ_ _)シ
-    # (sorry about the extra step, I'm just lazy)
-#   response.send 'hello id: ' + request.query.signUpToken
-
-
-# router.get '/unsubscribed-from-emails', (request, response) ->
-# (res render emails/unsubscribed.jade)
-# You're now unsubscribed. I still love you.
-# (╯°□°）╯︵ ┻━┻
-
-# new topics happen every week, you can still visit and draw things
-# if you want to start getting weekly emails again, just let me know at hi@pketh.org and we'll be all chummy again.
-# ┬──┬◡ﾉ(° -°ﾉ)
-
+router.post '/unsubscribe', (request, response) ->
+  email = helpers.validateEmail request
+  db.Users.findAndModify
+    query:
+      email: email
+    update:
+      $set:
+        unsubscribed: true
+  ,
+  (error, document) ->
+    if error
+      console.log error
+      response.send false
+    else
+      response.send true
 
 router.get '/sign-up-in', (request, response) ->
   response.render 'sign-up-in',
