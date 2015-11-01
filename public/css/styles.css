@@ -263,6 +263,10 @@ footer p {
 .hidden {
   display: none;
 }
+.action {
+  color: #e88ee5;
+  text-decoration: underline;
+}
 header {
   margin-top: 5rem;
   margin-bottom: 5rem;
@@ -475,10 +479,12 @@ section.last-week .art {
   margin-right: 1.5rem;
   padding-bottom: 1.5rem;
 }
-section.signup .intro {
+section.signup .intro,
+section.unsubscribe .intro {
   margin-bottom: 2em;
 }
-section.signup input {
+section.signup input,
+section.unsubscribe input {
   display: block;
   border: 2px #404040 solid;
   background-color: #000;
@@ -487,25 +493,31 @@ section.signup input {
   margin-bottom: 1rem;
   width: 30rem;
 }
-section.signup input:focus {
+section.signup input:focus,
+section.unsubscribe input:focus {
   outline: none;
   border-color: #fff;
 }
-section.signup input.error {
+section.signup input.error,
+section.unsubscribe input.error {
   border-color: #ff3026;
 }
-section.signup .submit {
+section.signup .submit,
+section.unsubscribe .submit {
   background-color: #fff;
   border-color: #fff;
   color: #000;
 }
-section.signup .submit:focus {
+section.signup .submit:focus,
+section.unsubscribe .submit:focus {
   outline: initial;
 }
-section.signup .submit:active {
+section.signup .submit:active,
+section.unsubscribe .submit:active {
   background-color: rgba(255,255,255,0.8);
 }
-section.signup .sign-up-in {
+section.signup .sign-up-in,
+section.unsubscribe .sign-up-in {
   margin-top: 2em;
 }
 section.signup-success {
@@ -516,4 +528,7 @@ section.signup-success .instructions {
   font-style: italic;
   font-size: 2rem;
   line-height: 2.4rem;
+}
+.bye {
+  max-width: 100%;
 }

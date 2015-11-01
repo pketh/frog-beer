@@ -263,6 +263,10 @@ footer p {
 .hidden {
   display: none;
 }
+.action {
+  color: #e88ee5;
+  text-decoration: underline;
+}
 header {
   margin-top: 5rem;
   margin-bottom: 5rem;

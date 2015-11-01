@@ -1,0 +1,21 @@
+extends index
+
+block content
+
+  section.unsubscribe
+    h1 Please enter your email to unsubscribe
+    p (sorry about the extra step)
+    p (シ_ _)シ
+
+    form.unsubscribe(action='/unsubscribe' method='post')
+      input(name='email' placeholder='email' type='email' maxlength='100')
+      input(value='submit' type='submit' class='submit')
+
+  section.unsubscribed.hidden
+    h1 You're now unsubscribed.
+    img.bye(src="http://frog-beer.s3.amazonaws.com/bye.jpg")
+    p New topics happen every week, you can still visit and draw things.
+    p= "If you want to start getting weekly emails again, just "
+     a.action(href="mailto:hi@pketh.org") let me know
+     span= " and we'll be cool again."
+    p ┬──┬◡ﾉ(° -°ﾉ)
