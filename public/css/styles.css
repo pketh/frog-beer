@@ -416,12 +416,12 @@ section.drawing .pixel {
 }
 section.save-drawing,
 section.drawing-saved,
-section.drawing-saved-without-user {
+section.anonymous-drawing-saved {
   margin-bottom: 0rem;
 }
 section.save-drawing .primary-button,
 section.drawing-saved .primary-button,
-section.drawing-saved-without-user .primary-button {
+section.anonymous-drawing-saved .primary-button {
   display: inline-block;
   border: 2px #fff solid;
   border-radius: 5px;
@@ -434,17 +434,17 @@ section.drawing-saved-without-user .primary-button {
 }
 section.save-drawing .primary-button:hover,
 section.drawing-saved .primary-button:hover,
-section.drawing-saved-without-user .primary-button:hover {
+section.anonymous-drawing-saved .primary-button:hover {
   background-color: rgba(255,255,255,0.2);
 }
 section.save-drawing .primary-button:active,
 section.drawing-saved .primary-button:active,
-section.drawing-saved-without-user .primary-button:active {
+section.anonymous-drawing-saved .primary-button:active {
   background-color: rgba(255,255,255,0.4);
 }
 section.save-drawing .saved-notice,
 section.drawing-saved .saved-notice,
-section.drawing-saved-without-user .saved-notice {
+section.anonymous-drawing-saved .saved-notice {
   background-color: #fff;
   color: #000;
   display: inline-block;
@@ -453,7 +453,7 @@ section.drawing-saved-without-user .saved-notice {
 }
 section.save-drawing .saved-message,
 section.drawing-saved .saved-message,
-section.drawing-saved-without-user .saved-message {
+section.anonymous-drawing-saved .saved-message {
   max-width: 500px;
   line-height: 2.4rem;
 }
@@ -478,6 +478,11 @@ section.last-week li {
 section.last-week .art {
   margin-right: 1.5rem;
   padding-bottom: 1.5rem;
+}
+.drawing-saved,
+.anonymous-drawing-saved,
+#canvas {
+  display: none;
 }
 section.signup .intro,
 section.unsubscribe .intro {

@@ -8,6 +8,7 @@ GetQueryStringParams = (param) ->
 
 signUpToken = GetQueryStringParams('signUpToken')
 accountCookie = Cookies.get().accountToken
+anonymousDrawing = Cookies.get('drawing')
 
 if accountCookie
   $.ajax
@@ -31,3 +32,8 @@ else if signUpToken
       Cookies.set 'accountToken', accountToken, { expires: 10000 }
       console.log "cookie saved! #{accountToken}"
       location.reload()
+
+
+if accountCookie and anonymousDrawing
+  console.log 'save anon drawing -> cookie info -> saveDrawingFromCookie()'
+  # save anon drawing in cookies.get

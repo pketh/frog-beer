@@ -12,10 +12,6 @@
 
   CANVAS_SIZE = 400;
 
-  $('.drawing-saved').hide();
-
-  $('#canvas').hide();
-
   selectColor = function(context) {
     var color;
     color = $(context).css('background-color');
@@ -221,11 +217,23 @@
       'userID': 'yr32saf32'
     }, function(response) {
       console.log(response);
-      $('.save-drawing').hide();
-      $('.drawing-saved').show();
-      $('.palette').hide();
-      $('.drawing').hide();
-      return $('#canvas').show();
+      if (response.code === 202) {
+        console.log(response);
+        $('.save-drawing').hide();
+        $('.anonymous-drawing-saved').show();
+        $('.palette').hide();
+        $('.drawing').hide();
+        $('#canvas').show();
+        Cookies.set('drawing', response.file);
+        return console.log(Cookies.get('drawing'));
+      } else {
+        console.log(response);
+        $('.save-drawing').hide();
+        $('.drawing-saved').show();
+        $('.palette').hide();
+        $('.drawing').hide();
+        return $('#canvas').show();
+      }
     });
   };
 
@@ -247,6 +255,7 @@
     clearCanvas();
     $('.save-drawing').show();
     $('.drawing-saved').hide();
+    $('.anonymous-drawing-saved').hide();
     $('.palette').show();
     $('.drawing').show();
     return $('#canvas').hide();

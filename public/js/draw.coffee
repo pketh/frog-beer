@@ -4,8 +4,9 @@ pixels = []
 PIXEL_SIZE = 20
 CANVAS_SIZE = 400
 
-$('.drawing-saved').hide()
-$('#canvas').hide()
+# $('.drawing-saved').hide()
+# $('.anonymous-drawing-saved').hide()
+# $('#canvas').hide()
 
 selectColor = (context) ->
   color = $(context).css('background-color')
@@ -141,11 +142,24 @@ saveCanvas = () ->
   drawing = canvas.toDataURL("image/png")
   $.post '/save-drawing', {'image': drawing, 'week': 0, 'userID': 'yr32saf32'}, (response) ->
     console.log response
-    $('.save-drawing').hide()
-    $('.drawing-saved').show()
-    $('.palette').hide()
-    $('.drawing').hide()
-    $('#canvas').show()
+    if response.code == 202
+      console.log response
+      $('.save-drawing').hide()
+      $('.anonymous-drawing-saved').show()
+      $('.palette').hide()
+      $('.drawing').hide()
+      $('#canvas').show()
+      Cookies.set 'drawing', response.file
+      console.log Cookies.get 'drawing'
+      # set a coopkie, w response.file, append to it
+      # save anon actions = save a cookie w the response object, id type of
+    else
+      console.log response
+      $('.save-drawing').hide()
+      $('.drawing-saved').show()
+      $('.palette').hide()
+      $('.drawing').hide()
+      $('#canvas').show()
 
 $('.save-button').click ->
   getPixels()
@@ -162,6 +176,7 @@ $('.draw-another').click ->
   clearCanvas()
   $('.save-drawing').show()
   $('.drawing-saved').hide()
+  $('.anonymous-drawing-saved').hide()
   $('.palette').show()
   $('.drawing').show()
   $('#canvas').hide()

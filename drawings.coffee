@@ -69,6 +69,7 @@ drawings =
         console.log "image info saved to db".green
 
   saveDrawing: (drawing, accountCookie, response) ->
+    console.log "Saving user drawing".cyan
     file = "#{uuid.v4()}.png"
     path = "./public/blobs/#{time.currentWeek}"
     remotePath = "#{time.currentWeek}/#{file}"
@@ -78,24 +79,20 @@ drawings =
       async.apply drawings.updateDrawingsInLastWeek
     ], ->
       drawings.saveDrawingInfoToDB accountCookie, remotePath
-      response.send true
+      response.send 200
 
-# .......
-  # saveAnonymousDrawing: ->
-  #   file = "#{uuid.v4()}.png"
-  #   path = "./public/blobs/anonymous/#{file}"
-  #   remotePath = "anonymous/#{file}"
-  #   console.log file
-  #   response.send true
-#     console.log dropbox
-#     dropbox.writeFile path, drawing, (error, stat) ->
-#       console.log stat
-#       if error
-#         console.log error
-#       else
-# # .............insert db add anon drawing info to db ..
-#         console.log "ANON DRAWING: #{stat.name} saved to: #{stat.path}"
-#         response.send true
-      # also mail me personally re: each new submission - sendModerationMail
+  saveAnonymousDrawing: (drawing, response) ->
+    console.log "Saving anonymous drawing".cyan
+    file = "#{uuid.v4()}.png"
+    path = "./public/blobs/anonymous/#{file}"
+    remotePath = "anonymous/#{file}"
+    async.series [
+      async.apply drawings.saveDrawingLocally, path, file, drawing
+      async.apply drawings.saveDrawingToS3, path, file, remotePath
+    ], ->
+      response.send
+        code: 202
+        file: file
+
 
 module.exports = drawings
