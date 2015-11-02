@@ -33,7 +33,7 @@ else if signUpToken
       console.log "cookie saved! #{accountToken}"
       location.reload()
 
-
 if accountCookie and anonymousDrawing
-  console.log 'save anon drawing -> cookie info -> saveDrawingFromCookie()'
-  # save anon drawing in cookies.get
+  $.post '/move-drawing-to-week', {'drawing': anonymousDrawing}, (response) ->
+    Cookies.remove('drawing')
+    console.log 'anon drawing cookie removed'

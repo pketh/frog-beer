@@ -79,11 +79,12 @@ drawings =
       async.apply drawings.updateDrawingsInLastWeek
     ], ->
       drawings.saveDrawingInfoToDB accountCookie, remotePath
-      response.send 200
+      response.sendStatus 200
 
   saveAnonymousDrawing: (drawing, response) ->
     console.log "Saving anonymous drawing".cyan
-    file = "#{uuid.v4()}.png"
+    name = uuid.v4()
+    file = "#{name}.png"
     path = "./public/blobs/anonymous/#{file}"
     remotePath = "anonymous/#{file}"
     async.series [
@@ -92,7 +93,23 @@ drawings =
     ], ->
       response.send
         code: 202
-        file: file
+        drawing: name
 
+  moveDrawingToWeek: (name, accountCookie, response) ->
+    file = "#{name}.png"
+    anonymousRemotePath = "anonymous/#{file}"
+    remotePath = "#{time.currentWeek}/#{file}"
+    s3Params =
+      Bucket: "frog-beer"
+      CopySource: "frog-beer/" + anonymousRemotePath
+      Key: remotePath
+      ACL: "public-read"
+    move = s3.moveObject s3Params
+    move.on 'error', (error) ->
+      console.log error
+    move.on 'end', ->
+      console.log "File moved in S3".green
+      drawings.saveDrawingInfoToDB accountCookie, remotePath
+      response.sendStatus 200
 
 module.exports = drawings

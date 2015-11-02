@@ -33,6 +33,12 @@ router.post '/save-drawing', (request, response) ->
   else
     drawings.saveAnonymousDrawing(drawingBuffer, response)
 
+router.post '/move-drawing-to-week', (request, response) ->
+  name = request.body.drawing
+  accountCookie = request.cookies.accountToken
+  drawings.moveDrawingToWeek name, accountCookie, response
+
+
 router.get '/unsubscribe', (request, response) ->
   response.render 'unsubscribe',
     palettes: null
@@ -50,11 +56,11 @@ router.post '/unsubscribe', (request, response) ->
   (error, document) ->
     if error
       console.log error
-      response.send 500
+      response.sendStatus 500
     else if document
-      response.send true
+      response.sendStatus 200
     else
-      response.send 404
+      response.sendStatus 404
 
 router.get '/sign-up-in', (request, response) ->
   response.render 'sign-up-in',

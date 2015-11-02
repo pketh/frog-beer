@@ -2,6 +2,7 @@ express = require 'express'
 juice = require 'juice'
 path = require 'path'
 _ = require 'underscore'
+colors = require 'colors'
 
 config = require './config.json'
 sendgrid = require('sendgrid')(config.sendgrid)
@@ -57,6 +58,7 @@ sendMail = (email, subject, rendered, callback) ->
     (error, status) ->
       if error
         console.log error
+      console.log "📨".green
       console.log status
       if callback
         callback null

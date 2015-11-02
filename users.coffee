@@ -18,7 +18,7 @@ signInExistingUser = (email, nickname, signUpToken, response) ->
     if error
       console.log error
     mailer.sendSignUp(email, nickname, signUpToken)
-    response.send true
+    response.sendStatus 200
 
 createNewUser = (email, nickname, signUpToken, response) ->
   db.Users.update
@@ -34,7 +34,7 @@ createNewUser = (email, nickname, signUpToken, response) ->
     if error
       console.log error
     mailer.sendSignUp(email, nickname, signUpToken)
-    response.send true
+    response.sendStatus 200
 
 
 users =
@@ -48,8 +48,10 @@ users =
       if error
         console.log error
       else if document
+        console.log 'Sign in existing user'.cyan
         signInExistingUser(email, nickname, signUpToken, response)
       else
+        console.log 'Sign in new user'.cyan
         createNewUser(email, nickname, signUpToken, response)
 
   addAccountToken: (signUpToken, response) ->

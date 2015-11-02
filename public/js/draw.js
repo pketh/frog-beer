@@ -224,7 +224,7 @@
         $('.palette').hide();
         $('.drawing').hide();
         $('#canvas').show();
-        Cookies.set('drawing', response.file);
+        Cookies.set('drawing', response.drawing);
         return console.log(Cookies.get('drawing'));
       } else {
         console.log(response);

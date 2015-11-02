@@ -54,7 +54,12 @@
   }
 
   if (accountCookie && anonymousDrawing) {
-    console.log('save anon drawing -> cookie info -> saveDrawingFromCookie()');
+    $.post('/move-drawing-to-week', {
+      'drawing': anonymousDrawing
+    }, function(response) {
+      Cookies.remove('drawing');
+      return console.log('anon drawing cookie removed');
+    });
   }
 
 }).call(this);

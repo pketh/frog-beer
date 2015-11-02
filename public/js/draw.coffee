@@ -149,7 +149,7 @@ saveCanvas = () ->
       $('.palette').hide()
       $('.drawing').hide()
       $('#canvas').show()
-      Cookies.set 'drawing', response.file
+      Cookies.set 'drawing', response.drawing
       console.log Cookies.get 'drawing'
       # set a coopkie, w response.file, append to it
       # save anon actions = save a cookie w the response object, id type of
