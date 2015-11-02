@@ -1,17 +1,19 @@
 # css color names: http://www.w3schools.com/cssref/css_colornames.asp
 
-darkGold = '#d59c56'
 purple = '#720086'
 brightPink = '#ff6f6f'
 
-# max 5 palettes to not be annoying
-# DarkOrange,  RoyalBlue cyan lime
+# DarkOrange,  RoyalBlue cyan
+# darkbrown
+# ['red', 'green', 'blue', 'blueviolet']
+
 
 palettes = [
-  [darkGold, purple, 'LawnGreen', brightPink],
-  ['red', 'green', 'blue', 'blueviolet'],
-  ['gold', 'Magenta', 'OrangeRed', 'SpringGreen'],
-  ['Orchid', 'Teal', 'pink', 'navy']
+  ['Peru', purple, 'LawnGreen', brightPink]
+  ['gold', 'Magenta', 'OrangeRed', 'LimeGreen']
+  ['Orchid', 'Teal', 'Olive', 'Blue']
+  ['DarkRed', 'DarkOrange', 'BlueViolet', 'LightSalmon']
+  ['Cyan', 'SaddleBrown', 'LightPink', 'GoldenRod']
 ]
 
 module.exports = palettes
