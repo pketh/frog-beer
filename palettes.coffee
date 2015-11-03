@@ -3,10 +3,9 @@
 purple = '#720086'
 brightPink = '#ff6f6f'
 
-# DarkOrange,  RoyalBlue cyan
-# darkbrown
+# RoyalBlue
 # ['red', 'green', 'blue', 'blueviolet']
-
+# only 4?
 
 palettes = [
   ['Peru', purple, 'LawnGreen', brightPink]

@@ -1,12 +1,9 @@
 activePalette = []
+currentPalette = 0
 pressingDown = false
 pixels = []
 PIXEL_SIZE = 20
 CANVAS_SIZE = 400
-
-# $('.drawing-saved').hide()
-# $('.anonymous-drawing-saved').hide()
-# $('#canvas').hide()
 
 selectColor = (context) ->
   color = $(context).css('background-color')
@@ -25,16 +22,14 @@ updatePalette = () ->
       selectColor(context)
 
 newPalette = () ->
-  shuffledPalettes = _.shuffle(palettes)
-  for palette in shuffledPalettes
-    if _.isEqual(activePalette, palette) is false
-      activePalette = palette
-      updatePalette()
-      break
+  totalPalettes = palettes.length - 1
+  if currentPalette > totalPalettes
+    currentPalette = 0
+  activePalette = palettes[currentPalette]
+  updatePalette()
+  currentPalette = currentPalette + 1
+
 newPalette()
-
-# nextPalette = () ->
-
 
 $('.color').not('.shuffle').click ->
   context = @
